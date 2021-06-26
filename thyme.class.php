@@ -11,7 +11,7 @@ class thyme
     private $dateObject1;
 	private $dateObject2;
 	private $timezone1;
-	private $datetype2;
+	private $timezone2;
 	private $datetype;
 	private $timetype;
 
@@ -31,10 +31,10 @@ class thyme
                         {
                             $this->dateObject1 = $dateObject1;
                             $this->dateObject2 = $dateObject2;
-                            $this->datetype = $datetype;
-                            $this->timetype = $timetype;
                             $this->timezone1 = $timezone1;
                             $this->timezone2 = $timezone2;
+                            $this->datetype = $datetype;
+                            $this->timetype = $timetype;
                         }
     
     /**
@@ -156,6 +156,15 @@ class thyme
         return $spliceArray[ $timetype ];
     }
 
+    function getZoneDiff( $timezone1, $timezone2 ){
+        if( $timezone1 != $timezone2 ){
+            return abs($timezone1) + abs( $timezone2 );
+        } else {
+            return 0;
+        }
+        return false;
+    }
+
     function getDisplayTypeText( $datetype ){
         $displayTypeArray = ['0' => '','1' => 'Total Days', '2'=> 'Total Weekdays', '3'=> 'Complete Weeks' ];
         return $displayTypeArray[ $datetype ];
@@ -213,14 +222,15 @@ class thyme
 
     function _apiObject( $timetype, $datetype ){
         //establish unit of type to return as
-        $splice = $this->getSplice( $timetype );
+        $splice = $this->getSplice( $this->timetype );
+        $offset = ( $this->getZoneDiff( $this->timezone1, $this->timezone2 ) >= 24 )? 1 : 0;
 
         switch( $datetype ){
             case '2':
                 if( $timetype == 4 ){
-                    return ( ($this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) / $splice ) / 10000000 );
+                    return ( ( ($this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) + $offset ) / $splice ) / 10000000 );
                 } else {
-                    return ( $this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) * $splice );
+                    return ( ( $this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) + $offset ) * $splice );
                 }
             break;
             case '3':
@@ -228,16 +238,16 @@ class thyme
                 $days = $week * 7;
 
                 if( $timetype == 4 ){ // We return as a year
-                    return floor( ( ( $days * $splice ) / $splice ) / 10000000 );
+                    return floor( ( ( ( $days * $splice ) + $offset ) / $splice ) / 10000000 );
                 } else {
-                    return ( $days * $splice );
+                    return ( ( $days * $splice ) + $offset );
                 }
             break;
             default:
                 if( $timetype == 4 ){
-                    return round( ($this->daysbetween( $this->dateObject1, $this->dateObject2 ) / 365), 2 );
+                    return round( ( ($this->daysbetween( $this->dateObject1, $this->dateObject2 )  + $offset ) / 365), 2 );
                 } else {
-                    return ( $this->daysbetween( $this->dateObject1, $this->dateObject2 ) * $splice );
+                    return ( ( $this->daysbetween( $this->dateObject1, $this->dateObject2 ) + $offset ) * $splice );
                 }                
             break;
         }
@@ -254,6 +264,7 @@ class thyme
                 'Complete Weeks: ' . $this->completeWeeks( $this->dateObject1, $this->dateObject2 ) . '<br>' .
                 'Group By: ' . $this->datetype . '=>' . $this->getDisplayTypeText( $this->datetype ) . '<br>' .
                 'Display in: ' . $this->timetype . '=>' . $this->getDateTypeText( $this->timetype ) . '<br>' .
+                'Zone Diff: ' . $this->getZoneDiff( $this->timezone1, $this->timezone2 ) . ' Hours<br>' .
                 'API Request: ' . $this->_apiObject( $this->timetype, $this->datetype ) . '<br>';
     }
 }
