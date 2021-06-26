@@ -143,7 +143,28 @@ class thyme
      */
     function getTimezone2(){
         return $this->timezone2;        
-    }  
+    } 
+    
+    /**
+     * Sets the time interval to return result as.
+     * 0=>days, 1=>seconds, 2=>minutes, 3=>hours, 4=>years
+     * var : $timetype
+     * return int $splice
+     */
+    function getSplice( $timetype ){   
+        $spliceArray = ['0'=> 1, '1'=> 86400, '2'=> 1400, '3'=> 24, '4'=> 31622400];     
+        return $spliceArray[ $timetype ];
+    }
+
+    function getDisplayTypeText( $datetype ){
+        $displayTypeArray = ['0' => '','1' => 'Total Days', '2'=> 'Total Weekdays', '3'=> 'Complete Weeks' ];
+        return $displayTypeArray[ $datetype ];
+    }
+
+    function getDateTypeText( $timetype ){
+        $dateTypeArray = ['0' => 'Days', '1'=> 'Seconds', '2'=> 'Minutes', '3'=> 'Hours', '4'=> 'Year'];
+        return $dateTypeArray[ $timetype ];
+    }
 
     function daysbetween( $dateObject1, $dateObject2 ){
         return ceil( abs( ( $dateObject2 - $dateObject1 ) / 86400 ) );
@@ -197,6 +218,23 @@ class thyme
         //return ( $this->_isDiff( $dateObject1, $dateObject2 ))? $datediff = floor($difference / $splice) : false; 
     }
 
+    function _apiObject( $timetype, $datetype ){
+        //establish unit of type to return as
+        $splice = $this->getSplice( $timetype );
+
+        switch( $datetype ){
+            case '2':
+                return ( $this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) );
+            break;
+            case '3':
+                return ( $this->completeWeeks( $this->dateObject1, $this->dateObject2 )  );
+            break;
+            default:
+                return ( $this->daysbetween( $this->dateObject1, $this->dateObject2 ) * $splice );
+            break;
+        }
+    }
+
     function _toString()
     {
         return  'Date 1: ' . date( 'd/m/Y @ H:m:s ', $this->dateObject1 ) . '<br>' .
@@ -205,7 +243,10 @@ class thyme
                 'Timezone 2: ' . $this->timezone2 . '<br>' .
                 'Days Between: ' . $this->daysbetween( $this->dateObject1, $this->dateObject2 ) . '<br>' .
                 'Weekdays Between: ' . $this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) . '<br>' .
-                'Complete Weeks: ' . $this->completeWeeks( $this->dateObject1, $this->dateObject2 ) . '<br>';
+                'Complete Weeks: ' . $this->completeWeeks( $this->dateObject1, $this->dateObject2 ) . '<br>' .
+                'Group By: ' . $this->datetype . '=>' . $this->getDisplayTypeText( $this->datetype ) . '<br>' .
+                'Display in: ' . $this->timetype . '=>' . $this->getDateTypeText( $this->timetype ) . '<br>' .
+                'API Request: ' . $this->_apiObject( $this->timetype, $this->datetype ) . '<br>';
     }
 }
 

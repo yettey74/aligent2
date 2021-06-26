@@ -111,3 +111,14 @@
 * Updated ``` __toString() ```
 #### Updated MarkDown File
 ##### README.md
+***
+## Version 0.2.4
+#### Updated Thyme Class
+#### thyme.class.php
+* Added ``` getSplice( $timetype ) ```
+* Added ``` getDisplayTypeText( $datetype ) ```
+* Added ``` getDateTypeText( $timetype ) ```
+* Added ``` _apiObject( $timetype, $datetype ) ```
+* Updated ``` __toString() ```
+#### Updated MarkDown File
+##### README.md
