@@ -103,3 +103,11 @@
 * Updated ``` __toString() ```
 #### Updated MarkDown File
 ##### README.md
+***
+## Version 0.2.3
+#### Updated Thyme Class
+#### thyme.class.php
+* Added ``` completeWeeks( $dateObject1, $dateObject2 ) ```
+* Updated ``` __toString() ```
+#### Updated MarkDown File
+##### README.md

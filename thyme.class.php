@@ -185,6 +185,17 @@ class thyme
 
         return 0;
     }
+    
+    function completeWeeks( $dateObject1, $dateObject2 ){  
+        $weeks = 604800;
+        //$difference = $this->getDiff( $dateObject1, $dateObject2 );
+        return (floor( $dateObject2 - $dateObject1 ) / $weeks );
+
+
+        //return floor($difference / $splice)
+
+        //return ( $this->_isDiff( $dateObject1, $dateObject2 ))? $datediff = floor($difference / $splice) : false; 
+    }
 
     function _toString()
     {
@@ -193,7 +204,8 @@ class thyme
                 'Date 2: ' . date( 'd/m/Y @ H:m:s ', $this->dateObject2 ) . '<br>' .
                 'Timezone 2: ' . $this->timezone2 . '<br>' .
                 'Days Between: ' . $this->daysbetween( $this->dateObject1, $this->dateObject2 ) . '<br>' .
-                'Weekdays Between: ' . $this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) . '<br>';
+                'Weekdays Between: ' . $this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) . '<br>' .
+                'Complete Weeks: ' . $this->completeWeeks( $this->dateObject1, $this->dateObject2 ) . '<br>';
     }
 }
 
