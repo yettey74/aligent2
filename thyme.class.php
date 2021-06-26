@@ -36,16 +36,7 @@ class thyme
                             $this->datetype = $datetype;
                             $this->timetype = $timetype;
                         }
-    
-    /**
-     * Setter : dateObject1
-     * var : $dateObject1
-     * return date()
-     */
-    function setDateObject1( $dateObject1 ){
-        return $this->dateObject1;
-    }
-    
+        
     /**
      * Getter : dateObject1
      * var : $dateObject1
@@ -54,16 +45,7 @@ class thyme
     function getDateObject1(){
         return $this->dateObject1;
     }
-    
-    /**
-     * Setter : dateObject2
-     * var : $dateObject2
-     * return date()
-     */
-    function setDateObject2( $dateObject2 ){
-        return $this->dateObject2;
-    }
-    
+        
     /**
      * Getter : dateObject2
      * var : $dateObject2
@@ -71,15 +53,6 @@ class thyme
      */
     function getDateObject2(){
         return $this->dateObject2;
-    }
-    
-    /**
-     * Setter : datetype
-     * var : $datetype
-     * return date()
-     */
-    function setDateType( $datetype ){
-        return $this->datetype;
     }
     
     /**
@@ -92,30 +65,12 @@ class thyme
     }
     
     /**
-     * Setter : timetype
-     * var : $timetype
-     * return date()
-     */
-    function setTimeType( $timetype ){
-        return $this->timetype;
-    }
-    
-    /**
      * Getter : timetype
      * var : $timetype
      * return date()
      */
     function getTimeType(){
         return $this->timetype;        
-    }
-    
-    /**
-     * Setter : timezone1
-     * var : $timezone1
-     * return date()
-     */
-    function setTimezone1( $timezone1 ){
-        return $this->timezone1;        
     }
 
     /**
@@ -125,15 +80,6 @@ class thyme
      */
     function getTimezone1(){
         return $this->timezone1;        
-    }
-
-    /**
-     * Setter : timezone2
-     * var : $timezone2
-     * return date()
-     */
-    function setTimezone2( $timezone2 ){
-        return $this->timezone2;        
     }
 
     /**

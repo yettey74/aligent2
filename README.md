@@ -157,3 +157,11 @@
 * Updated ``` input[datetime-local]->input[date] ```
 #### Updated MarkDown File
 ##### README.md
+***
+## Version 0.2.9
+#### Updated Thyme Class
+#### thyme.class.php
+* Removed ``` all Setters ```
+#### Updated MarkDown File
+##### README.md
+***
