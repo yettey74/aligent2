@@ -14,7 +14,7 @@
 #### Created MarkDown File
 #### README.md
 ***
-
+***
 ## Version 0.1.0
 ### Create file scaffold
 #### index.html
@@ -34,13 +34,13 @@
 #### Updated MarkDown File
 #### README.md
 ***
-***
-
 ## Version 0.1.1
 ### Update file scaffold
 #### index.html
 * Updated landing page for non-compliant JS browsers
-
+#### Updated MarkDown File
+##### README.md
+***
 ## Version 0.1.2
 ### Update file scaffold
 #### index.php
@@ -48,10 +48,43 @@
 * Added head & body framework 
 * Added Form to handle all calls
 * use datetime-local basic html5 
-
+#### Updated MarkDown File
+##### README.md
+***
 ## Version 0.1.3
 ### Update file scaffold
 #### main.css
 * Added all DOM elements by id
 * Added all DOM elements by type=input['']
-
+#### Updated MarkDown File
+##### README.md
+***
+***
+## Version 0.2.0
+#### Updated API
+#### api.php
+* Added ``` require 'thyme.class.php'; ```
+* Added POST VARS cradle
+* Added DEBUG ```echo $cradle->_toString();```
+#### Updated Class functions
+#### thyme.class.php
+* Added ``` __construct() ```
+* Added ``` setDateObject1( $dateObject1 ) ```
+* Added ``` getDateObject1() ```
+* Added ``` setDateObject2( $dateObject2 ) ```
+* Added ``` getDateObject2() ```
+* Added ``` setDateType( $datetype ) ```
+* Added ``` getDateType() ```
+* Added ``` setTimeType( $timetype ) ```
+* Added ``` getTimeType() ```
+* Added ``` setTimezone1( $timezone1 ) ```
+* Added ``` getTimezone1() ```
+* Added ``` setTimezone2( $timezone2 ) ```
+* Added ``` getTimezone2() ```
+* Added ``` daysbetween( $dateObject1, $dateObject2 ) ```
+* Added ``` weekdaysBetween( $dateObject1, $dateObject2 ) ```
+* Added ``` weeksBetween( $dateObject1, $dateObject2 ) ```
+* Added ``` __toString() ```
+#### Updated MarkDown File
+##### README.md
+***
