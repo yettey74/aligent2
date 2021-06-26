@@ -35,4 +35,8 @@
 #### README.md
 ***
 
+## Version 0.1.1
+### Create file scaffold
+#### index.html
+* Updated landing page for non-compliant JS browsers
 
