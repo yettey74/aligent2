@@ -43,7 +43,10 @@ class thyme
      * return date()
      */
     function getDateObject1(){
-        return $this->dateObject1;
+        if( _isValid( $this->dateObject1 ) ){
+            return $this->dateObject1;
+        }
+        return false;
     }
         
     /**
@@ -52,7 +55,10 @@ class thyme
      * return date()
      */
     function getDateObject2(){
-        return $this->dateObject2;
+        if( _isValid( $this->dateObject2 ) ){
+            return $this->dateObject2;
+        }
+        return false;
     }
     
     /**
@@ -61,7 +67,10 @@ class thyme
      * return date()
      */
     function getDateType(){
-        return $this->datetype;
+        if( $this->datetype >= 0 && $this->datetype <= 3 ){
+            return $this->datetype;
+        }
+        return false;
     }
     
     /**
@@ -70,7 +79,10 @@ class thyme
      * return date()
      */
     function getTimeType(){
-        return $this->timetype;        
+        if( $this->timetype >= 0 && $this->timetype <= 4 ){
+            return $this->timetype;
+        }
+        return false;
     }
 
     /**
@@ -79,7 +91,10 @@ class thyme
      * return date()
      */
     function getTimezone1(){
-        return $this->timezone1;        
+        if( $this->timezone1 >= -12 && $this->timezone1 <= 13){
+            return $this->timezone1;
+        }
+        return false;
     }
 
     /**
@@ -88,8 +103,11 @@ class thyme
      * return date()
      */
     function getTimezone2(){
-        return $this->timezone2;        
-    } 
+        if( $this->timezone2 >= -12 && $this->timezone2 <= 13){
+            return $this->timezone2;
+        }
+        return false;
+    }
     
     /**
      * Sets the time interval to return result as.
@@ -97,10 +115,13 @@ class thyme
      * var : $timetype
      * return int $splice
      */
-    function getSplice( $timetype ){   
-        $spliceArray = ['0'=> 1, '1'=> 86400, '2'=> 1400, '3'=> 24, '4'=> 31622400];     
-        return $spliceArray[ $timetype ];
-    }
+    function getSplice( $timetype ){
+        if( $this->timetype >= 0 && $this->timetype <= 4){
+            $spliceArray = ['0'=> 1, '1'=> 86400, '2'=> 1400, '3'=> 24, '4'=> 31622400];
+            return $spliceArray[ $timetype ];
+        }
+        return false;
+    }   
 
     function getZoneDiff( $timezone1, $timezone2 ){
         if( $timezone1 != $timezone2 ){
@@ -112,13 +133,19 @@ class thyme
     }
 
     function getDisplayTypeText( $datetype ){
-        $displayTypeArray = ['0' => '','1' => 'Total Days', '2'=> 'Total Weekdays', '3'=> 'Complete Weeks' ];
-        return $displayTypeArray[ $datetype ];
+        if( $this->datetype >= 0 && $this->datetype <= 3){
+            $displayTypeArray = ['0' => '','1' => 'Total Days', '2'=> 'Total Weekdays', '3'=> 'Complete Weeks' ];
+            return $displayTypeArray[ $datetype ];
+        }
+        return false;
     }
 
     function getDateTypeText( $timetype ){
-        $dateTypeArray = ['0' => 'Days', '1'=> 'Seconds', '2'=> 'Minutes', '3'=> 'Hours', '4'=> 'Years'];
-        return $dateTypeArray[ $timetype ];
+        if( $this->timetype >= 0 && $this->timetype <= 4){
+            $dateTypeArray = ['0' => 'Days', '1'=> 'Seconds', '2'=> 'Minutes', '3'=> 'Hours', '4'=> 'Years'];
+            return $dateTypeArray[ $timetype ];
+        }
+        return false;
     }
 
     function daysbetween( $dateObject1, $dateObject2 ){
@@ -199,12 +226,22 @@ class thyme
         }
     }
 
+    function _isValid( $var ){
+        $check = false;
+        $check = ( is_null( $var ) )?? true;
+        $check = ( is_nan( $var ) )?? true;
+        $check = ( is_int( $var ) )?? true;
+       // $check = ( is_object( $var ) )?? true;
+
+        return $check;
+    }
+
     function _toString()
     {
         return  'Date 1: ' . date( 'd/m/Y', $this->dateObject1 ) . '<br>' .
-                'Timezone 1: ' . $this->timezone1 . '<br>' .
+                'Timezone 1: ' . $this->getTimezone1() . '<br>' .
                 'Date 2: ' . date( 'd/m/Y', $this->dateObject2 ) . '<br>' .
-                'Timezone 2: ' . $this->timezone2 . '<br>' .
+                'Timezone 2: ' . $this->getTimezone2(). '<br>' .
                 'Days Between: ' . $this->daysbetween( $this->dateObject1, $this->dateObject2 ) . '<br>' .
                 'Weekdays Between: ' . $this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) . '<br>' .
                 'Complete Weeks: ' . $this->completeWeeks( $this->dateObject1, $this->dateObject2 ) . '<br>' .

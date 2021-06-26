@@ -165,3 +165,19 @@
 #### Updated MarkDown File
 ##### README.md
 ***
+***
+## Version 0.3.0
+#### Added Input Error Handling
+#### thyme.class.php
+* Updated ``` getDateObject1() ```
+* Updated ``` getDateObject2() ```
+* Updated ``` getTimezone1() ```
+* Updated ``` getTimezone2() ```
+* Updated ``` getSplice ```
+* Updated ``` getDisplayTypeText() ```
+* Updated ``` getDateTypeText() ```
+* Updated ``` getDateTypeText() ```
+#### error400.php
+Updated ``` filename erro400.php->error400.php ```
+#### Updated MarkDown File
+##### README.md
