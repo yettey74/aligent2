@@ -217,7 +217,7 @@ class thyme
     }
     
     function completeWeeks( $dateObject1, $dateObject2 ){  
-        return (floor( $dateObject2 - $dateObject1 ) / 604800 );
+        return  ( floor( $dateObject2 - $dateObject1 ) / 604800 );
     }
 
     function _apiObject( $timetype, $datetype ){
@@ -255,9 +255,9 @@ class thyme
 
     function _toString()
     {
-        return  'Date 1: ' . date( 'd/m/Y @ H:m:s ', $this->dateObject1 ) . '<br>' .
+        return  'Date 1: ' . date( 'd/m/Y', $this->dateObject1 ) . '<br>' .
                 'Timezone 1: ' . $this->timezone1 . '<br>' .
-                'Date 2: ' . date( 'd/m/Y @ H:m:s ', $this->dateObject2 ) . '<br>' .
+                'Date 2: ' . date( 'd/m/Y', $this->dateObject2 ) . '<br>' .
                 'Timezone 2: ' . $this->timezone2 . '<br>' .
                 'Days Between: ' . $this->daysbetween( $this->dateObject1, $this->dateObject2 ) . '<br>' .
                 'Weekdays Between: ' . $this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) . '<br>' .

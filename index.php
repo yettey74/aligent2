@@ -23,7 +23,7 @@
                     <div id="box">
                         <label>Start Date<span id="dateSpan"> * required</span> 
                         <br>
-                        <input type="datetime-local" name="dateObject1" value="" size="64" required="required" />
+                        <input type="date" name="dateObject1" value="" size="64" required="required" />
                         </label>
                         <br>
                         <!-- add js to switch this span off if != -->
@@ -119,7 +119,7 @@
                     <div id="box"> 
                         <label>End Date<span id="dateSpan" > * required</span></label>  
                         <br>
-                        <input type="datetime-local" name="dateObject2" value="" size="64" required="required" />
+                        <input type="date" name="dateObject2" value="" size="64" required="required" />
                         <br>
                         <!-- add js to switch this span off if != -->
                         <span id="dateSpan" >Set to current Timezone at the moment</span>

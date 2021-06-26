@@ -18,6 +18,6 @@ $cradle = new thyme($dateObject1,
                     $timetype
                 );
 
-echo $cradle->_toString() . '<br>';
+ echo $cradle->_toString() . '<br>';
 
 ?>

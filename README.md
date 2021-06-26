@@ -131,14 +131,24 @@
 * Updated ``` completeWeeks( $dateObject1, $dateObject2 ) ```
 #### Updated MarkDown File
 ##### README.md
-
 ***
 ## Version 0.2.6
 #### Updated Thyme Class
 #### thyme.class.php
-* Added ``` years( $dateObject1, $dateObject2 ) ```
 * Added ``` getZoneDiff( $timezone1, $timezone2 ) ```
 * Updated ``` _apiObject( $timetype, $datetype ) ```
 #### Updated MarkDown File
 ##### README.md
 ***
+## Version 0.2.7
+#### Updated html & PHP Scaffold
+#### index.html
+* Updated ``` input[datetime-local]->input[date] ```
+#### index.php
+* Updated ``` input[datetime-local]->input[date] ```
+#### thyme.class.php
+* Updated ``` _toString() ```
+
+_toString()
+#### Updated MarkDown File
+##### README.md
