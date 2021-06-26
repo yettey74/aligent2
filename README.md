@@ -148,7 +148,12 @@
 * Updated ``` input[datetime-local]->input[date] ```
 #### thyme.class.php
 * Updated ``` _toString() ```
-
-_toString()
+#### Updated MarkDown File
+##### README.md
+***
+## Version 0.2.8
+#### Updated CSS
+#### main.css
+* Updated ``` input[datetime-local]->input[date] ```
 #### Updated MarkDown File
 ##### README.md

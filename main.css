@@ -177,7 +177,7 @@ body {
 	cursor:pointer;
 }
 
-input[type="datetime-local"] {
+input[type="date"] {
 	width:250px;
 	background-color: #97f19e;
     font-size: 14px;
