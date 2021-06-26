@@ -34,9 +34,15 @@
 #### Updated MarkDown File
 #### README.md
 ***
-
+***
 ## Version 0.1.1
-### Create file scaffold
+### Update file scaffold
 #### index.html
 * Updated landing page for non-compliant JS browsers
-
+## Version 0.1.2
+### Update file scaffold
+#### index.php
+* Updated landing page for compliant JS browsers
+* Added head & body framework 
+* Added Form to handle all calls
+* use datetime-local basic html5 
