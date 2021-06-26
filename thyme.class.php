@@ -145,12 +145,17 @@ class thyme
         return $this->timezone2;        
     }
 
+    function daysbetween( $dateObject1, $dateObject2 ){
+        return ceil( abs( ( $dateObject2 - $dateObject1 ) / 86400 ) );
+    }
+
     function _toString()
     {
-        return  'Date 1: ' . date( 'd/m/Y @ H:m:s ',$this->dateObject1 ) . '<br>' .
+        return  'Date 1: ' . date( 'd/m/Y @ H:m:s ', $this->dateObject1 ) . '<br>' .
                 'Timezone 1: ' . $this->timezone1 . '<br>' .
-                'Date 2: ' . date( 'd/m/Y @ H:m:s ',$this->dateObject2 ) . '<br>' .
-                'Timezone 2: ' . $this->timezone2 . '<br>';
+                'Date 2: ' . date( 'd/m/Y @ H:m:s ', $this->dateObject2 ) . '<br>' .
+                'Timezone 2: ' . $this->timezone2 . '<br>' .
+                'Days Between: ' . $this->daysbetween( $this->dateObject1, $this->dateObject2 ) . '<br>';
     }
 }
 
