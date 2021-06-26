@@ -35,10 +35,12 @@
 #### README.md
 ***
 ***
+
 ## Version 0.1.1
 ### Update file scaffold
 #### index.html
 * Updated landing page for non-compliant JS browsers
+
 ## Version 0.1.2
 ### Update file scaffold
 #### index.php
@@ -46,3 +48,10 @@
 * Added head & body framework 
 * Added Form to handle all calls
 * use datetime-local basic html5 
+
+## Version 0.1.3
+### Update file scaffold
+#### main.css
+* Added all DOM elements by id
+* Added all DOM elements by type=input['']
+
