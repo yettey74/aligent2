@@ -122,3 +122,12 @@
 * Updated ``` __toString() ```
 #### Updated MarkDown File
 ##### README.md
+***
+## Version 0.2.5
+#### Updated Thyme Class
+#### thyme.class.php
+* Added ``` years( $dateObject1, $dateObject2 ) ```
+* Updated ``` _apiObject( $timetype, $datetype ) ```
+* Updated ``` completeWeeks( $dateObject1, $dateObject2 ) ```
+#### Updated MarkDown File
+##### README.md

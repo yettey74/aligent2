@@ -162,7 +162,7 @@ class thyme
     }
 
     function getDateTypeText( $timetype ){
-        $dateTypeArray = ['0' => 'Days', '1'=> 'Seconds', '2'=> 'Minutes', '3'=> 'Hours', '4'=> 'Year'];
+        $dateTypeArray = ['0' => 'Days', '1'=> 'Seconds', '2'=> 'Minutes', '3'=> 'Hours', '4'=> 'Years'];
         return $dateTypeArray[ $timetype ];
     }
 
@@ -208,14 +208,7 @@ class thyme
     }
     
     function completeWeeks( $dateObject1, $dateObject2 ){  
-        $weeks = 604800;
-        //$difference = $this->getDiff( $dateObject1, $dateObject2 );
-        return (floor( $dateObject2 - $dateObject1 ) / $weeks );
-
-
-        //return floor($difference / $splice)
-
-        //return ( $this->_isDiff( $dateObject1, $dateObject2 ))? $datediff = floor($difference / $splice) : false; 
+        return (floor( $dateObject2 - $dateObject1 ) / 604800 );
     }
 
     function _apiObject( $timetype, $datetype ){
@@ -224,13 +217,28 @@ class thyme
 
         switch( $datetype ){
             case '2':
-                return ( $this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) );
+                if( $timetype == 4 ){
+                    return ( ($this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) / $splice ) / 10000000 );
+                } else {
+                    return ( $this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) * $splice );
+                }
             break;
             case '3':
-                return ( $this->completeWeeks( $this->dateObject1, $this->dateObject2 )  );
+                $week = $this->completeWeeks( $this->dateObject1, $this->dateObject2 );
+                $days = $week * 7;
+
+                if( $timetype == 4 ){ // We return as a year
+                    return floor( ( ( $days * $splice ) / $splice ) / 10000000 );
+                } else {
+                    return ( $days * $splice );
+                }
             break;
             default:
-                return ( $this->daysbetween( $this->dateObject1, $this->dateObject2 ) * $splice );
+                if( $timetype == 4 ){
+                    return round( ($this->daysbetween( $this->dateObject1, $this->dateObject2 ) / 365), 2 );
+                } else {
+                    return ( $this->daysbetween( $this->dateObject1, $this->dateObject2 ) * $splice );
+                }                
             break;
         }
     }
