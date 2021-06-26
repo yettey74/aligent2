@@ -69,21 +69,21 @@
 #### Updated Thyme Class
 #### thyme.class.php
 * Added ``` __construct() ```
-* Added ``` setDateObject1( $dateObject1 ) ```
+* Added ``` setDateObject1() ```
 * Added ``` getDateObject1() ```
-* Added ``` setDateObject2( $dateObject2 ) ```
+* Added ``` setDateObject2() ```
 * Added ``` getDateObject2() ```
-* Added ``` setDateType( $datetype ) ```
+* Added ``` setDateType() ```
 * Added ``` getDateType() ```
-* Added ``` setTimeType( $timetype ) ```
+* Added ``` setTimeType() ```
 * Added ``` getTimeType() ```
-* Added ``` setTimezone1( $timezone1 ) ```
+* Added ``` setTimezone1() ```
 * Added ``` getTimezone1() ```
-* Added ``` setTimezone2( $timezone2 ) ```
+* Added ``` setTimezone2() ```
 * Added ``` getTimezone2() ```
-* Added ``` daysbetween( $dateObject1, $dateObject2 ) ```
-* Added ``` weekdaysBetween( $dateObject1, $dateObject2 ) ```
-* Added ``` weeksBetween( $dateObject1, $dateObject2 ) ```
+* Added ``` daysbetween() ```
+* Added ``` weekdaysBetween() ```
+* Added ``` weeksBetween() ```
 * Added ``` __toString() ```
 #### Updated MarkDown File
 ##### README.md
@@ -91,7 +91,7 @@
 ## Version 0.2.1
 #### Updated Thyme Class
 #### thyme.class.php
-* Added ``` daysbetween( $dateObject1, $dateObject2 ) ```
+* Added ``` daysbetween( ) ```
 * Updated ``` __toString() ```
 #### Updated MarkDown File
 ##### README.md
@@ -99,7 +99,7 @@
 ## Version 0.2.2
 #### Updated Thyme Class
 #### thyme.class.php
-* Added ``` weekdaysBetween( $dateObject1, $dateObject2 ) ```
+* Added ``` weekdaysBetween( ) ```
 * Updated ``` __toString() ```
 #### Updated MarkDown File
 ##### README.md
@@ -107,7 +107,7 @@
 ## Version 0.2.3
 #### Updated Thyme Class
 #### thyme.class.php
-* Added ``` completeWeeks( $dateObject1, $dateObject2 ) ```
+* Added ``` completeWeeks( ) ```
 * Updated ``` __toString() ```
 #### Updated MarkDown File
 ##### README.md
@@ -115,10 +115,10 @@
 ## Version 0.2.4
 #### Updated Thyme Class
 #### thyme.class.php
-* Added ``` getSplice( $timetype ) ```
-* Added ``` getDisplayTypeText( $datetype ) ```
-* Added ``` getDateTypeText( $timetype ) ```
-* Added ``` _apiObject( $timetype, $datetype ) ```
+* Added ``` getSplice() ```
+* Added ``` getDisplayTypeText() ```
+* Added ``` getDateTypeText() ```
+* Added ``` _apiObject() ```
 * Updated ``` __toString() ```
 #### Updated MarkDown File
 ##### README.md
@@ -126,17 +126,17 @@
 ## Version 0.2.5
 #### Updated Thyme Class
 #### thyme.class.php
-* Added ``` years( $dateObject1, $dateObject2 ) ```
-* Updated ``` _apiObject( $timetype, $datetype ) ```
-* Updated ``` completeWeeks( $dateObject1, $dateObject2 ) ```
+* Added ``` years() ```
+* Updated ``` _apiObject() ```
+* Updated ``` completeWeeks() ```
 #### Updated MarkDown File
 ##### README.md
 ***
 ## Version 0.2.6
 #### Updated Thyme Class
 #### thyme.class.php
-* Added ``` getZoneDiff( $timezone1, $timezone2 ) ```
-* Updated ``` _apiObject( $timetype, $datetype ) ```
+* Added ``` getZoneDiff() ```
+* Updated ``` _apiObject() ```
 #### Updated MarkDown File
 ##### README.md
 ***
@@ -179,5 +179,17 @@
 * Updated ``` getDateTypeText() ```
 #### error400.php
 Updated ``` filename erro400.php->error400.php ```
+#### Updated MarkDown File
+##### README.md
+***
+## Version 0.3.1
+#### Added Unit Test file
+#### testUnit.php
+* Added ``` Test Units ```
+#### api.php
+* Removed ``` Manual Test Units ```
+#### thyme.class.php
+* Updated ``` getDisplayTypeText() ```
+* Updated ``` _apiObject() ```
 #### Updated MarkDown File
 ##### README.md

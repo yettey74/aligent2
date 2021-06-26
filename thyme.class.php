@@ -134,7 +134,7 @@ class thyme
 
     function getDisplayTypeText( $datetype ){
         if( $this->datetype >= 0 && $this->datetype <= 3){
-            $displayTypeArray = ['0' => '','1' => 'Total Days', '2'=> 'Total Weekdays', '3'=> 'Complete Weeks' ];
+            $displayTypeArray = ['0' => 'Total Days','1' => 'Total Days', '2'=> 'Total Weekdays', '3'=> 'Complete Weeks' ];
             return $displayTypeArray[ $datetype ];
         }
         return false;
@@ -208,7 +208,11 @@ class thyme
             break;
             case '3':
                 $week = $this->completeWeeks( $this->dateObject1, $this->dateObject2 );
-                $days = $week * 7;
+                if( $datetype == 0 || $datetype == 1 ){
+                    $days = $week * 7;
+                } else {
+                    $days = $week * 5;
+                }
 
                 if( $timetype == 4 ){ // We return as a year
                     return floor( ( ( ( $days * $splice ) + $offset ) / $splice ) / 10000000 );
