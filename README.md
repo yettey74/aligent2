@@ -89,12 +89,17 @@
 ##### README.md
 ***
 ## Version 0.2.1
-#### Updated API
-#### api.php
-* Updated DEBUG ```echo $cradle->_toString();```
 #### Updated Thyme Class
 #### thyme.class.php
 * Added ``` daysbetween( $dateObject1, $dateObject2 ) ```
+* Updated ``` __toString() ```
 #### Updated MarkDown File
 ##### README.md
 ***
+## Version 0.2.2
+#### Updated Thyme Class
+#### thyme.class.php
+* Added ``` weekdaysBetween( $dateObject1, $dateObject2 ) ```
+* Updated ``` __toString() ```
+#### Updated MarkDown File
+##### README.md

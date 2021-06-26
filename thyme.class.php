@@ -143,10 +143,47 @@ class thyme
      */
     function getTimezone2(){
         return $this->timezone2;        
-    }
+    }  
 
     function daysbetween( $dateObject1, $dateObject2 ){
         return ceil( abs( ( $dateObject2 - $dateObject1 ) / 86400 ) );
+    }
+
+    function weekdaysBetween( $dateObject1, $dateObject2 ){        
+        
+        // get difference in days
+        $difference = ( $dateObject2 - $dateObject1 ) / 86400 ;
+
+        if( $difference > 0 ){
+            // floor the result to round down to nearest complete day
+            $days_difference  = floor( $difference );
+
+            // floor the result to round down to nearest Complete week
+            $weeks_difference = floor($days_difference / 7);
+
+            // Start day in seconds
+            $first_day = date("w", strtotime($dateObject1) );
+
+            // Do we have a Sunday in the remainder
+            $days_remainder = floor($days_difference % 7);
+
+            // Do we have a Saturday in the remainder
+            $odd_days = $first_day + $days_remainder; 
+
+            // Sunday
+            if ($odd_days > 7) { 
+                $days_remainder--;
+            }
+
+            // Saturday
+            if ($odd_days > 6) { 
+                $days_remainder--;
+            }
+
+            return (($weeks_difference * 5) + $days_remainder);
+        }
+
+        return 0;
     }
 
     function _toString()
@@ -155,7 +192,8 @@ class thyme
                 'Timezone 1: ' . $this->timezone1 . '<br>' .
                 'Date 2: ' . date( 'd/m/Y @ H:m:s ', $this->dateObject2 ) . '<br>' .
                 'Timezone 2: ' . $this->timezone2 . '<br>' .
-                'Days Between: ' . $this->daysbetween( $this->dateObject1, $this->dateObject2 ) . '<br>';
+                'Days Between: ' . $this->daysbetween( $this->dateObject1, $this->dateObject2 ) . '<br>' .
+                'Weekdays Between: ' . $this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) . '<br>';
     }
 }
 
