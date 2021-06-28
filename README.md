@@ -4,7 +4,6 @@
 #### Created 25/06/2021
 #### Author Scot Henderson
 ***
-
 ## Version 0.0.1
 ### Create Pseudo scaffold
 #### pseudo.md
@@ -14,7 +13,7 @@
 #### Created MarkDown File
 #### README.md
 ***
-***
+# Version 0.1
 ## Version 0.1.0
 ### Create file scaffold
 #### index.html
@@ -59,7 +58,7 @@
 #### Updated MarkDown File
 ##### README.md
 ***
-***
+# Version 0.2
 ## Version 0.2.0
 #### Updated API
 #### api.php
@@ -165,7 +164,7 @@
 #### Updated MarkDown File
 ##### README.md
 ***
-***
+# Version 0.3
 ## Version 0.3.0
 #### Added Input Error Handling
 #### thyme.class.php
@@ -193,3 +192,35 @@ Updated ``` filename erro400.php->error400.php ```
 * Updated ``` _apiObject() ```
 #### Updated MarkDown File
 ##### README.md
+***
+***
+## Version 0.4.0
+#### Tidy the code and fix bugs from tests
+#### testUnit.php
+* Added ``` Test Units ```
+#### thyme.class.php
+* Added ``` _isLeapYear() ```
+* Updated ``` __constructor() ```
+* Updated ``` daysbetween() to getDiff() ```
+* Updated ``` _toString() ```
+* Updated ``` _apiObject() ```
+* Updated ``` completeWeeks() ```
+* Updated ``` weekdaysBetween() ```
+* Updated ``` getDayDiff() ```
+* Updated ``` daysbetween() ```
+* Updated ``` getDateTypeText() ```
+* Updated ``` getDisplayTypeText() ```
+* Updated ``` getZoneDiff() ```
+* Updated ``` getSplice() ```
+* Updated ``` getTimezone1() ```
+* Updated ``` getTimezone2() ```
+* Updated ``` getDateType() ```
+* Updated ``` getTimeType() ```
+* Updated ``` getDateObject1() ```
+#### api.php
+* Removed ``` Manual Tests ```
+#### main.css
+* Removed  ``` Trailing White Space ```
+#### Updated MarkDown File
+##### README.md
+***
