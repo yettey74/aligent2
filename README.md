@@ -224,3 +224,34 @@ Updated ``` filename erro400.php->error400.php ```
 #### Updated MarkDown File
 ##### README.md
 ***
+## Version 0.4.1
+#### Catching All Errors when object passed
+#### thyme.class.php
+* ``` NaN ```
+* ``` Null ```
+* ``` Array ```
+* ``` EMPTY ```
+* Updated ``` getDateObject1() ```
+* Updated ``` getDateObject2() ```
+* Updated ``` getSplice() ```
+* Updated ``` getDayDiff() to getDaysBetween() ```
+* Updated ``` weekdaysBetween() to getweekdaysBetween()```
+* Updated ``` completeWeeks() to getcompleteWeeks()```
+* Updated ``` _isValid() to _isDateValid()```
+* Updated ``` _isLeapYear() ```
+* Updated ``` _apiObject() ```
+* Updated ``` _toString() ```
+#### testunit.php
+#### Added test to check for all conditions
+* Updated ``` Test Units ```
+* Updated ``` Results Output ```
+#### Added a dirty test page
+#### testapi.php
+* Added ``` Manual Test Units ```
+#### Added another dirty test page
+#### date.php
+* Added ``` Manual Test Units ```
+#### api.php
+* Removed ``` Manual Test Units ```
+#### Updated MarkDown File
+##### README.md

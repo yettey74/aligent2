@@ -1,7 +1,7 @@
 <?php
 require 'thyme.class.php';
 
-// get && set values in post data if any
+// get / set values in post data if any
 $dateObject1 = ($_POST['dateObject1'] != '' )? strtotime( $_POST['dateObject1'] ) : '';
 $dateObject2 = ($_POST['dateObject2'] != '' )? strtotime( $_POST['dateObject2'] ) : '';
 $timezone1 = ($_POST['timezone1'] != '' )? $_POST['timezone1'] : '';
@@ -16,8 +16,9 @@ $cradle = new thyme($dateObject1,
                     $timezone2,
                     $datetype,
                     $timetype
-                );      
-
-echo $cradle->_apiObject( $cradle->getTimeType(), $cradle->getDateType() );
+                ); 
+                
+echo $cradle->_toString() . '<br>';
+echo 'API Call : ' . $cradle->_apiObject( $cradle->getTimeType(), $cradle->getDateType() );
 
 ?>

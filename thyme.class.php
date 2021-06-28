@@ -21,21 +21,21 @@ class thyme
      * return Object
      */
     function __construct(   
-                            $dateObject1, 
-                            $dateObject2,
-                            $timezone1 = '',
-                            $timezone2 = '',
-                            $datetype = '',
-                            $timetype = ''
-                        )
-                        {
-                            $this->dateObject1 = $dateObject1;
-                            $this->dateObject2 = $dateObject2;
-                            $this->timezone1 = $timezone1;
-                            $this->timezone2 = $timezone2;
-                            $this->datetype = $datetype;
-                            $this->timetype = $timetype;
-                        }        
+        $dateObject1, 
+        $dateObject2,
+        $timezone1 = '',
+        $timezone2 = '',
+        $datetype = '',
+        $timetype = ''
+    )
+    {
+        $this->dateObject1 = $dateObject1;
+        $this->dateObject2 = $dateObject2;
+        $this->timezone1 = $timezone1;
+        $this->timezone2 = $timezone2;
+        $this->datetype = $datetype;
+        $this->timetype = $timetype;
+    } 
     
     /**
      * Getter : dateObject1
@@ -43,10 +43,10 @@ class thyme
      * return date()
      */
     function getDateObject1(){
-        if( $this->_isValid( $this->dateObject1 ) ){
-            return $this->dateObject1;
-        }
-        return 0;
+        if( is_array($this->dateObject1)){
+            return 0;
+        }     
+        return $this->dateObject1;        
     }
         
     /**
@@ -55,10 +55,10 @@ class thyme
      * return date()
      */
     function getDateObject2(){
-        if( !$this->_isValid( $this->dateObject2 ) ){
-            return $this->dateObject2;
-        }
-        return 0;
+        if( is_array($this->dateObject2)){
+            return 0;
+        }     
+        return $this->dateObject2;
     }
     
     /**
@@ -118,9 +118,15 @@ class thyme
      * return int 
      */
     function getSplice( $timetype ){
-        if( $this->timetype >= 0 && $this->timetype <= 4){
-            $spliceArray = ['0'=> 1, '1'=> 86400, '2'=> 1400, '3'=> 24, '4'=> 31622400];
-            return $spliceArray[ $timetype ];
+        if( !is_null( $timetype ) ){
+            if( $this->timetype >= 0 && $this->timetype <= 4){
+                $spliceArray = ['0'=> 1, '1'=> 86400, '2'=> 1400, '3'=> 24, '4'=> 31622400];
+                return $spliceArray[ $timetype ];
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
         }
         return 0;
     }
@@ -192,8 +198,12 @@ class thyme
      * return int
      */
 
-    function getDayDiff( $dateObject1, $dateObject2 ){
-        $days = ceil( abs( ( $dateObject2 - $dateObject1 ) / 86400 ) );
+    function getDaysBetween(){
+        $days = ceil( abs( ( strtotime( $this->getDateObject1() ) - strtotime( $this->getDateObject2() )  )/ 86400 ) ); 
+
+      /*   if( is_int( $this->getDateObject1() ) && is_int( $this->getDateObject2() ) ){
+            $days = ceil( abs( ( $this->getDateObject1() - $this->getDateObject2()  )/ 86400 ) );        
+        } */
 
         // Just return 0 days as we dont want -1
         if( $days == 0 ){
@@ -207,7 +217,7 @@ class thyme
         if( $days > 1 ){
             --$days;
         }
-
+        
         return $days;
     }
 
@@ -216,11 +226,8 @@ class thyme
      * var : $dateObject1, $dateObject2
      * return int
      */
-    function weekdaysBetween( $dateObject1, $dateObject2 ){
-        $difference = ceil( abs( ( $dateObject2 - $dateObject1 ) / 86400 ) );
-        if( $difference > 0 ){
-            $difference--;
-        }       
+    function getweekdaysBetween(){
+        $difference = ceil( abs( ( $this->getDaysBetween() ) ) );
         $days_difference = floor( $difference );
         $weeks_difference = floor( $days_difference / 7 );
         $days_remainder = floor( $days_difference % 7 );
@@ -241,9 +248,9 @@ class thyme
      * var : $dateObject1, $dateObject2
      * return int total weeks or 0
      */
-    function completeWeeks( $dateObject1, $dateObject2 ){
-        if( $this->getDayDiff( $dateObject1, $dateObject2 ) > 6 ){
-            return round( ( $this->getDayDiff( $dateObject1, $dateObject2 ) / 7), 0) ;
+    function getcompleteWeeks(){
+        if( $this->getDaysBetween() > 6 ){
+            return round( ( $this->getDaysBetween() / 7), 0) ;
         } else {
             return 0;
         }        
@@ -257,73 +264,81 @@ class thyme
     function _apiObject( $timetype, $datetype ){
         $timeToken = 0;
         $splice = $this->getSplice( $this->timetype );
-        $offset = ( $this->getZoneDiff( $this->timezone1, $this->timezone2 ) > 24 )? 1 : 0;
-
-        if( $this->getDayDiff( $this->dateObject1, $this->dateObject2 ) > 0){
+        $date1 = $this->getDateObject1();
+        $date2 = $this->getDateObject2();
+        $datecheck1 = $this->_isDateValid( $date1 );
+        $datecheck2 = $this->_isDateValid( $date2 );
+        if( $this->getDaysBetween() > 0){
             $offset = ( $this->getZoneDiff( $this->timezone1, $this->timezone2 ) > 24 )? 1 : 0;
         } else {
             $offset = 0;
         }
 
-        if( !is_null( $this->getDateObject1() ) ){
-            // deal with total days
-            switch( $datetype ){
-                // total weekdays                
-                case 2:
-                    if( $timetype == 4 ){
-                        return floor( ($this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) + $offset ) / 365 );
-                    } else {
-                        return floor( $this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) + $offset ) * $splice;
-                    }
-                break;
-                // Complete Weeks
-                case 3:
-                    if( $timetype == 4 ){
-return floor( ($this->completeWeeks( $this->dateObject1, $this->dateObject2 ) + $offset ) / 365 );
-                    } else {
-                        if( $timetype == 0 ){ // deal with seconds
-                            return floor( $this->completeWeeks( $this->dateObject1, $this->dateObject2 ) ) * $splice;
+        if( is_string( $this->getDateObject1() ) && is_string( $this->getDateObject2() ) ){
+            if( $datecheck1 == true && $datecheck2 == true ){
+                // deal with total days
+                switch( $datetype ){
+                    // total weekdays                
+                    case 2:
+                        if( $timetype == 4 ){
+                            return floor( ($this->getweekdaysBetween() + $offset ) / 365 );
                         } else {
-                            return ( floor( $this->completeWeeks( $this->dateObject1, $this->dateObject2 ) ) * 7 ) * $splice;
-                        } 
-                    }
-                break;
-                //total days
-                default:
-                    if( $timetype == 4 ){
-                        if( $this->_isLeapYear() ){
-                            return floor( ($this->getDayDiff( $this->dateObject1, $this->dateObject2 ) + $offset ) / 366 );
-                        } else {                            
-                            return floor( ($this->getDayDiff( $this->dateObject1, $this->dateObject2 ) + $offset ) / 365 );
+                            return floor( $this->getweekdaysBetween() + $offset ) * $splice;
                         }
-                    } else {
-                        return floor( $this->getDayDiff( $this->dateObject1, $this->dateObject2 ) + $offset ) * $splice;
-                    }
-                break; 
-            }  
+                    break;
+                    // Complete Weeks
+                    case 3:
+                        if( $timetype == 4 ){
+                            return floor( ($this->getcompleteWeeks() + $offset ) / 365 );
+                        } else {
+                            if( $timetype == 0 ){ // deal with seconds
+                                return floor( $this->getcompleteWeeks( ) ) * $splice;
+                            } else {
+                                return ( floor( $this->getcompleteWeeks() ) * 7 ) * $splice;
+                            } 
+                        }
+                    break;
+                    //total days
+                    default:
+                        if( $timetype == 4 ){
+                            if( $this->_isLeapYear() ){
+                                return floor( ($this->getDaysBetween() + $offset ) / 366 );
+                            } else {                            
+                                return floor( ($this->getDaysBetween() + $offset ) / 365 );
+                            }
+                        } else {
+                            return floor( $this->getDaysBetween() + $offset ) * $splice;
+                        }
+                    break; 
+                } 
+            } else {
+                return 0;
+            } 
+        } else {
+            return 0;
         }
     }
 
-    /**
-     * checks if the input is valid
-     * var : $timetype, $datetype
-     * return int or false
-     */
-    function _isValid( $var ){
-        $check = false;
-        $check = ( is_null( $var ) )?? true;
-        $check = ( is_nan( $var ) )?? true; 
-        $check = ( is_int( $var ) )?? true;
-        $check = ( is_long( $var ) )?? true;
-        $check = ( is_double( $var ) )?? true;
-        $check = ( is_float( $var ) )?? true;
-        /* $check = ( is_object( $var ) )?? true; */
-
-        return $check;
+    function _isDateValid( $date ){
+        // we want to check the string has some form of date structure
+        // as DateTime lib does not handle null or NaN either 
+        if( strtotime( $date ) == NULL ){ return 0;}
+        //if( is_array( $date ) ){ return 0;}
+        $pos1 = 0;
+        $pos2 = 0;         
+        $temp = token_get_all( $date );
+        $datestring = $temp[0][1];        
+        $pos1 = strpos($datestring, '/');
+        $pos2 = strpos($datestring, '-');
+        
+        if( $pos1 > 0 || $pos2 > 0 ){
+            return 1;
+        }
+        return 0;         
     }
 
     function _isLeapYear(){
-        $days = $this->getDayDiff( $this->dateObject1, $this->dateObject2 );
+        $days = $this->getDaysBetween();
         if( $days > 364 ){
             return 1;
         }
@@ -336,17 +351,21 @@ return floor( ($this->completeWeeks( $this->dateObject1, $this->dateObject2 ) + 
      */
     function _toString()
     {
-        return  'Date 1: ' . date( 'd/m/Y', $this->dateObject1 ) . '<br>' .
+        return  'Date 1 strtotime: ' . strtotime( $this->getDateObject1() )  . '<br>' .
+                'Date 1 RAW: ' . $this->dateObject1 . '<br>' .
+                'Date 1 Valid: ' . ( ( $this->_isDateValid( $this->dateObject1) )? 'True': 'False') . '<br>' .
                 'Timezone 1: ' . $this->getTimezone1() . '<br>' .
-                'Date 2: ' . date( 'd/m/Y', $this->dateObject2 ) . '<br>' .
-                'Timezone 2: ' . $this->getTimezone2(). '<br>' .
-                'Days Between: ' . $this->getDayDiff( $this->dateObject1, $this->dateObject2 ) . '<br>' .
-                'Weekdays Between: ' . $this->weekdaysBetween( $this->dateObject1, $this->dateObject2 ) . '<br>' .
-                'Complete Weeks: ' . $this->completeWeeks( $this->dateObject1, $this->dateObject2 ) . '<br>' .
+                'Date 2 strtotime: ' . strtotime( $this->getDateObject2() ) . '<br>' .
+                'Date 2 RAW: ' . $this->dateObject2 . '<br>' .
+                'Date 1 Valid: ' . ( ( $this->_isDateValid( $this->dateObject2 ) )? 'True': 'False') . '<br>' .
+                'Timezone 2: ' . $this->getTimezone2() . '<br>' .
+                'Days Between: ' . $this->getDaysBetween() . '<br>' .
+                'Weekdays Between: ' . $this->getweekdaysBetween() . '<br>' .
+                'Complete Weeks: ' . $this->getcompleteWeeks() . '<br>' .
                 'Count By: ' . $this->datetype . '=>' . $this->getDisplayTypeText( $this->datetype ) . '<br>' .
                 'Display in: ' . $this->timetype . '=>' . $this->getDateTypeText( $this->timetype ) . '<br>' .
                 'Zone Diff: ' . $this->getZoneDiff( $this->timezone1, $this->timezone2 ) . ' Hours<br>' .
-                'Leap Year: ' . $this->_isLeapYear( $this->dateObject1, $this->dateObject2) . '<br>' .
+                'Leap Year: ' . $this->_isLeapYear() . '<br>' .
                 'API Request: ' . $this->_apiObject( $this->timetype, $this->datetype ) . '<br>';
     }
 }
