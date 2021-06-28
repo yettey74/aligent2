@@ -1595,6 +1595,7 @@ if( $leapyeartdf->_apiObject( $leapyeartdf->getTimeType(), $leapyeartdf->getDate
     <td><?php echo round( ( $pass / ( $pass + $fail ) * 100 ), 2) . '% ' ?></td>
 </tr>
 </table>
+<?php if( $fail > 0 ){?>
 <table>
 <tr>
     <th>Failed Test</th>
@@ -1609,4 +1610,4 @@ foreach( $errors as $error ){
 <td style="text-align:center"><?php echo $error[1]; ?></td>
 <td><?php echo $error[2]; ?></td>
 </tr>
-<?php } ?>
+<?php } }?>

@@ -18,7 +18,5 @@ $cradle = new thyme($dateObject1,
                     $timetype
                 ); 
                 
-echo $cradle->_toString() . '<br>';
-echo 'API Call : ' . $cradle->_apiObject( $cradle->getTimeType(), $cradle->getDateType() );
-
+echo $cradle->_apiObject( $cradle->getTimeType(), $cradle->getDateType() );
 ?>

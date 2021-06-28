@@ -255,3 +255,17 @@ Updated ``` filename erro400.php->error400.php ```
 * Removed ``` Manual Test Units ```
 #### Updated MarkDown File
 ##### README.md
+## Version 0.5.0
+#### Prepare file structure for submission
+* Removed  ``` index.html ```
+* Removed  ``` index.php ```
+* Removed  ``` error400.php ```
+* Removed  ``` error500.php ```
+* Removed  ``` testapi.php ```
+* Removed  ``` date.php ```
+* Removed  ``` main.css ```
+* Removed  ``` PSEUDO.md ```
+* Updated  ``` README.md to _README.md ```
+* Updated  ``` api.php ```
+#### Updated MarkDown File
+##### README.md
