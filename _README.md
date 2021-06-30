@@ -269,11 +269,3 @@ Updated ``` filename erro400.php->error400.php ```
 * Updated  ``` api.php ```
 #### Updated MarkDown File
 ##### README.md
-## Version 0.5.1
-#### Adding sandbox for DateTime Object
-* Added ``` Sandbox Folder ```
-* Added ``` aligent.class.php ```
-* Added ``` test.php ```
-* Added ``` testapi.php ```
-* Added ``` README.md ```
-
