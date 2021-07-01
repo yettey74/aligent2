@@ -1676,7 +1676,7 @@ if( $testTotalDaysSeconds_frogger2 == 3287 * 86400 )
     array_push( $errors, ['testTotalDaysSeconds_frogger2',3287 * 86400 , $testTotalDaysSeconds_frogger2]);
 }
 
-if( $testTotalDaysMinutes_frogger2 == ( 3287 * 1400* 7 ) )
+if( $testTotalDaysMinutes_frogger2 == ( 3287 * 1400 ) )
 {
     $pass++;
 } else {

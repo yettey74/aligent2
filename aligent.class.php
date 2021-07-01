@@ -187,6 +187,7 @@ Class Aligent extends DateTime
      * 
      * @param Datetime|String $date
      * 
+     * @return String
      * 
      */
     Public function _getYear( $date ){
@@ -217,17 +218,45 @@ Class Aligent extends DateTime
      * @return Datetime
      * 
      */
-    Public function _setFeb29( $date ){  
+    Public function _setFeb29Start( $date ){  
         $_isLeap = $this->_isLeap( $date );
         $year = $date->format( 'Y' );
 
         if( $_isLeap == true ) {
             return $leapDay = new DateTime("$year-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
         } else {
-            // we need to get modulus remainder to find out next leap year.
-            // this so we can return a date to count later.. complicatd i know
+            // we need to get modulus remainder to find out previous leap year.
+            // So we can return a date to count later. without it we dont have
+            // defensive coding to protect the api
+            
             $year_remainder = ( $year % 4 );
-            $nextLeap = $year + ( 4 - $year_remainder );
+            $nextLeap = $year + $year_remainder + 4;
+            return $leapDay = new DateTime("$nextLeap-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
+        }
+        return false;
+    } 
+
+    /**
+     *  Return Previous Leap Year Date object set to YYYY-Feb 29
+     * 
+     * @param Datetime|String $date
+     * 
+     * @return Datetime
+     * 
+     */
+    Public function _setFeb29End( $date ){  
+        $_isLeap = $this->_isLeap( $date );
+        $year = $date->format( 'Y' );
+
+        if( $_isLeap == true ) {
+            return $leapDay = new DateTime("$year-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
+        } else {
+            // we need to get modulus remainder to find out previous leap year.
+            // So we can return a date to count later. without it we dont have
+            // defensive coding to protect the api
+            
+            $year_remainder = ( $year % 4 );
+            $nextLeap = $year - $year_remainder;
             return $leapDay = new DateTime("$nextLeap-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
         }
         return false;
@@ -254,28 +283,36 @@ Class Aligent extends DateTime
         $startYear = $this->_getYear( $date1 );
         $endYear = $this->_getYear( $date2 );
         $totalYears = $endYear - $startYear;   
+
         // we want to see how many leap years are in there so we floor totalYears / 4
         $leap = 0;
 
         $startDate = ( $date1 < $date2 )? $date1 : $date2;
         $endDate = ( $date1 > $date2 )? $date1 : $date2;
 
-        $leapDayStart = $this->_setFeb29( $startDate );
-        $leapDayEnd = $this->_setFeb29( $endDate );        
+        $leapDayStart = $this->_setFeb29Start( $startDate ); // if not in a leap year !Important return next leap year
+        $leapDayEnd = $this->_setFeb29End( $endDate ); // if not in a leap year !Important return next leap year        
         
-        if( $startDate > $leapDayStart && $leapDayStart != false )
-        {
-            $leap++;
-            
-        }        
-        
-        if( $endDate < $leapDayEnd && $leapDayEnd != false)
-        {
-            $leap++;
+        // we might have a leap year, so lets do the math 
+        /* if( $totalYears > 0 ){      */ 
+            // lets be defensive and check if the start date is before next leap year  
+            if( $startDate < $leapDayStart && $leapDayStart != false )
+            {
+                $leap++;            
+            }     
 
-        }
+            // lets be defensive and check if the end date is after next leap year            
+            if( $endDate > $leapDayEnd && $leapDayEnd != false)
+            {
+                $leap++;
+            } 
 
-        return $leap;
+            return $leap; // we have at least 1 leap year
+      /*   } else {
+            return 0; // we didnt need extra compute time so we just pass 0
+        } */
+
+        return 0;
     }
 }
 ?>

@@ -8,47 +8,46 @@ $date1 = new DateTime( "1988-01-01T00:00:00Z", new DateTimeZone( "Australia/Adel
 $date2 = new DateTime( "1997-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
 
 echo '<br>';
-echo 'Year : ' . $aligent->_getYear( $date1 );
+echo 'Start date : ' . ( $date1 )->format('c');
 echo '<br>';
-echo 'Year : ' . $aligent->_getYear( $date2 );
+echo 'Start Year : ' . $aligent->_getYear( $date1 );
 echo '<br>';
-
-echo 'Is Date 1 : ';
-echo $aligent->_isLeap( $date1 );
 echo '<br>';
-echo 'Is Leap Year : ';
+echo 'End date : ' . ( $date2 )->format('c');
+echo '<br>';
+echo 'End Year : ' . $aligent->_getYear( $date2 );
+echo '<br>';
+echo '<br>';
+echo 'Is Start date in a Leap Year : ';
 echo ( $aligent->_isLeap( $date1 ))? 'True' : 'False';
 echo '<br>';
-echo 'Set Leap Day : ';
-echo $frog1 = ( $aligent->_setFeb29( $date1 ))? 'True' : 'False';
-echo '<br>';
-echo $aligent->_setFeb29( $date1 )->format('c');
-echo '<br>';
-echo 'Is ' . ($date1)->format('c') . ' before ' . $aligent->_setFeb29( $date1 )->format('c');
-echo '<br>';
-if( $date1 < $aligent->_setFeb29( $date1 ) ){
-    echo 'True';
+$frog_start = $aligent->_setFeb29Start( $date1 )->format('c');
+echo ( $date1 )->format('c');
+if( $date1 < $frog_start ){
+    echo ' is not ';
 } else {
-    echo 'False';
+    echo ' is ';
 }
+echo 'before ' . $frog_start ;
 echo '<br>';
-echo 'leaps : ';
-$frogger = $aligent->frogger( $date1, $date2 );
-//echo  print_r( $frogger);
-echo  $frogger;
+echo '<br>';
 
+echo 'Is End date in a Leap Year : ';
+echo ( $aligent->_isLeap( $date2 ))? 'True' : 'False';
 echo '<br>';
-echo 'Is ' . ($date2)->format('c') . ' after ' . $aligent->_setFeb29( $date2 )->format('c');
-echo '<br>';
-if( $date2 > $aligent->_setFeb29( $date2 ) ){
-    echo 'True';
+$frog_end = $aligent->_setFeb29End( $date2 )->format('c');
+echo ( $date2 )->format('c');
+if( $date2 > $frog_end ){
+    echo ' is ';
 } else {
-    echo 'False';
+    echo ' is not ';
 }
+echo 'after ' . $frog_end;
 echo '<br>';
+echo '<br>';
+
 echo 'leaps : ';
 $frogger = $aligent->frogger( $date1, $date2 );
-//echo  print_r( $frogger);
 echo  $frogger;
 
 echo '<br>';

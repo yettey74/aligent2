@@ -287,4 +287,13 @@ Updated ``` filename erro400.php->error400.php ```
 * Updated ``` sandbox/--> sandboxDateTimeLibrary/ ``` 
 ## Version 0.5.3
 #### Documented the aligent class
+#### aligent.class.php 
 * Added ``` Doc stubs to each function ```
+* Added ``` _setFeb29End() ```
+* Updated ``` _setFeb29() --> _setFeb29Start() ```
+#### Increased amount of tests
+#### testapi.php 
+* Updated ``` more tests for Multi Leap year   ```
+#### Reworked output script to be more readable for quick testing
+#### test.php 
+* Updated ``` output script  ```
