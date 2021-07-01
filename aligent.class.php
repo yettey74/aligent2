@@ -69,13 +69,14 @@ Class Aligent extends DateTime
         }
         
         if( $flag == 4 ){ // we want years 
-            if( $leap > 0 ){                
+            if( $days > 365 ){
                 return floor( $days / ( $frog + 1 ) );
             } else {
+                // we need to take leap year into account
                 if( floor( ( $days - 1 ) / $frog ) < 0 ){
                     return floor( ( $days ) / $frog );
-                } else {                
-                    return floor( ( $days - 1 ) / $frog ); // accounting for leap year when there is none
+                } else {
+                    return floor( ( $days - 1 ) / $frog ); // adjust as there is no leap year
                 }
             }
         }     
@@ -139,14 +140,19 @@ Class Aligent extends DateTime
         }
         
         if( $flag == 4 ){ // we want years
-            if( floor( ( $weekdays - 1 ) / $frog ) < 0 ){
-                return floor( ( $weekdays ) / 7 ) ;
+            if( $days > 365){
+                //copensate for floor off by 1 in result
+                return floor( ( $weekdays / $frog ) / 7 ) + 1;
+            } else {
+                return floor( ( $weekdays / $frog ) / 7 );
+            }
+             
             } else {                
                 // accounting for leap year when there is none and week being 7 days to make sure we throw a stable floor
-                return ( floor( ( $weekdays ) / $frog ) / 6 ); 
+                return floor( ( ( $weekdays ) / $frog ) / 7 ); 
             }            
         } 
-    }
+    
     
     /**
      *  Return Count of complete weeks $date2
@@ -173,24 +179,35 @@ Class Aligent extends DateTime
         }
 
         $frog = 365;
-        $leaps = $this->frogger( $date1, $date2 );
-        $frogLeaps = $frog + $leaps;
+        $leap = $this->frogger( $date1, $date2 );
 
         $days = $this->getTotalDaysBetween( $date1, $date2 ); // account for inbetween
 
         if( $days > 6 ){
-            switch( $flag ){
-                case 1:
-                case 2: 
-                case 3: 
-                    return floor( $days * $splice );
-                    break;
-
-                case 4: 
-                default:
-                    return floor( $days / 7 );
-                    break;
-            }  
+            $weeks = floor( $days / 7 );          
+            if( $flag == '' ){ // we jsut return default days
+                return $weeks;
+            }
+    
+            if( $flag == 1 ){ // we want seconds 
+                return $weeks * $splice * 7;      
+            }
+    
+            if( $flag == 2 ){ // we want minutes 
+                return $weeks * $splice * 7;       
+            }
+            
+            if( $flag == 3 ){ // we want hours 
+                return $weeks * $splice * 7;     
+            }
+            
+            if( $flag == 4 ){ // we want years 
+                if( $days > 365 ){                
+                    return floor( $weeks / ( $frog + 1 ) ) + 1; // adjust as we have a full year
+                } else {
+                    return floor( $weeks / ( $frog ) );
+                } 
+            }     
         } else {
             return 0;
         }   

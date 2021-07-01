@@ -1,11 +1,9 @@
 <?php
 require 'aligent.class.php';
 $aligent = new Aligent();
-/////////////////////////////////////
-//              2 Leap Year        ///
-////////////////////////////////////////
+
 $date1 = new DateTime( "1988-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
-$date2 = new DateTime( "1997-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "1989-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
 
 echo '<br>';
 echo 'Start date : ' . ( $date1 )->format('c');
@@ -53,7 +51,16 @@ echo  $frogger;
 echo '<br>';
 echo 'Total Days : ' . $aligent->getTotalDays( $date1, $date2 );
 echo '<br>';
-echo 'Total Days Between : ' . $aligent->getTotalDaysBetween( $date1, $date2 );
+echo 'Total Days Between Default: ' . $aligent->getTotalDaysBetween( $date1, $date2 );
+echo '<br>';
+echo 'Total Days Between Seconds: ' . $aligent->getTotalDaysBetween( $date1, $date2, 1 );
+echo '<br>';
+echo 'Total Days Between Minutes: ' . $aligent->getTotalDaysBetween( $date1, $date2, 2 );
+echo '<br>';
+echo 'Total Days Between Hours: ' . $aligent->getTotalDaysBetween( $date1, $date2, 3);
+echo '<br>';
+echo 'Total Days Between Years: ' . $aligent->getTotalDaysBetween( $date1, $date2, 4);
+echo '<br>';
 echo '<br>';
 echo 'Total Weekdays : ' . $aligent->getweekdaysBetween( $date1, $date2 );
 echo '<br>';

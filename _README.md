@@ -326,6 +326,7 @@ Updated ``` filename erro400.php->error400.php ```
 #### Updated MarkDown File
 ##### README.md
 ***
+***
 ## Version 0.6.0
 #### Timezone handling
 #### Updated testapi.php
@@ -334,7 +335,17 @@ Updated ``` filename erro400.php->error400.php ```
 #### Updated MarkDown File
 ##### README.md
 ***
+## Version 0.6.1 -- 180 Bug Free Results
+
+***
 ***
 # WishList
+Add tests for limits < 02-29 , == 02-29, > 02-29
+* add ``` 0 Leap year test ``` 1988-02-26 to 1988-2-28
+* add ``` 1 Leap year test ``` 1988-02-26 to 1992-3-1
+* add ``` 1 Leap year test ``` 1988-02-26 to 1996-2-28
+* add ``` 2 Leap year test ``` 1988-02-26 to 1996-3-1
+* add ``` 2 Leap year test ``` 1988-02-26 to 1996-2-28
+* add ``` 3 Leap year test ``` 1988-02-26 to 1996-3-1
 ## handle where FEB 29 count for all DateTime date1, date2 calls on the fly
 ### or is it resolved when we ask for leaps??
