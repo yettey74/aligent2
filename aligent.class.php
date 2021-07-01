@@ -315,6 +315,55 @@ Class Aligent extends DateTime
     } 
 
     /**
+     *  Checks the format of the string being passed in
+     *  If it is not correct then we will dry to transform it
+     * 
+     * @param Datetime|String $date
+     * 
+     * @return Datetime
+     * 
+     */
+    Public function _isDateGood( $date ){
+        // we can breakdownthestring to check if '-' or '/' is true
+        if( strpos( $date, '/') == true || strpos( $date, '-') == true ){
+            $posSlash = strpos( $date, '/');
+            $posHyphen = strpos( $date, '-');
+
+            $pos = ( $posSlash > 0 )? $posSlash : $posHyphen;
+            // get first chars before seperator    
+            $firstDigitSet = strstr( $date, '-', true);    
+            $bitOfString1 = strstr( $date, '-', false);  
+            $chunk1 = substr( $bitOfString1, 1); 
+            if( $firstDigitSet <= 9 && $firstDigitSet > 0 ){
+                $firstDigitSet = str_pad( $firstDigitSet, 2, '0', STR_PAD_LEFT);
+            }
+            $secondDigitSet =  strstr( $chunk1, '-', true); 
+            if( $secondDigitSet <= 9 && $secondDigitSet > 0 ){
+                $secondDigitSet = str_pad( $secondDigitSet, 2, '0', STR_PAD_LEFT);
+            }     
+            $bitOfString2 = strstr( $date, '-', false);  
+            $thirdDigitSet = substr( $bitOfString2, 3);  
+
+            // format the string properly for DateTime()
+            $thisDate = $thirdDigitSet . '-' . $secondDigitSet .'-' . $firstDigitSet ;
+            echo 'String : ' . $thisDate;
+            echo '<br>';
+
+            $formattedDate = new DateTime( $thisDate );
+          /*   if(  $formattedDate instanceof DateTime ){
+                $formattedDate->setTimeZone( new DateTimeZone("Australia/Adelaide") );
+            } */
+            
+            echo 'Format in function ' . ($formattedDate)->format('c');
+            return $formattedDate;
+        } else {
+            return 0;
+        }
+
+        return 0;
+    } 
+
+    /**
      *  Return Count of Leapyears inbetween $date1, $date2
      * 
      * @param Datetime|String $date1, $date2
@@ -371,13 +420,7 @@ Class Aligent extends DateTime
             }
         }
 
-        return $leap; // we have at least 1 leap year
-      /*   } else {
-            return 0; // we didnt need extra compute time so we just pass 0
-        } 
-
-        return 0;
-    }*/
-}
+        return abs( $leap ); // we have at least 1 leap year     
+    }
 }
 ?>
