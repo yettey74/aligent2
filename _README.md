@@ -326,7 +326,7 @@ Updated ``` filename erro400.php->error400.php ```
 #### Updated MarkDown File
 ##### README.md
 ***
-## Version 0.5.4
+## Version 0.6.0
 #### Timezone handling
 #### Updated testapi.php
 * Added ``` TZ List ```
