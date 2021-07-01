@@ -279,6 +279,8 @@ Updated ``` filename erro400.php->error400.php ```
 * Added ``` test.php ```
 * Added ``` testapi.php ```
 * Added ``` README.md ```
+#### Updated MarkDown File
+##### README.md
 ***
 ## Version 0.5.2
 #### Moved Date library and test bed to SandboxDateLibrary
@@ -289,6 +291,8 @@ Updated ``` filename erro400.php->error400.php ```
 * Moved ``` sandbox/test.php --> test.php ``` 
 * Moved ``` sandbox/testapi.php --> testapi.php ``` 
 * Updated ``` sandbox/--> sandboxDateTimeLibrary/ ``` 
+#### Updated MarkDown File
+##### README.md
 ***
 ## Version 0.5.3
 #### Documented the aligent class
@@ -303,6 +307,8 @@ Updated ``` filename erro400.php->error400.php ```
 #### Reworked output script to be more readable for quick testing
 #### test.php 
 * Updated ``` output script  ```
+#### Updated MarkDown File
+##### README.md
 ***
 ## Version 0.5.4
 #### Updated aligent class
@@ -317,3 +323,18 @@ Updated ``` filename erro400.php->error400.php ```
 #### Reworked output script to be more readable for quick testing
 #### test.php 
 * Updated ``` output script  ```
+#### Updated MarkDown File
+##### README.md
+***
+## Version 0.5.4
+#### Timezone handling
+#### Updated testapi.php
+* Added ``` TZ List ```
+* Added ``` TZ tests ```
+#### Updated MarkDown File
+##### README.md
+***
+***
+# WishList
+## handle where FEB 29 count for all DateTime date1, date2 calls on the fly
+### or is it resolved when we ask for leaps??

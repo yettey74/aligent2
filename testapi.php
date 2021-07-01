@@ -338,144 +338,198 @@ $y_cw_14_day = $aligent->getcompleteWeeks( $date1, $date2, 4 ); //
 ////////////////////////////////////////
 $date1 = new DateTime( "2021-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
 $date2 = new DateTime( "2022-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
-$d_td_365_day = $aligent->getTotalDaysBetween( $date1, $date2 ); //
-$s_td_365_day = $aligent->getTotalDaysBetween( $date1, $date2 , 1 ); // 
-$m_td_365_day = $aligent->getTotalDaysBetween( $date1, $date2, 2 ); // 
-$h_td_365_day = $aligent->getTotalDaysBetween( $date1, $date2, 3 ); // 
-$y_td_365_day = $aligent->getTotalDaysBetween( $date1, $date2, 4 ); //
-$d_wd_365_day = $aligent->getweekdaysBetween( $date1, $date2 ); //
-$s_wd_365_day = $aligent->getweekdaysBetween( $date1, $date2 , 1 ); // 
-$m_wd_365_day = $aligent->getweekdaysBetween( $date1, $date2, 2 ); // 
-$h_wd_365_day = $aligent->getweekdaysBetween( $date1, $date2, 3 ); // 
-$y_wd_365_day = $aligent->getweekdaysBetween( $date1, $date2, 4 ); // 
-$d_cw_365_day = $aligent->getcompleteWeeks( $date1, $date2 ); //
-$s_cw_365_day = $aligent->getcompleteWeeks( $date1, $date2 , 1 ); // 
-$m_cw_365_day = $aligent->getcompleteWeeks( $date1, $date2, 2 ); // 
-$h_cw_365_day = $aligent->getcompleteWeeks( $date1, $date2, 3 ); // 
-$y_cw_365_day = $aligent->getcompleteWeeks( $date1, $date2, 4 ); // 
-( $d_td_365_day == 364 )? $pass++ : array_push( $failarray, ['d_td_365_day', 1 * 364, $d_td_365_day ]);
-( $s_td_365_day == 86400 * 364 )? $pass++: array_push( $failarray, ['s_td_365_day', 86400 * 364, $s_td_365_day ]);
-( $m_td_365_day == 1400 * 364 )? $pass++: array_push( $failarray, ['m_td_365_day', 14000 * 364, $m_td_365_day ]);
-( $h_td_365_day == 24 * 364)? $pass++: array_push( $failarray, ['h_td_365_day', 24 * 364, $h_td_365_day ]);
-( $y_td_365_day == 0 )? $pass++: array_push( $failarray, ['y_td_365_day', 0, $y_td_365_day ]);
-( $d_wd_365_day == 52 * 5 )? $pass++: array_push( $failarray, ['d_wd_365_day', 52 * 5, $d_wd_365_day ]);
-( $s_wd_365_day == 86400 * 52 * 5 )? $pass++: array_push( $failarray, ['s_wd_365_day', 86400 * 52 * 5, $s_wd_365_day ]);
-( $m_wd_365_day == 1400 * 52 * 5 )? $pass++: array_push( $failarray, ['m_wd_365_day', 1400 * 52 * 5, $m_wd_365_day ]);
-( $h_wd_365_day == 24 * 52 * 5 )? $pass++: array_push( $failarray, ['h_wd_365_day', 24 * 10, $h_wd_365_day ]);
-( $y_wd_365_day == 0 )? $pass++: array_push( $failarray, ['y_wd_365_day', 0, $y_wd_365_day ]);
-( $d_cw_365_day == 52 * 1 )? $pass++: array_push( $failarray, ['d_cw_365_day', 52 * 1, $d_cw_365_day ]);
-( $s_cw_365_day == 86400 * 7 * 52 * 1 )? $pass++: array_push( $failarray, ['s_cw_365_day', 86400 * 7 * 52 * 1, $s_cw_365_day ]);
-( $m_cw_365_day == 1400 * 7 * 52 * 1 )? $pass++: array_push( $failarray, ['m_cw_365_day', 1400 * 7 * 52 * 1, $m_cw_365_day ]);
-( $h_cw_365_day ==  24 * 7 * 52 * 1 )? $pass++: array_push( $failarray, ['h_cw_365_day', 24 * 7 * 52 * 1, $h_cw_365_day ]);
-( $y_cw_365_day == 1 * 52 * 1 )? $pass++: array_push( $failarray, ['y_cw_365_day', 1 * 52 * 1, $y_cw_365_day ]);
+$d_td_1_year = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+$s_td_1_year = $aligent->getTotalDaysBetween( $date1, $date2 , 1 ); // 
+$m_td_1_year = $aligent->getTotalDaysBetween( $date1, $date2, 2 ); // 
+$h_td_1_year = $aligent->getTotalDaysBetween( $date1, $date2, 3 ); // 
+$y_td_1_year = $aligent->getTotalDaysBetween( $date1, $date2, 4 ); //
+$d_wd_1_year = $aligent->getweekdaysBetween( $date1, $date2 ); //
+$s_wd_1_year = $aligent->getweekdaysBetween( $date1, $date2 , 1 ); // 
+$m_wd_1_year = $aligent->getweekdaysBetween( $date1, $date2, 2 ); // 
+$h_wd_1_year = $aligent->getweekdaysBetween( $date1, $date2, 3 ); // 
+$y_wd_1_year = $aligent->getweekdaysBetween( $date1, $date2, 4 ); // 
+$d_cw_1_year = $aligent->getcompleteWeeks( $date1, $date2 ); //
+$s_cw_1_year = $aligent->getcompleteWeeks( $date1, $date2 , 1 ); // 
+$m_cw_1_year = $aligent->getcompleteWeeks( $date1, $date2, 2 ); // 
+$h_cw_1_year = $aligent->getcompleteWeeks( $date1, $date2, 3 ); // 
+$y_cw_1_year = $aligent->getcompleteWeeks( $date1, $date2, 4 ); // 
+( $d_td_1_year == 364 )? $pass++ : array_push( $failarray, ['d_td_1_year', 1 * 364, $d_td_1_year ]);
+( $s_td_1_year == 86400 * 364 )? $pass++: array_push( $failarray, ['s_td_1_year', 86400 * 364, $s_td_1_year ]);
+( $m_td_1_year == 1400 * 364 )? $pass++: array_push( $failarray, ['m_td_1_year', 14000 * 364, $m_td_1_year ]);
+( $h_td_1_year == 24 * 364)? $pass++: array_push( $failarray, ['h_td_1_year', 24 * 364, $h_td_1_year ]);
+( $y_td_1_year == 0 )? $pass++: array_push( $failarray, ['y_td_1_year', 0, $y_td_1_year ]);
+( $d_wd_1_year == 52 * 5 )? $pass++: array_push( $failarray, ['d_wd_1_year', 52 * 5, $d_wd_1_year ]);
+( $s_wd_1_year == 86400 * 52 * 5 )? $pass++: array_push( $failarray, ['s_wd_1_year', 86400 * 52 * 5, $s_wd_1_year ]);
+( $m_wd_1_year == 1400 * 52 * 5 )? $pass++: array_push( $failarray, ['m_wd_1_year', 1400 * 52 * 5, $m_wd_1_year ]);
+( $h_wd_1_year == 24 * 52 * 5 )? $pass++: array_push( $failarray, ['h_wd_1_year', 24 * 10, $h_wd_1_year ]);
+( $y_wd_1_year == 0 )? $pass++: array_push( $failarray, ['y_wd_1_year', 0, $y_wd_1_year ]);
+( $d_cw_1_year == 52 * 1 )? $pass++: array_push( $failarray, ['d_cw_1_year', 52 * 1, $d_cw_1_year ]);
+( $s_cw_1_year == 86400 * 7 * 52 * 1 )? $pass++: array_push( $failarray, ['s_cw_1_year', 86400 * 7 * 52 * 1, $s_cw_1_year ]);
+( $m_cw_1_year == 1400 * 7 * 52 * 1 )? $pass++: array_push( $failarray, ['m_cw_1_year', 1400 * 7 * 52 * 1, $m_cw_1_year ]);
+( $h_cw_1_year ==  24 * 7 * 52 * 1 )? $pass++: array_push( $failarray, ['h_cw_1_year', 24 * 7 * 52 * 1, $h_cw_1_year ]);
+( $y_cw_1_year == 1 * 52 * 1 )? $pass++: array_push( $failarray, ['y_cw_1_year', 1 * 52 * 1, $y_cw_1_year ]);
 
 /////////////////////////////////////
 //              1 Leap Year        ///
 ////////////////////////////////////////
 $date1 = new DateTime( "1988-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
 $date2 = new DateTime( "1989-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
-$d_td_366_day = $aligent->getTotalDaysBetween( $date1, $date2 ); //
-$s_td_366_day = $aligent->getTotalDaysBetween( $date1, $date2 , 1 ); // 
-$m_td_366_day = $aligent->getTotalDaysBetween( $date1, $date2, 2 ); // 
-$h_td_366_day = $aligent->getTotalDaysBetween( $date1, $date2, 3 ); // 
-$y_td_366_day = $aligent->getTotalDaysBetween( $date1, $date2, 4 ); //
-$d_wd_366_day = $aligent->getweekdaysBetween( $date1, $date2 ); //
-$s_wd_366_day = $aligent->getweekdaysBetween( $date1, $date2 , 1 ); // 
-$m_wd_366_day = $aligent->getweekdaysBetween( $date1, $date2, 2 ); // 
-$h_wd_366_day = $aligent->getweekdaysBetween( $date1, $date2, 3 ); // 
-$y_wd_366_day = $aligent->getweekdaysBetween( $date1, $date2, 4 ); // 
-$d_cw_366_day = $aligent->getcompleteWeeks( $date1, $date2 ); //
-$s_cw_366_day = $aligent->getcompleteWeeks( $date1, $date2 , 1 ); // 
-$m_cw_366_day = $aligent->getcompleteWeeks( $date1, $date2, 2 ); // 
-$h_cw_366_day = $aligent->getcompleteWeeks( $date1, $date2, 3 ); // 
-$y_cw_366_day = $aligent->getcompleteWeeks( $date1, $date2, 4 ); // 
-( $d_td_366_day == 365 )? $pass++ : array_push( $failarray, ['d_td_366_day', 1 * 365, $d_td_366_day ]);
-( $s_td_366_day == 86400 * 365 )? $pass++: array_push( $failarray, ['s_td_366_day', 86400 * 365, $s_td_366_day ]);
-( $m_td_366_day == 1400 * 365 )? $pass++: array_push( $failarray, ['m_td_366_day', 14000 * 365, $m_td_366_day ]);
-( $h_td_366_day == 24 * 365)? $pass++: array_push( $failarray, ['h_td_366_day', 24 * 365, $h_td_366_day ]);
-( $y_td_366_day == 0 )? $pass++: array_push( $failarray, ['y_td_366_day', 0, $y_td_366_day ]);
-( $d_wd_366_day == 260 + 1 )? $pass++: array_push( $failarray, ['d_wd_366_day', 260 + 1, $d_wd_366_day ]);
-( $s_wd_366_day == 86400 * ( 260 + 1 ) )? $pass++: array_push( $failarray, ['s_wd_366_day', 86400 * ( 260 + 1 ), $s_wd_366_day ]);
-( $m_wd_366_day == 1400 * ( 260 + 1 ) )? $pass++: array_push( $failarray, ['m_wd_366_day', 1400 * ( 260 + 1 ) , $m_wd_366_day ]);
-( $h_wd_366_day == 24 * ( 260 + 1 ) )? $pass++: array_push( $failarray, ['h_wd_366_day', 24 * ( 260 + 1 ), $h_wd_366_day ]);
-( $y_wd_366_day == 0 )? $pass++: array_push( $failarray, ['y_wd_366_day', 0, $y_wd_366_day ]);
-( $d_cw_366_day == 52 * 1 )? $pass++: array_push( $failarray, ['d_cw_366_day', 52 * 1, $d_cw_366_day ]);
-( $s_cw_366_day == 86400 * 7 * 52 )? $pass++: array_push( $failarray, ['s_cw_366_day', 86400 * 7 * 52 * 1, $s_cw_366_day ]);
-( $m_cw_366_day == 1400 * 7 * 52 )? $pass++: array_push( $failarray, ['m_cw_366_day', 1400 * 52 * 1, $m_cw_366_day ]);
-( $h_cw_366_day ==  24 * 7 * 52 )? $pass++: array_push( $failarray, ['h_cw_366_day', 24 * 7 * 52 * 1, $h_cw_366_day ]);
-( $y_cw_366_day == 1 )? $pass++: array_push( $failarray, ['y_cw_366_day', 1, $y_cw_366_day ]);
+$d_td_1_leapyear = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+$s_td_1_leapyear = $aligent->getTotalDaysBetween( $date1, $date2 , 1 ); // 
+$m_td_1_leapyear = $aligent->getTotalDaysBetween( $date1, $date2, 2 ); // 
+$h_td_1_leapyear = $aligent->getTotalDaysBetween( $date1, $date2, 3 ); // 
+$y_td_1_leapyear = $aligent->getTotalDaysBetween( $date1, $date2, 4 ); //
+$d_wd_1_leapyear = $aligent->getweekdaysBetween( $date1, $date2 ); //
+$s_wd_1_leapyear = $aligent->getweekdaysBetween( $date1, $date2 , 1 ); // 
+$m_wd_1_leapyear = $aligent->getweekdaysBetween( $date1, $date2, 2 ); // 
+$h_wd_1_leapyear = $aligent->getweekdaysBetween( $date1, $date2, 3 ); // 
+$y_wd_1_leapyear = $aligent->getweekdaysBetween( $date1, $date2, 4 ); // 
+$d_cw_1_leapyear = $aligent->getcompleteWeeks( $date1, $date2 ); //
+$s_cw_1_leapyear = $aligent->getcompleteWeeks( $date1, $date2 , 1 ); // 
+$m_cw_1_leapyear = $aligent->getcompleteWeeks( $date1, $date2, 2 ); // 
+$h_cw_1_leapyear = $aligent->getcompleteWeeks( $date1, $date2, 3 ); // 
+$y_cw_1_leapyear = $aligent->getcompleteWeeks( $date1, $date2, 4 ); // 
+( $d_td_1_leapyear == 365 )? $pass++ : array_push( $failarray, ['d_td_1_leapyear', 1 * 365, $d_td_1_leapyear ]);
+( $s_td_1_leapyear == 86400 * 365 )? $pass++: array_push( $failarray, ['s_td_1_leapyear', 86400 * 365, $s_td_1_leapyear ]);
+( $m_td_1_leapyear == 1400 * 365 )? $pass++: array_push( $failarray, ['m_td_1_leapyear', 14000 * 365, $m_td_1_leapyear ]);
+( $h_td_1_leapyear == 24 * 365)? $pass++: array_push( $failarray, ['h_td_1_leapyear', 24 * 365, $h_td_1_leapyear ]);
+( $y_td_1_leapyear == 0 )? $pass++: array_push( $failarray, ['y_td_1_leapyear', 0, $y_td_1_leapyear ]);
+( $d_wd_1_leapyear == 260 + 1 )? $pass++: array_push( $failarray, ['d_wd_1_leapyear', 260 + 1, $d_wd_1_leapyear ]);
+( $s_wd_1_leapyear == 86400 * ( 260 + 1 ) )? $pass++: array_push( $failarray, ['s_wd_1_leapyear', 86400 * ( 260 + 1 ), $s_wd_1_leapyear ]);
+( $m_wd_1_leapyear == 1400 * ( 260 + 1 ) )? $pass++: array_push( $failarray, ['m_wd_1_leapyear', 1400 * ( 260 + 1 ) , $m_wd_1_leapyear ]);
+( $h_wd_1_leapyear == 24 * ( 260 + 1 ) )? $pass++: array_push( $failarray, ['h_wd_1_leapyear', 24 * ( 260 + 1 ), $h_wd_1_leapyear ]);
+( $y_wd_1_leapyear == 0 )? $pass++: array_push( $failarray, ['y_wd_1_leapyear', 0, $y_wd_1_leapyear ]);
+( $d_cw_1_leapyear == 52 * 1 )? $pass++: array_push( $failarray, ['d_cw_1_leapyear', 52 * 1, $d_cw_1_leapyear ]);
+( $s_cw_1_leapyear == 86400 * 7 * 52 )? $pass++: array_push( $failarray, ['s_cw_1_leapyear', 86400 * 7 * 52 * 1, $s_cw_1_leapyear ]);
+( $m_cw_1_leapyear == 1400 * 7 * 52 )? $pass++: array_push( $failarray, ['m_cw_1_leapyear', 1400 * 52 * 1, $m_cw_1_leapyear ]);
+( $h_cw_1_leapyear ==  24 * 7 * 52 )? $pass++: array_push( $failarray, ['h_cw_1_leapyear', 24 * 7 * 52 * 1, $h_cw_1_leapyear ]);
+( $y_cw_1_leapyear == 0 )? $pass++: array_push( $failarray, ['y_cw_1_leapyear', 0, $y_cw_1_leapyear ]);
 
 /////////////////////////////////////
 //              2 Years            ///
 ////////////////////////////////////////
 $date1 = new DateTime( "2018-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
 $date2 = new DateTime( "2020-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
-$d_td_730_day = $aligent->getTotalDaysBetween( $date1, $date2 ); //
-$s_td_730_day = $aligent->getTotalDaysBetween( $date1, $date2 , 1 ); // 
-$m_td_730_day = $aligent->getTotalDaysBetween( $date1, $date2, 2 ); // 
-$h_td_730_day = $aligent->getTotalDaysBetween( $date1, $date2, 3 ); // 
-$y_td_730_day = $aligent->getTotalDaysBetween( $date1, $date2, 4 ); //
-$d_wd_730_day = $aligent->getweekdaysBetween( $date1, $date2 ); //
-$s_wd_730_day = $aligent->getweekdaysBetween( $date1, $date2 , 1 ); // 
-$m_wd_730_day = $aligent->getweekdaysBetween( $date1, $date2, 2 ); // 
-$h_wd_730_day = $aligent->getweekdaysBetween( $date1, $date2, 3 ); // 
-$y_wd_730_day = $aligent->getweekdaysBetween( $date1, $date2, 4 ); // 
-$d_cw_730_day = $aligent->getcompleteWeeks( $date1, $date2 ); //
-$s_cw_730_day = $aligent->getcompleteWeeks( $date1, $date2 , 1 ); // 
-$m_cw_730_day = $aligent->getcompleteWeeks( $date1, $date2, 2 ); // 
-$h_cw_730_day = $aligent->getcompleteWeeks( $date1, $date2, 3 ); // 
-$y_cw_730_day = $aligent->getcompleteWeeks( $date1, $date2, 4 ); // 
-( $d_td_730_day == 730 - 1)? $pass++ : array_push( $failarray, ['d_td_730_day',  730 - 1, $d_td_730_day ]);
-( $s_td_730_day == 86400 * ( 730 - 1 ) )? $pass++: array_push( $failarray, ['s_td_730_day', 86400 * ( 730 - 1 ), $s_td_730_day ]);
-( $m_td_730_day == 1400 * ( 730 - 1 ))? $pass++: array_push( $failarray, ['m_td_730_day', 14000 * ( 730 - 1 ), $m_td_730_day ]);
-( $h_td_730_day == 24 * ( 730 - 1 ))? $pass++: array_push( $failarray, ['h_td_730_day', 24 * ( 730 - 1 ), $h_td_730_day ]);
-( $y_td_730_day == 1 )? $pass++: array_push( $failarray, ['y_td_730_day', 1, $y_td_730_day ]);
-( $d_wd_730_day == 52 * 5 * 2 + 1 )? $pass++: array_push( $failarray, ['d_wd_730_day', 52 * 5 * 2 + 1, $d_wd_730_day ]);
-( $s_wd_730_day == 86400 * 52 * 5 )? $pass++: array_push( $failarray, ['s_wd_730_day', 86400 * 52 * 5, $s_wd_730_day ]);
-( $m_wd_730_day == 1400 * 52 * 5 )? $pass++: array_push( $failarray, ['m_wd_730_day', 1400 * 52 * 5, $m_wd_730_day ]);
-( $h_wd_730_day == 24 * 52 * 5 )? $pass++: array_push( $failarray, ['h_wd_730_day', 24 * 10, $h_wd_730_day ]);
-( $y_wd_730_day == 0 )? $pass++: array_push( $failarray, ['y_wd_730_day', 0, $y_wd_730_day ]);
-( $d_cw_730_day == 52 * 1 )? $pass++: array_push( $failarray, ['d_cw_730_day', 52 * 1, $d_cw_730_day ]);
-( $s_cw_730_day == 86400 * 7 * 52 * 1 )? $pass++: array_push( $failarray, ['s_cw_730_day', 86400 * 7 * 52 * 1, $s_cw_730_day ]);
-( $m_cw_730_day == 1400 * 7 * 52 * 1 )? $pass++: array_push( $failarray, ['m_cw_730_day', 1400 * 7 * 52 * 1, $m_cw_730_day ]);
-( $h_cw_730_day ==  24 * 7 * 52 * 1 )? $pass++: array_push( $failarray, ['h_cw_730_day', 24 * 7 * 52 * 1, $h_cw_730_day ]);
-( $y_cw_730_day == 52 * 2 - 1 )? $pass++: array_push( $failarray, ['y_cw_730_day', 52 * 2 - 1, $y_cw_730_day ]);
+$d_td_2_year = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+$s_td_2_year = $aligent->getTotalDaysBetween( $date1, $date2 , 1 ); // 
+$m_td_2_year = $aligent->getTotalDaysBetween( $date1, $date2, 2 ); // 
+$h_td_2_year = $aligent->getTotalDaysBetween( $date1, $date2, 3 ); // 
+$y_td_2_year = $aligent->getTotalDaysBetween( $date1, $date2, 4 ); //
+$d_wd_2_year = $aligent->getweekdaysBetween( $date1, $date2 ); //
+$s_wd_2_year = $aligent->getweekdaysBetween( $date1, $date2 , 1 ); // 
+$m_wd_2_year = $aligent->getweekdaysBetween( $date1, $date2, 2 ); // 
+$h_wd_2_year = $aligent->getweekdaysBetween( $date1, $date2, 3 ); // 
+$y_wd_2_year = $aligent->getweekdaysBetween( $date1, $date2, 4 ); // 
+$d_cw_2_year = $aligent->getcompleteWeeks( $date1, $date2 ); //
+$s_cw_2_year = $aligent->getcompleteWeeks( $date1, $date2 , 1 ); // 
+$m_cw_2_year = $aligent->getcompleteWeeks( $date1, $date2, 2 ); // 
+$h_cw_2_year = $aligent->getcompleteWeeks( $date1, $date2, 3 ); // 
+$y_cw_2_year = $aligent->getcompleteWeeks( $date1, $date2, 4 ); // 
+( $d_td_2_year == 730 - 1)? $pass++ : array_push( $failarray, ['d_td_2_year',  730 - 1, $d_td_2_year ]);
+( $s_td_2_year == 86400 * ( 730 - 1 ) )? $pass++: array_push( $failarray, ['s_td_2_year', 86400 * ( 730 - 1 ), $s_td_2_year ]);
+( $m_td_2_year == 1400 * ( 730 - 1 ))? $pass++: array_push( $failarray, ['m_td_2_year', 14000 * ( 730 - 1 ), $m_td_2_year ]);
+( $h_td_2_year == 24 * ( 730 - 1 ))? $pass++: array_push( $failarray, ['h_td_2_year', 24 * ( 730 - 1 ), $h_td_2_year ]);
+( $y_td_2_year == 1 )? $pass++: array_push( $failarray, ['y_td_2_year', 1, $y_td_2_year ]);
+( $d_wd_2_year == 52 * 5 * 2 + 1 )? $pass++: array_push( $failarray, ['d_wd_2_year', 52 * 5 * 2 + 1, $d_wd_2_year ]);
+( $s_wd_2_year == 86400 * ( 52 * 5 * 2 + 1 ) )? $pass++: array_push( $failarray, ['s_wd_2_year', 86400 * 52 * 52 * 5 * 2 + 1, $s_wd_2_year ]);
+( $m_wd_2_year == 1400 * ( 52 * 5 * 2 + 1 ) )? $pass++: array_push( $failarray, ['m_wd_2_year', 1400 * 52 * 52 * 5 * 2 + 1, $m_wd_2_year ]);
+( $h_wd_2_year == 24 * ( 52 * 5 * 2 + 1 ) )? $pass++: array_push( $failarray, ['h_wd_2_year', 24 * 52 * 5 * 252 * 5 * 2 + 1, $h_wd_2_year ]);
+( $y_wd_2_year == 1 )? $pass++: array_push( $failarray, ['y_wd_2_year', 1, $y_wd_2_year ]);
+( $d_cw_2_year == ( 52 * 2 ) - 1 )? $pass++: array_push( $failarray, ['d_cw_2_year', ( 52 * 2 )  - 1 , $d_cw_2_year ]);
+( $s_cw_2_year == 86400 * 7 * ( 52 * 2 ) - 1  )? $pass++: array_push( $failarray, ['s_cw_2_year', 86400 * 7 * ( 52 * 2 ) - 1 , $s_cw_2_year ]);
+( $m_cw_2_year == 1400 * 7 * ( 52 * 2 ) - 1  )? $pass++: array_push( $failarray, ['m_cw_2_year', 1400 * 7 * 52 * 1, $m_cw_2_year ]);
+( $h_cw_2_year ==  24 * 7 * ( 52 * 2 ) - 1  )? $pass++: array_push( $failarray, ['h_cw_2_year', 24 * 7 * ( 52 * 2 ) - 1 , $h_cw_2_year ]);
+( $y_cw_2_year == 52 * 2 - 1 )? $pass++: array_push( $failarray, ['y_cw_2_year', 52 * 2 - 1, $y_cw_2_year ]);
 
 /////////////////////////////////////
 //              2 Leap Year        ///
 ////////////////////////////////////////
 $date1 = new DateTime( "1988-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
 $date2 = new DateTime( "1997-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
-$d_td_732_day = $aligent->getTotalDaysBetween( $date1, $date2 ); //
-$s_td_732_day = $aligent->getTotalDaysBetween( $date1, $date2 , 1 ); // 
-$m_td_732_day = $aligent->getTotalDaysBetween( $date1, $date2, 2 ); // 
-$h_td_732_day = $aligent->getTotalDaysBetween( $date1, $date2, 3 ); // 
-$y_td_732_day = $aligent->getTotalDaysBetween( $date1, $date2, 4 ); //
-$d_wd_732_day = $aligent->getweekdaysBetween( $date1, $date2 ); //
-$s_wd_732_day = $aligent->getweekdaysBetween( $date1, $date2 , 1 ); // 
-$m_wd_732_day = $aligent->getweekdaysBetween( $date1, $date2, 2 ); // 
-$h_wd_732_day = $aligent->getweekdaysBetween( $date1, $date2, 3 ); // 
-$y_wd_732_day = $aligent->getweekdaysBetween( $date1, $date2, 4 ); // 
-$d_cw_732_day = $aligent->getcompleteWeeks( $date1, $date2 ); //
-$s_cw_732_day = $aligent->getcompleteWeeks( $date1, $date2 , 1 ); // 
-$m_cw_732_day = $aligent->getcompleteWeeks( $date1, $date2, 2 ); // 
-$h_cw_732_day = $aligent->getcompleteWeeks( $date1, $date2, 3 ); // 
-$y_cw_732_day = $aligent->getcompleteWeeks( $date1, $date2, 4 ); // 
-( $d_td_732_day == 3287 )? $pass++ : array_push( $failarray, ['d_td_732_day', 3287, $d_td_732_day ]);
-( $s_td_732_day == 86400 * 3287 )? $pass++: array_push( $failarray, ['s_td_732_day', 86400 * 3287, $s_td_732_day ]);
-( $m_td_732_day == 1400 * 3287 )? $pass++: array_push( $failarray, ['m_td_732_day', 14000 * 3287, $m_td_732_day ]);
-( $h_td_732_day == 24 * 3287)? $pass++: array_push( $failarray, ['h_td_732_day', 24 * 3287, $h_td_732_day ]);
-( $y_td_732_day == 0 )? $pass++: array_push( $failarray, ['y_td_732_day', 0, $y_td_732_day ]);
-( $d_wd_732_day == 260 + 1 )? $pass++: array_push( $failarray, ['d_wd_732_day', 260 + 1, $d_wd_732_day ]);
-( $s_wd_732_day == 86400 * ( 260 + 1 ) )? $pass++: array_push( $failarray, ['s_wd_732_day', 86400 * ( 260 + 1 ), $s_wd_732_day ]);
-( $m_wd_732_day == 1400 * ( 260 + 1 ) )? $pass++: array_push( $failarray, ['m_wd_732_day', 1400 * ( 260 + 1 ) , $m_wd_732_day ]);
-( $h_wd_732_day == 24 * ( 260 + 1 ) )? $pass++: array_push( $failarray, ['h_wd_732_day', 24 * ( 260 + 1 ), $h_wd_732_day ]);
-( $y_wd_732_day == 0 )? $pass++: array_push( $failarray, ['y_wd_732_day', 0, $y_wd_732_day ]);
-( $d_cw_732_day == 52 * 1 )? $pass++: array_push( $failarray, ['d_cw_732_day', 52 * 1, $d_cw_732_day ]);
-( $s_cw_732_day == 86400 * 7 * 52 )? $pass++: array_push( $failarray, ['s_cw_732_day', 86400 * 7 * 52 * 1, $s_cw_732_day ]);
-( $m_cw_732_day == 1400 * 7 * 52 )? $pass++: array_push( $failarray, ['m_cw_732_day', 1400 * 52 * 1, $m_cw_732_day ]);
-( $h_cw_732_day ==  24 * 7 * 52 )? $pass++: array_push( $failarray, ['h_cw_732_day', 24 * 7 * 52 * 1, $h_cw_732_day ]);
-( $y_cw_732_day == 1 )? $pass++: array_push( $failarray, ['y_cw_732_day', 1, $y_cw_732_day ]);
+$d_td_2_leapyear = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+$s_td_2_leapyear = $aligent->getTotalDaysBetween( $date1, $date2 , 1 ); // 
+$m_td_2_leapyear = $aligent->getTotalDaysBetween( $date1, $date2, 2 ); // 
+$h_td_2_leapyear = $aligent->getTotalDaysBetween( $date1, $date2, 3 ); // 
+$y_td_2_leapyear = $aligent->getTotalDaysBetween( $date1, $date2, 4 ); //
+$d_wd_2_leapyear = $aligent->getweekdaysBetween( $date1, $date2 ); //
+$s_wd_2_leapyear = $aligent->getweekdaysBetween( $date1, $date2 , 1 ); // 
+$m_wd_2_leapyear = $aligent->getweekdaysBetween( $date1, $date2, 2 ); // 
+$h_wd_2_leapyear = $aligent->getweekdaysBetween( $date1, $date2, 3 ); // 
+$y_wd_2_leapyear = $aligent->getweekdaysBetween( $date1, $date2, 4 ); // 
+$d_cw_2_leapyear = $aligent->getcompleteWeeks( $date1, $date2 ); //
+$s_cw_2_leapyear = $aligent->getcompleteWeeks( $date1, $date2 , 1 ); // 
+$m_cw_2_leapyear= $aligent->getcompleteWeeks( $date1, $date2, 2 ); // 
+$h_cw_2_leapyear = $aligent->getcompleteWeeks( $date1, $date2, 3 ); // 
+$y_cw_2_leapyear = $aligent->getcompleteWeeks( $date1, $date2, 4 ); // 
+( $d_td_2_leapyear == 3287 )? $pass++ : array_push( $failarray, ['d_td_2_leapyear', 3287, $d_td_2_leapyear ]);
+( $s_td_2_leapyear == 86400 * 3287 )? $pass++: array_push( $failarray, ['s_td_2_leapyear', 86400 * 3287, $s_td_2_leapyear ]);
+( $m_td_2_leapyear == 1400 * 3287 )? $pass++: array_push( $failarray, ['m_td_2_leapyear', 14000 * 3287, $m_td_2_leapyear ]);
+( $h_td_2_leapyear == 24 * 3287)? $pass++: array_push( $failarray, ['h_td_2_leapyear', 24 * 3287, $h_td_2_leapyear ]);
+( $y_td_2_leapyear == 8 )? $pass++: array_push( $failarray, ['y_td_2_leapyear', 8, $y_td_2_leapyear ]);
+( $d_wd_2_leapyear == 2349 )? $pass++: array_push( $failarray, ['d_wd_2_leapyear', 2349, $d_wd_2_leapyear ]);
+( $s_wd_2_leapyear == 86400 * 2349 )? $pass++: array_push( $failarray, ['s_wd_2_leapyear', 86400 * 2349, $s_wd_2_leapyear ]);
+( $m_wd_2_leapyear == 1400 * 2349 )? $pass++: array_push( $failarray, ['m_wd_2_leapyear', 1400 * 2349, $m_wd_2_leapyear ]);
+( $h_wd_2_leapyear == 24 * 2349 )? $pass++: array_push( $failarray, ['h_wd_2_leapyear', 24 * 2349, $h_wd_2_leapyear ]);
+( $y_wd_2_leapyear == 8 )? $pass++: array_push( $failarray, ['y_wd_2_leapyear', 8, $y_wd_2_leapyear ]);
+( $d_cw_2_leapyear == 469 )? $pass++: array_push( $failarray, ['d_cw_2_leapyear', 52 * 1, $d_cw_2_leapyear ]);
+( $s_cw_2_leapyear == 86400 * 469 )? $pass++: array_push( $failarray, ['s_cw_2_leapyear', 86400 * 469, $s_cw_2_leapyear ]);
+( $m_cw_2_leapyear == 1400 * 469 )? $pass++: array_push( $failarray, ['m_cw_2_leapyear', 1400 * 52 * 1, $m_cw_2_leapyear ]);
+( $h_cw_2_leapyear ==  24 * 469 )? $pass++: array_push( $failarray, ['h_cw_2_leapyear', 24 * 469, $h_cw_2_leapyear ]);
+( $y_cw_2_leapyear == 8 )? $pass++: array_push( $failarray, ['y_cw_2_leapyear', 8, $y_cw_2_leapyear ]);
+
+/////////////////////////////////////
+//              TZ TESTS           ///
+///////////////////////////////////////
+/* $London = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "" ) ); // -12
+$London = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "" ) ); // -11 
+$Hawaii = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Hawaii" ) ); // -10
+$Marquesas = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Marquesas" ) ); // -95
+$Alaska = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Alaska" ) ); // -9
+$California = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "California" ) ); // -8
+$Yukon = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Yukon" ) ); // -7
+$Saskatchewan = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Saskatchewan" ) ); // -6
+$Havana = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Havana" ) ); // -5
+$Santiago = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Santiago" ) ); // -4
+$NewFoundland = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "NewFoundland" ) ); // -3.5*/
+//$Salvador = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Salvador" ) ); // -3
+//$London = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Europe/London" ) ); // -2
+//$Azores = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Azores" ) ); // -1
+$London = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Europe/London" ) ); // +0
+$Paris = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Europe/Paris" ) ); // +1
+//$date2 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Tripoli" ) ); // +2
+//$date3 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Baghdad" ) ); // +3
+//$date35 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Tehran" ) ); // +3.5
+//$date4 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Abu Dhabi" ) ); // +4
+//$date5 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Karachi" ) ); // +5
+//$date55 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Mumbai" ) ); // +5.5
+//$date545 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Kathmandu" ) ); // +5.45
+//$date6 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Africa/Dhaka" ) ); // +6
+//$date65 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Rangoon" ) ); // +6.5
+//$date7 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Hovd" ) ); // +7
+$Perth = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Australia/Perth" ) ); // +8
+//$date85 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Eucia" ) ); // +85
+$Seoul = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Asia/Seoul" ) ); // +9
+$Adelaide = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // +95
+$Hobart = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Australia/Hobart" ) ); // +10
+//$date105 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "AustraliaLord Howe Is." ) ); // +10.5
+//$date11 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Solomon Is." ) ); // +11
+//$date12 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Fiji" ) ); // +12
+//$date10 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "New Zealand/Auckland" ) ); // +12
+//$date1245 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Catham Is." ) ); // +1245
+//$date13 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Samoa" ) ); // +13
+//$date14 = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "Kiritimati Is." ) ); // +14
+
+$d_td_2_day_TZ_minus_1 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+$s_td_2_day_TZ_minus_1 = $aligent->getTotalDaysBetween( $date1, $date2, 1 ); //
+$m_td_2_day_TZ_minus_1 = $aligent->getTotalDaysBetween( $date1, $date2, 2 ); //
+$h_td_2_day_TZ_minus_1 = $aligent->getTotalDaysBetween( $date1, $date2, 3 ); //
+$y_td_2_day_TZ_minus_1 = $aligent->getTotalDaysBetween( $date1, $date2, 4 ); //
+
+( $d_td_2_day_TZ_minus_1 == 2 )? $pass++: array_push( $failarray, ['d_td_2_day_TZ_minus_1', 2, $d_td_2_day_TZ_minus_1 ]);
+( $s_td_2_day_TZ_minus_1 == 2 )? $pass++: array_push( $failarray, ['s_td_2_day_TZ_minus_1', 2, $s_td_2_day_TZ_minus_1 ]);
+( $m_td_2_day_TZ_minus_1 == 2 )? $pass++: array_push( $failarray, ['m_td_2_day_TZ_minus_1', 2, $m_td_2_day_TZ_minus_1 ]);
+( $h_td_2_day_TZ_minus_1 == 2 )? $pass++: array_push( $failarray, ['h_td_2_day_TZ_minus_1', 2, $h_td_2_day_TZ_minus_1 ]);
+( $y_td_2_day_TZ_minus_1 == 2 )? $pass++: array_push( $failarray, ['y_td_2_day_TZ_minus_1', 2, $y_td_2_day_TZ_minus_1 ]);
 
 ############################################
 ##              RESULTS SCREEN            ##

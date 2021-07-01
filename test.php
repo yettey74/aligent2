@@ -4,8 +4,8 @@ $aligent = new Aligent();
 /////////////////////////////////////
 //              2 Leap Year        ///
 ////////////////////////////////////////
-$date1 = new DateTime( "2021-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
-$date2 = new DateTime( "2022-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date1 = new DateTime( "1988-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "1997-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
 
 echo '<br>';
 echo 'Start date : ' . ( $date1 )->format('c');
