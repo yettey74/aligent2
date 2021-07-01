@@ -38,9 +38,8 @@ Class Aligent extends DateTime
             $date2 = new DateTime( $date2 );
         }  
 
-        $frog = 365;
-        $leaps = $this->frogger( $date1, $date2 );
-        $frogLeaps = $frog + $leaps;
+        $frog = 365; // our frog has a set number of days to leap
+        $leap = $this->frogger( $date1, $date2 ); // sets the amount of leaps         
         $splice = 1;
 
         $days = $this->getTotalDays( $date1, $date2 );
@@ -52,12 +51,34 @@ Class Aligent extends DateTime
         if( is_int( $flag ) ){
             $splice = $this->getSplice( $flag - 1 );
         }
-
-        if( $flag == 4 ){            
-            return floor( $days / $frogLeaps );
-        } else {
-            return floor( $days * $splice );
+    
+        if( $flag == '' ){ // we jsut return default days
+            return $days;
         }
+
+        if( $flag == 1 ){ // we want seconds 
+            return $days * $splice;      
+        }
+
+        if( $flag == 2 ){ // we want minutes 
+            return $days * $splice;      
+        }
+        
+        if( $flag == 3 ){ // we want hours 
+            return $days * $splice;    
+        }
+        
+        if( $flag == 4 ){ // we want years 
+            if( $leap > 0 ){                
+                return floor( $days / ( $frog + 1 ) );
+            } else {
+                if( floor( ( $days - 1 ) / $frog ) < 0 ){
+                    return floor( ( $days ) / $frog );
+                } else {                
+                    return floor( ( $days - 1 ) / $frog ); // accounting for leap year when there is none
+                }
+            }
+        }     
         
         return 0;
     }
@@ -80,15 +101,9 @@ Class Aligent extends DateTime
             $date2 = new DateTime( $date2 );
         }  
 
-         if( is_int( $flag ) ){
-            $splice = $this->getSplice( $flag - 1 );
-        } else {
-            $splice = 1;
-        }   
-
-        $frog = 365;
-        $leaps = $this->frogger( $date1, $date2 );
-        $frogLeaps = $frog + $leaps;
+        $frog = 365; // our frog has a set number of days to leap
+        $leap = $this->frogger( $date1, $date2 ); // sets the amount of leaps         
+        $splice = 1;
         $days = $this->getTotalDaysBetween( $date1, $date2 ); // account for inbetween
 
         $weeks_difference = floor( $days / 7 ); // how many int units
@@ -103,14 +118,34 @@ Class Aligent extends DateTime
 
         $weekdays = ($weeks_difference * 5 ) + $days_remainder ;
 
-        if( $flag == 4 ){ 
-            ( $frogger )?? $frog++;            
-            $days = floor( $days / $frog );
-        } else {
-            $days = floor( $weekdays * $splice );
+        if( is_int( $flag ) ){
+            $splice = $this->getSplice( $flag - 1 );
+        }
+    
+        if( $flag == '' ){ // we jsut return default days
+            return $weekdays;
         }
 
-        return $days;
+        if( $flag == 1 ){ // we want seconds 
+            return  $weekdays * $splice;
+        }
+
+        if( $flag == 2 ){ // we want minutes 
+            return $weekdays * $splice;      
+        }
+        
+        if( $flag == 3 ){ // we want hours 
+            return $weekdays * $splice;    
+        }
+        
+        if( $flag == 4 ){ // we want years
+            if( floor( ( $weekdays - 1 ) / $frog ) < 0 ){
+                return floor( ( $weekdays ) / 7 ) ;
+            } else {                
+                // accounting for leap year when there is none and week being 7 days to make sure we throw a stable floor
+                return ( floor( ( $weekdays ) / $frog ) / 6 ); 
+            }            
+        } 
     }
     
     /**
@@ -284,8 +319,17 @@ Class Aligent extends DateTime
         $endYear = $this->_getYear( $date2 );
         $totalYears = $endYear - $startYear;   
 
-        // we want to see how many leap years are in there so we floor totalYears / 4
+        // start with no leaps and adjust along the way
         $leap = 0;
+
+        // if the totyears > 4 then we know there is at least a leap
+        // but we want to know how many leaps exist between date1 && date 2
+        // so we can find the floor of totalyears / 4 (4/4 = 1, 7/4 = 1.75)
+        if( $leap > 0 ){
+            $leap = $leap + floor( $totalYears / 4 ) -1; // we adjust as we count the end twice
+        } else {
+            $leap = $leap + floor( $totalYears / 4 ); // we adjust as we count the end twice
+        }
 
         $startDate = ( $date1 < $date2 )? $date1 : $date2;
         $endDate = ( $date1 > $date2 )? $date1 : $date2;
@@ -295,24 +339,28 @@ Class Aligent extends DateTime
         
         // we might have a leap year, so lets do the math 
         /* if( $totalYears > 0 ){      */ 
-            // lets be defensive and check if the start date is before next leap year  
-            if( $startDate < $leapDayStart && $leapDayStart != false )
-            {
-                $leap++;            
-            }     
-
-            // lets be defensive and check if the end date is after next leap year            
-            if( $endDate > $leapDayEnd && $leapDayEnd != false)
+            // lets be defensive and check if the start date is before next leap year 
+        if( $this->_isLeap( $startDate ) ){ 
+            if( $startDate < $leapDayStart )
             {
                 $leap++;
-            } 
+            }      
+        }   
 
-            return $leap; // we have at least 1 leap year
+        if( $this->_isLeap( $endDate ) ){
+            if( $endDate > $leapDayEnd )
+            {
+               $leap++;
+            }
+        }
+
+        return $leap; // we have at least 1 leap year
       /*   } else {
             return 0; // we didnt need extra compute time so we just pass 0
-        } */
+        } 
 
         return 0;
-    }
+    }*/
+}
 }
 ?>

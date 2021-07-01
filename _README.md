@@ -255,6 +255,8 @@ Updated ``` filename erro400.php->error400.php ```
 * Removed ``` Manual Test Units ```
 #### Updated MarkDown File
 ##### README.md
+***
+***
 ## Version 0.5.0
 #### Prepare file structure for submission
 * Removed  ``` index.html ```
@@ -269,6 +271,7 @@ Updated ``` filename erro400.php->error400.php ```
 * Updated  ``` api.php ```
 #### Updated MarkDown File
 ##### README.md
+***
 ## Version 0.5.1
 #### Adding sandbox for DateTime Object
 * Added ``` Sandbox Folder ```
@@ -276,6 +279,7 @@ Updated ``` filename erro400.php->error400.php ```
 * Added ``` test.php ```
 * Added ``` testapi.php ```
 * Added ``` README.md ```
+***
 ## Version 0.5.2
 #### Moved Date library and test bed to SandboxDateLibrary
 * Moved ``` api.php --> sandBoxLibrary/api.php ``` 
@@ -285,8 +289,10 @@ Updated ``` filename erro400.php->error400.php ```
 * Moved ``` sandbox/test.php --> test.php ``` 
 * Moved ``` sandbox/testapi.php --> testapi.php ``` 
 * Updated ``` sandbox/--> sandboxDateTimeLibrary/ ``` 
+***
 ## Version 0.5.3
 #### Documented the aligent class
+* Added ``` Doc stubs to each function ```
 #### aligent.class.php 
 * Added ``` Doc stubs to each function ```
 * Added ``` _setFeb29End() ```
@@ -294,6 +300,20 @@ Updated ``` filename erro400.php->error400.php ```
 #### Increased amount of tests
 #### testapi.php 
 * Updated ``` more tests for Multi Leap year   ```
+#### Reworked output script to be more readable for quick testing
+#### test.php 
+* Updated ``` output script  ```
+***
+## Version 0.5.4
+#### Updated aligent class
+#### aligent.class.php 
+* Added ``` Doc stubs to each function ```
+* Added ``` _setFeb29End() ```
+* Updated ``` _setFeb29() --> _setFeb29Start() ```
+* Updated ``` frogger() ```
+#### Increased amount of tests
+#### testapi.php 
+* Updated ``` Test if/then to ternary script  ```
 #### Reworked output script to be more readable for quick testing
 #### test.php 
 * Updated ``` output script  ```

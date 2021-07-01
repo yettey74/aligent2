@@ -4,8 +4,8 @@ $aligent = new Aligent();
 /////////////////////////////////////
 //              2 Leap Year        ///
 ////////////////////////////////////////
-$date1 = new DateTime( "1988-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
-$date2 = new DateTime( "1997-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date1 = new DateTime( "2021-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "2022-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
 
 echo '<br>';
 echo 'Start date : ' . ( $date1 )->format('c');
@@ -23,10 +23,10 @@ echo ( $aligent->_isLeap( $date1 ))? 'True' : 'False';
 echo '<br>';
 $frog_start = $aligent->_setFeb29Start( $date1 )->format('c');
 echo ( $date1 )->format('c');
-if( $date1 < $frog_start ){
-    echo ' is not ';
-} else {
+if( $date1 > $frog_start ){
     echo ' is ';
+} else {
+    echo ' is not ';
 }
 echo 'before ' . $frog_start ;
 echo '<br>';
@@ -37,7 +37,7 @@ echo ( $aligent->_isLeap( $date2 ))? 'True' : 'False';
 echo '<br>';
 $frog_end = $aligent->_setFeb29End( $date2 )->format('c');
 echo ( $date2 )->format('c');
-if( $date2 > $frog_end ){
+if( $date2 < $frog_end ){
     echo ' is ';
 } else {
     echo ' is not ';
@@ -59,4 +59,5 @@ echo 'Total Weekdays : ' . $aligent->getweekdaysBetween( $date1, $date2 );
 echo '<br>';
 echo 'Complete Weeks: ' . $aligent->getcompleteWeeks( $date1, $date2 );
 echo '<br>';
+
 ?>
