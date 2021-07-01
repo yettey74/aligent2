@@ -285,3 +285,6 @@ Updated ``` filename erro400.php->error400.php ```
 * Moved ``` sandbox/test.php --> test.php ``` 
 * Moved ``` sandbox/testapi.php --> testapi.php ``` 
 * Updated ``` sandbox/--> sandboxDateTimeLibrary/ ``` 
+## Version 0.5.3
+#### Documented the aligent class
+* Added ``` Doc stubs to each function ```

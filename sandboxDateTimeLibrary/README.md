@@ -27,9 +27,5 @@
 ## Version re-writed :-)
 * fixed bug with days -> used '%a' to get total days not jsut days in month
 
-
-
-
 ## wishlist
-#### Find solution for DateTime adjust by year 
 #### Leap year adjust

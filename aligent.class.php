@@ -162,6 +162,15 @@ Class Aligent extends DateTime
         return 0;
     }
 
+    /**
+     *  Return the timeing requried to splice the day 
+     * requested by api call
+     * 
+     * @param Integer $flag
+     * 
+     * @return Integer
+     * 
+     */
     Public function getSplice( $flag ){
         if( !is_null( $flag ) ){
             $spliceArray = ['86400', '1400', '24', '31622400'];
@@ -173,10 +182,25 @@ Class Aligent extends DateTime
         return 0;
     }
 
+    /**
+     *  Return the year of a date 
+     * 
+     * @param Datetime|String $date
+     * 
+     * 
+     */
     Public function _getYear( $date ){
         return $date->format('Y');
     }
- 
+
+    /**
+     *  Return if year is a leap year 
+     * 
+     * @param Datetime|String $date
+     * 
+     * @return Boolean
+     * 
+     */ 
     Public function _isLeap( $date ){
         $year = $date->format( 'Y' );
         $start = new DateTime("$year-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
@@ -185,6 +209,14 @@ Class Aligent extends DateTime
         return ( $this->getTotalDays( $start, $end ) > 364 )? true : false;        
     }
 
+    /**
+     *  Return Date object set to YYYY-Feb 29
+     * 
+     * @param Datetime|String $date
+     * 
+     * @return Datetime
+     * 
+     */
     Public function _setFeb29( $date ){  
         $_isLeap = $this->_isLeap( $date );
         $year = $date->format( 'Y' );
@@ -201,6 +233,14 @@ Class Aligent extends DateTime
         return false;
     } 
 
+    /**
+     *  Return Count of Leapyears inbetween $date1, $date2
+     * 
+     * @param Datetime|String $date1, $date2
+     * 
+     * @return Integer
+     * 
+     */
     Public function frogger( $date1, $date2 ){
 
         if( !( $date1 instanceof DateTime ) ){
