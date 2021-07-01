@@ -276,4 +276,12 @@ Updated ``` filename erro400.php->error400.php ```
 * Added ``` test.php ```
 * Added ``` testapi.php ```
 * Added ``` README.md ```
-
+## Version 0.5.2
+#### Moved Date library and test bed to SandboxDateLibrary
+* Moved ``` api.php --> sandBoxLibrary/api.php ``` 
+* Moved ``` testunit.php --> sandBoxLibrary/api.php ``` 
+* Moved ``` thyme.class.php --> sandBoxLibrary/thyme.class.php ``` 
+* Moved ``` sandbox/aligent.class.php --> aligent.class.php ``` 
+* Moved ``` sandbox/test.php --> test.php ``` 
+* Moved ``` sandbox/testapi.php --> testapi.php ``` 
+* Updated ``` sandbox/--> sandboxDateTimeLibrary/ ``` 
