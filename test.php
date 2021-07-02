@@ -1,17 +1,57 @@
 <?php
 require 'aligent.class.php';
 $aligent = new Aligent();
-$short = date('1-1-21'); // year prefix 20 unless year > this year we revert to 19
-$long = date('1-1-2021');
-$long2 = date('1-1-2021');
-$shortTime = date('1-1-21 00:00:00'); // year prefix 20 unless year > this year we revert to 19
-$longtime = date('1-1-2021 00:00:00');
+$singleyearslash = date('1/1/1'); //2001-01-01T00:00:00+00:00
+$singleyearhyphen = date('1-1-1'); //2001-01-01T00:00:00+00:00
+$shortString = '1-1-21'; // 2021-01-01T00:00:00+00:00
+$shortdate = date('1-1-21'); // 2021-01-01T00:00:00+00:00
+$short01 = date('01-01-01'); //2001-01-01T00:00:00+00:00
+$short10 = date('1-1-10'); // 2010-01-01T00:00:00+00:00
+$short11 = date('1-1-11'); // 2011-01-01T00:00:00+00:00
+$short50 = date('1-1-50'); // 2050-01-01T00:00:00+00:00
+$short99 = date('1-1-99'); // 1999-01-01T00:00:00+00:00
+$short100 = date('1-1-100'); // 0100-01-01T00:00:00+00:00
+$short1000 = date('1-1-1000'); // 1000-01-01T00:00:00+00:00
+$long = date('1-1-2021'); // 2021-01-01T00:00:00+00:00
+$shortTime = date('1-1-21 12:00:00'); // 2021-01-01T00:00:00+00:00
+$longtime = date('1-1-2021 00:00:00'); // 2021-01-01T00:00:00+00:00
+$shortTimeT = date('1-1-21T00:00:00'); // 2021-01-01T00:00:00+00:00
+$formedString_TZ_false = date('1-1-2021T00:00:00'); // 2021-01-01T00:00:00+00:00
+$formedString_TZ_true = date('1-1-2021T00:00:00+00:00'); // 2021-01-01T00:00:00+00:00
+$formedString_TZ_00 = date('1/1/2021T00:00:00+00:00'); // 2021-01-01T00:00:00+00:00
+$formedString_TZ_12 = date('1/1/2021T00:00:00+12:00'); // 2021-01-01T00:00:00+00:00
+
+// SET DATE HERE //
+$dateString = $short10;
+
+// Time strings .. also check for things like AM/PM
+$hour12 = '00:00:00'; // Limit
+$hour12 = '00:00:01'; // Limit
+$hour12 = '1:01:01'; // in range
+$hour12 = '1:01:01 AM'; // in range
+$hour12 = '12:00:00'; // Limit
+$hour24 = '24:00:00'; // limit
+$hour24 = '25:00:00'; // OOB Return 00:00:00
+$hour24 = '-1:00:00'; // OOB Return 00:00:00
+$hour24 = 'a:00:00'; // OOB Return 00:00:00
+
+// we can check if T is already present
+// if not then append T to end of Date 
+// append time
+// if there is a TZ then we append a Z to the end of time
+
+// TZ strings -- many so lets use UTC, adelaide
+
+$concantdate = $shortString . '' . $hour12;
+
+
+$date1 = $aligent->_dateConverter( $dateString );
 
 /////////////////////////////////////
 //              2 Leap Year        ///
 ////////////////////////////////////////
-$date1 = new DateTime( "1988-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
-$date2 = new DateTime( "1997-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+/* $date1 = new DateTime( "1988-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); */
+$date2 = new DateTime( "1997-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); 
 
 
 /* $datetest1 = $date1;
@@ -64,7 +104,7 @@ echo ( $aligent->_isLeap( $date2 ))? 'True' : 'False';
 echo '<br>';
 $frog_end = $aligent->_setFeb29End( $date2 )->format('c');
 echo ( $date2 )->format('c');
-if( $date2 < $frog_end ){
+if( $date2 > $frog_end ){
     echo ' is ';
 } else {
     echo ' is not ';

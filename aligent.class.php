@@ -312,7 +312,134 @@ Class Aligent extends DateTime
             return $leapDay = new DateTime("$nextLeap-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
         }
         return false;
-    } 
+    }
+    
+    /**
+     *  Strips date from string 
+     * 
+     * @param Datetime|String $date
+     * 
+     * @return date|String
+     * 
+     */
+    Public function _getDate( $date ){
+        if( $date instanceof DateTime ){
+            return $date;
+        }
+        /* echo '<br>' .  */$thisDate = $date;
+        /* echo '<br>'; */
+        // lets get the first digits
+        /* echo '<br>Chunk : ' .  */$thisDay = strstr( $thisDate, '-', true );
+        /* echo '<br>Chunk : ' .  */$day = $this->_formDigits( $thisDay );
+
+        /* echo '<br>Chunk : ' .  */$chunk = strstr( $thisDate, '-', false );
+        /* echo '<br>Chunk : ' .  */$tempDate = substr( $chunk, 1 );
+
+        /* echo '<br>Chunk : ' .  */$thisMonth = strstr( $tempDate, '-', true );
+        /* echo '<br>Chunk : ' .  */$month = $this->_formDigits( $thisMonth );
+        /* echo '<br>Chunk : ' .  */$chunk = strstr( $tempDate, '-', false );
+        /* echo '<br>Chunk : ' .  */$tempDate = substr( $chunk, 1 );
+        if( strpos( $date, 'T') == true ){
+            /* echo '<br>Chunk : ' .  */$thisYear = strstr( $tempDate, 'T', true );
+        } else {
+            /* echo '<br>Chunk : ' .  */$thisYear = $tempDate;
+        }
+        /* echo '<br>Year : ' .  */$year = $this->_formDigits( $thisYear );
+
+        /* echo '<br>Year : ' .  */$date = $year .'-' . $month . '-' . $day;
+
+        return $date;
+    }
+    
+    /**
+     *  Strips time from string 
+     * 
+     * @param Datetime|String $date
+     * 
+     * @return time|String
+     * 
+     */
+    Public function _getTime( $date ){
+        if( $date instanceof DateTime ){
+            return $date;
+        }
+        $thisTime = '00:00:00';
+
+        if( strpos( $date, ':' ) == true ){
+          /*   echo '<br>' . $date; */
+            /* echo '<br>Year : ' .  */$tempTime = '00:00:00';
+            // reverse the order of the date strings
+            //echo '<br>';
+            //get all after the T
+            /* echo '<br>Year : ' .  */$tempTime = strstr( $date, 'T', false );
+            /* echo '<br>Year : ' .  */$tempTime = substr( $tempTime, 1 ); // strip the T
+            /* echo '<br>Year : ' .  */$hour = $this->_formDigits( strstr( $tempTime, ':', true ) );
+            //echo '<br>';
+            /* echo '<br>Year : ' .  */$tempTime = $this->_formDigits( strstr( $tempTime, ':', false ) );
+            /* echo '<br>Year : ' .  */$tempTime = substr( $tempTime, 1 );
+            //echo $tempDate;
+            /* echo '<br>Year : ' .  */$min = $this->_formDigits( strstr( $tempTime, ':', true ) );
+            //echo '<br>';
+            /* echo '<br>Year : ' .  */$tempTime = $this->_formDigits( strstr( $tempTime, ':', false ) );
+            /* echo '<br>Year : ' .  */$tempTime = substr( $tempTime, 1 );
+            //echo $tempDate;
+            /* echo '<br>Year : ' .  */$sec = $this->_formDigits( strstr( $tempTime, 'T', true ) );
+            //echo '<br>';
+            /* echo '<br>Time post : ' .   */$thisTime = $hour .':' . $min . ':' . $sec;
+        }
+
+        return $thisTime;
+    }
+
+    /**
+     *  Strips Timezone from string 
+     * 
+     * @param Datetime|String $date
+     * 
+     * @return tz|String
+     * 
+     */
+    Public function _getZone( $date ){
+        if( $date instanceof DateTime ){
+            return $date;
+        }
+        $thisZone = $date;
+        $tzHours = '00';
+        $tzMinutes = '00';
+
+        if( strpos( $date, '+') == true ){
+            /* echo '<br>' .  */$tzString = strstr( $thisZone, '+', false ); // get all after +
+
+            /* echo '<br> Hours' .  */$tzHours = $this->_formDigits( strstr( $tzString, ':', true ) );
+            /* echo '<br> Hours' .  */$tzHours = substr( $tzHours, 1 );
+            /* echo '<br>' .  */$tzMinutes = $this->_formDigits( strstr( $tzString, ':', false ) ); 
+            /* echo '<br> Minutes' .  */$tzMinutes = substr( $tzMinutes, 1 );   
+            /* echo '<br>' .  */$thisZone = $tzHours .':' . $tzMinutes;
+        } else {
+            $thisZone = '00:00';
+        }  
+
+        return $thisZone;
+    }
+
+    /**
+     *  Strips date from string 
+     * 
+     * @param Datetime|String $date
+     * 
+     * @return date|String
+     * 
+     */
+    Public function _formDigits( $digit ){ 
+        $thisDigits = 0;   
+        if( $digit <= 9 && $digit >= 0 ){
+            $thisDigits = str_pad( $digit, 2, '0', STR_PAD_LEFT);
+        } else {
+            $thisDigits = $digit;
+        }
+       
+        return $thisDigits;
+    }
 
     /**
      *  Checks the format of the string being passed in
@@ -323,44 +450,42 @@ Class Aligent extends DateTime
      * @return Datetime
      * 
      */
-    Public function _isDateGood( $date ){
-        // we can breakdownthestring to check if '-' or '/' is true
-        if( strpos( $date, '/') == true || strpos( $date, '-') == true ){
-            $posSlash = strpos( $date, '/');
-            $posHyphen = strpos( $date, '-');
+    Public function _dateConverter( $date ){
+        //we want to know what format the date is in
+        $thisDate = $date;
+        $hyphen = ( strpos( $date, '-' ) == true )? true : false;
+        $slash = ( strpos( $date, '/' ) == true )? true : false;
+        $colon = ( strpos( $date, ':' ) == true )? true : false;
+        $char_T = ( strpos( $date, 'T' ) == true )? true : false;
+        $char_z = ( strpos( $date, 'Z' ) == true )? true : false;
+        $plus = ( strpos( $date, '+' ) == true )? true : false;
+        $blank = ( strpos( $date, ' ' ) == true )? true : false;
+        $utc = ( strpos( $date, 'UTC' ) == true )? true : false;
 
-            $pos = ( $posSlash > 0 )? $posSlash : $posHyphen;
-            // get first chars before seperator    
-            $firstDigitSet = strstr( $date, '-', true);    
-            $bitOfString1 = strstr( $date, '-', false);  
-            $chunk1 = substr( $bitOfString1, 1); 
-            if( $firstDigitSet <= 9 && $firstDigitSet > 0 ){
-                $firstDigitSet = str_pad( $firstDigitSet, 2, '0', STR_PAD_LEFT);
-            }
-            $secondDigitSet =  strstr( $chunk1, '-', true); 
-            if( $secondDigitSet <= 9 && $secondDigitSet > 0 ){
-                $secondDigitSet = str_pad( $secondDigitSet, 2, '0', STR_PAD_LEFT);
-            }     
-            $bitOfString2 = strstr( $date, '-', false);  
-            $thirdDigitSet = substr( $bitOfString2, 3);  
-
-            // format the string properly for DateTime()
-            $thisDate = $thirdDigitSet . '-' . $secondDigitSet .'-' . $firstDigitSet ;
-            echo 'String : ' . $thisDate;
-            echo '<br>';
-
-            $formattedDate = new DateTime( $thisDate );
-          /*   if(  $formattedDate instanceof DateTime ){
-                $formattedDate->setTimeZone( new DateTimeZone("Australia/Adelaide") );
-            } */
-            
-            echo 'Format in function ' . ($formattedDate)->format('c');
-            return $formattedDate;
-        } else {
-            return 0;
+        // lets start checking the date part first
+        if( $slash == true ){
+            // lets change them to hyphens to be consistent
+            $thisDate = str_replace( '/', '-', $thisDate );
         }
 
-        return 0;
+        // lets start checking the date part first
+        if( $utc == true ){
+            // lets change them to hyphens to be consistent
+            $thisDate = str_replace( 'UTC', 'T', $thisDate );
+        }
+
+        // lets start checking the date part first
+        if( $blank == true ){
+            // lets change them to hyphens to be consistent
+             $thisDate = str_replace( ' ', 'T', $thisDate );
+        }
+
+        echo '<br>' . $thisDate;
+        $form_date = $this->_getdate( $thisDate );
+        $form_time = $this->_getTime( $thisDate );
+        $form_zone = $this->_getZone( $thisDate );
+
+        return new DateTime( $form_date . 'T' . $form_time . '+' . $form_zone );
     } 
 
     /**

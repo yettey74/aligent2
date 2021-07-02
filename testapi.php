@@ -445,7 +445,7 @@ $y_cw_2_year = $aligent->getcompleteWeeks( $date1, $date2, 4 ); //
 
 /////////////////////////////////////
 //              2 Leap Year        ///
-////////////////////////////////////////
+///////////////////////////////////////
 $date1 = new DateTime( "1988-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
 $date2 = new DateTime( "1997-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
  
@@ -479,6 +479,138 @@ $y_cw_2_leapyear = $aligent->getcompleteWeeks( $date1, $date2, 4 ); //
 ( $m_cw_2_leapyear == 1400 * 469 * 7 )? $pass++: array_push( $failarray, ['m_cw_2_leapyear', 1400 * 469 * 7, $m_cw_2_leapyear ]);
 ( $h_cw_2_leapyear ==  24 * 469 * 7 )? $pass++: array_push( $failarray, ['h_cw_2_leapyear', 24 * 469 * 7, $h_cw_2_leapyear ]);
 ( $y_cw_2_leapyear == 8 )? $pass++: array_push( $failarray, ['y_cw_2_leapyear', 8, $y_cw_2_leapyear ]);
+
+/////////////////////////////////////
+//     0 Leap Year  result = 1     ///
+// days in leap year start  = true //// 
+// days in leap year end = true     //// 
+// Start > Feb 29                    //// 
+// End > Feb 29                       //// 
+///////////////////////////////////////////
+$date1 = new DateTime( "1988-03-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "1988-03-03T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$d_td_0_ly_start_end_true = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $d_td_0_ly_start_end_true == 1 )? $pass++ : array_push( $failarray, ['d_td_0_ly_start_end_true', 1, $d_td_0_ly_start_end_true ]);
+
+/////////////////////////////////////
+//     0 Leap Year  result = 1     ///
+// days in leap year start  = true //// 
+// days in leap year end = true     //// 
+// Start < Feb 29                    //// 
+// End < Feb 29                       //// 
+///////////////////////////////////////////
+$date1 = new DateTime( "1988-02-26T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "1988-02-28T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$d_td_start_false_end_false = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $d_td_start_false_end_false == 1 )? $pass++ : array_push( $failarray, ['d_td_start_false_end_false', 1, $d_td_start_false_end_false ]);
+
+/////////////////////////////////////
+//     0 Leap Year  result = 1     ///
+// days in leap year start  = true //// 
+// days in leap year end = true     //// 
+// Start < Feb 29                    //// 
+// End > Feb 29                       //// 
+///////////////////////////////////////////
+$date1 = new DateTime( "1988-02-28T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "1988-03-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$d_td_start_false_end_true = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $d_td_start_false_end_true == 1 )? $pass++ : array_push( $failarray, ['d_td_start_false_end_true', 1, $d_td_start_false_end_true ]);
+
+/////////////////////////////////////
+//     0 Leap Year  result = 1     ///
+// days in leap year start  = true //// 
+// days in leap year end = true     //// 
+// Start = Feb 29                    //// 
+// End > Feb 29                       //// 
+///////////////////////////////////////////
+$date1 = new DateTime( "1988-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "1988-03-02T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$d_td_start_equal_end_true = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $d_td_start_equal_end_true == 1 )? $pass++ : array_push( $failarray, ['d_td_start_equal_end_true', 1, $d_td_start_equal_end_true ]);
+
+/////////////////////////////////////
+//     0 Leap Year  result = 1     ///
+// days in leap year start  = true //// 
+// days in leap year end = true     //// 
+// Start < Feb 29                    //// 
+// End = Feb 29                       //// 
+///////////////////////////////////////////
+$date1 = new DateTime( "1988-02-27T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "1988-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$d_td_start_equal_end_true = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $d_td_start_equal_end_true == 1 )? $pass++ : array_push( $failarray, ['d_td_start_equal_end_true', 1, $d_td_start_equal_end_true ]);
+
+/////////////////////////////////////
+//     0 Leap Year  result = 0     ///
+// days in leap year start  = true //// 
+// days in leap year end = true     //// 
+// Start = Feb 29                    //// 
+// End = Feb 29                       //// 
+///////////////////////////////////////////
+$date1 = new DateTime( "1988-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "1988-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$d_td_start_equal_end_true = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $d_td_start_equal_end_true == 0 )? $pass++ : array_push( $failarray, ['d_td_start_equal_end_true', 0, $d_td_start_equal_end_true ]);
+
+/////////////////////////////////////
+//     1 Leap Year  result = 1460  ///
+// days in leap year start  = true //// 
+// days in leap year end = true     //// 
+// Start = Feb 29                    //// 
+// End = Feb 29                       //// 
+///////////////////////////////////////////
+$date1 = new DateTime( "1988-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "1992-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$d_td_start_equal_end_true = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $d_td_start_equal_end_true == 1460 )? $pass++ : array_push( $failarray, ['d_td_start_equal_end_true', 1460, $d_td_start_equal_end_true ]);
+
+/////////////////////////////////////
+//     1 Leap Year  result = 1459  ///
+// days in leap year start  = true //// 
+// days in leap year end = true     //// 
+// Start > Feb 29                    //// 
+// End = Feb 29                       //// 
+///////////////////////////////////////////
+$date1 = new DateTime( "1988-03-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "1992-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$d_td_start_equal_end_true = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $d_td_start_equal_end_true == 1459 )? $pass++ : array_push( $failarray, ['d_td_start_equal_end_true', 1459, $d_td_start_equal_end_true ]);
+
+/////////////////////////////////////
+//     1 Leap Year  result = 1462  ///
+// days in leap year start  = true //// 
+// days in leap year end = true     //// 
+// Start < Feb 29                    //// 
+// End = Feb 29                       //// 
+///////////////////////////////////////////
+$date1 = new DateTime( "1988-02-27T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "1992-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$d_td_start_equal_end_true = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $d_td_start_equal_end_true == 1462 )? $pass++ : array_push( $failarray, ['d_td_start_equal_end_true', 1462, $d_td_start_equal_end_true ]);
+
+/////////////////////////////////////
+//     1 Leap Year  result = 1463  ///
+// days in leap year start  = true //// 
+// days in leap year end = true     //// 
+// Start < Feb 29                    //// 
+// End > Feb 29                       //// 
+///////////////////////////////////////////
+$date1 = new DateTime( "1988-02-27T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "1992-03-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$d_td_start_equal_end_true = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $d_td_start_equal_end_true == 1463 )? $pass++ : array_push( $failarray, ['d_td_start_equal_end_true', 1463, $d_td_start_equal_end_true ]);
+
+/////////////////////////////////////
+//     1 Leap Year  result = 1460  ///
+// days in leap year start  = true //// 
+// days in leap year end = true     //// 
+// Start < Feb 29                    //// 
+// End < Feb 29                       //// 
+///////////////////////////////////////////
+$date1 = new DateTime( "1988-02-27T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "1992-02-27T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$d_td_start_equal_end_true = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $d_td_start_equal_end_true == 1460 )? $pass++ : array_push( $failarray, ['d_td_start_equal_end_true', 1460, $d_td_start_equal_end_true ]);
 
 /////////////////////////////////////
 //              TZ TESTS           ///

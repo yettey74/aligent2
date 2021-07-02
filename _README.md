@@ -1,8 +1,21 @@
-# aligent2
+# Aligent2
 Date Calc
 [Yettey74@github](https://www.github.com/yettey74/aligent2 "Aligent2") 
 ### Created 25/06/2021
 ### Author Scot Henderson
+***
+## Description
+### Takes 2 dates and:
+### Returns
+#### 1. total days between
+#### 2. total week days
+#### 3. complete weeks
+### Flags
+#### a. Days ( default )
+#### b. seconds
+#### c. minutes
+#### d. hours
+#### e. years
 ***
 ## Version 0.0.1
 ### Create Pseudo scaffold
@@ -341,7 +354,7 @@ Updated ``` filename erro400.php->error400.php ```
 ## Version 0.6.1 -- 180 Bug Free Results
 ### Update to handle poorly formed date strings
 #### aligent.class.php 
-* Added ``` _isGoodDate_ ```
+* Added ``` _isGoodDate() ```
 * Updated ``` Check to see which date is used first ```
 * Updated ``` frogger()  ``` Now returning ABS() for negative leap years
 #### testapi.php
@@ -365,16 +378,38 @@ Updated ``` filename erro400.php->error400.php ```
 ### Updated MarkDown File
 #### README.md
 ***
-
+## Version 0.6.4 -- 206 Bug Free Results
+#### aligent.class.php 
+* Added ``` _formDigits() ```
+* Added ``` _getTime() ```
+* Added ``` _getZone() ```
+* Updated ``` _isGoodDate() -> _dateConverter() ```
+* Updated ``` _getDate() ```
+#### testapi.php
+* Added ``` Leap year tests ```
+### Updated MarkDown File
+#### README.md
 ***
+***
+## ERROR LOG
+### errors noticed and need to be fixed
+1. Selects Leap year ahead + 1 instead of next leap year<br>
+``` Is Start date in a Leap Year : False ```
+``` 2021-01-01T00:00:00+00:00 is before 2026-03-01T00:00:00+00:00 ```
+### 1 Solution
+#### ??  ```_setLeapYear()```
+***
+2. Year = 01 passes as Year 2000
+#### Updated to check for 'T' in string ```_getDate()```
+***
+3.  Year = 50 passes as Year 2050
+### 3 Solution 
+#### we need to look at the DateTime class to understand what it does with year digits ```_getYear()```
+?? unix timestamp not formatting properly or is it the dateTimeFormatter ??
+***
+***
+
 # WishList
-### Add tests for limits < 02-29 , == 02-29, > 02-29
-* add ``` 0 Leap year test ``` 1988-02-26 to 1988-2-28
-* add ``` 1 Leap year test ``` 1988-02-26 to 1992-3-1
-* add ``` 1 Leap year test ``` 1988-02-26 to 1996-2-28
-* add ``` 2 Leap year test ``` 1988-02-26 to 1996-3-1
-* add ``` 2 Leap year test ``` 1988-02-26 to 1996-2-28
-* add ``` 3 Leap year test ``` 1988-02-26 to 1996-3-1
 ### Add tests for poorly formed date() and time() and TZ() strings
 * add ``` Unix  based timestamps converted by DateTime->setTimestamp() ```
 * add ``` Abilty to create a time string with setTime() ```
