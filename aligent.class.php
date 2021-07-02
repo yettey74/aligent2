@@ -128,7 +128,7 @@ Class Aligent extends DateTime
         }
 
         if( $flag == 1 ){ // we want seconds 
-            return  $weekdays * $splice;
+            return $weekdays * $splice ;
         }
 
         if( $flag == 2 ){ // we want minutes 
@@ -142,16 +142,16 @@ Class Aligent extends DateTime
         if( $flag == 4 ){ // we want years
             if( $days > 365){
                 //copensate for floor off by 1 in result
-                return floor( ( $weekdays / $frog ) / 7 ) + 1;
+                return floor( ( $weekdays / 5 ) / 52 ) - 1 ; // acount for leap year in count
             } else {
-                return floor( ( $weekdays / $frog ) / 7 );
+                return floor( ( $weekdays / $frog ) );
             }
              
-            } else {                
-                // accounting for leap year when there is none and week being 7 days to make sure we throw a stable floor
-                return floor( ( ( $weekdays ) / $frog ) / 7 ); 
-            }            
-        } 
+        } else {                
+            // accounting for leap year when there is none and week being 7 days to make sure we throw a stable floor
+            return floor( $weekdays * $splice );
+        }            
+    } 
     
     
     /**
@@ -203,7 +203,7 @@ Class Aligent extends DateTime
             
             if( $flag == 4 ){ // we want years 
                 if( $days > 365 ){                
-                    return floor( $weeks / ( $frog + 1 ) ) + 1; // adjust as we have a full year
+                    return floor( $weeks / 52 ) - 1; // take 1 away due to floor rounding up
                 } else {
                     return floor( $weeks / ( $frog ) );
                 } 

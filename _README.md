@@ -350,14 +350,22 @@ Updated ``` filename erro400.php->error400.php ```
 #### README.md
 ***
 ## Version 0.6.2
-#### aligent.class.php 
-* Updated ``` More tests ```
-
 #### testapi.php
 * Added ``` More tests ```
 ### Updated MarkDown File
 #### README.md
 ***
+## Version 0.6.3
+### Bug found on leapyear testing
+#### aligent.class.php 
+* Updated ``` getcompleteWeeks() ```
+* Updated ``` getweekdaysBetween() ```
+#### testapi.php
+* Added ``` Fixed result expected errors ```
+### Updated MarkDown File
+#### README.md
+***
+
 ***
 # WishList
 ### Add tests for limits < 02-29 , == 02-29, > 02-29

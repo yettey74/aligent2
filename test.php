@@ -7,8 +7,15 @@ $long2 = date('1-1-2021');
 $shortTime = date('1-1-21 00:00:00'); // year prefix 20 unless year > this year we revert to 19
 $longtime = date('1-1-2021 00:00:00');
 
-$datetest1 = $long;
-$datetest2 = $long2;
+/////////////////////////////////////
+//              2 Leap Year        ///
+////////////////////////////////////////
+$date1 = new DateTime( "1988-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "1997-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+
+
+/* $datetest1 = $date1;
+$datetest2 = $date2;
 
 $tempDate1 = new DateTime();
 $tempDate2 = new DateTime();
@@ -22,10 +29,10 @@ if( !( $datetest2 instanceof DateTime ) ){
     //$tempDate2 = $aligent->_isDateGood( $datetest2 )->format('c'); 
     $tempDate2 = new DateTime( $datetest2 );  
     $tempDate2->setTimeZone( new DateTimeZone("Australia/Sydney") );
-}
+} */
 
-$date1 = new DateTime( $tempDate1 );
-$date2 = new DateTime( $tempDate2 );
+/* $date1 = new DateTime( $tempDate1 );
+$date2 = new DateTime( $tempDate2 ); */
 
 echo '<br>';
 echo 'Start date : ' . ( $date1 )->format('c');

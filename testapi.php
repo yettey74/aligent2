@@ -448,7 +448,7 @@ $y_cw_2_year = $aligent->getcompleteWeeks( $date1, $date2, 4 ); //
 ////////////////////////////////////////
 $date1 = new DateTime( "1988-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
 $date2 = new DateTime( "1997-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
-/* 
+ 
 $d_td_2_leapyear = $aligent->getTotalDaysBetween( $date1, $date2 ); //
 $s_td_2_leapyear = $aligent->getTotalDaysBetween( $date1, $date2 , 1 ); // 
 $m_td_2_leapyear = $aligent->getTotalDaysBetween( $date1, $date2, 2 ); // 
@@ -474,12 +474,12 @@ $y_cw_2_leapyear = $aligent->getcompleteWeeks( $date1, $date2, 4 ); //
 ( $m_wd_2_leapyear == 1400 * 2349 )? $pass++: array_push( $failarray, ['m_wd_2_leapyear', 1400 * 2349, $m_wd_2_leapyear ]);
 ( $h_wd_2_leapyear == 24 * 2349 )? $pass++: array_push( $failarray, ['h_wd_2_leapyear', 24 * 2349, $h_wd_2_leapyear ]);
 ( $y_wd_2_leapyear == 8 )? $pass++: array_push( $failarray, ['y_wd_2_leapyear', 8, $y_wd_2_leapyear ]);
-( $d_cw_2_leapyear == 469 )? $pass++: array_push( $failarray, ['d_cw_2_leapyear', 52 * 1, $d_cw_2_leapyear ]);
-( $s_cw_2_leapyear == 86400 * 469 )? $pass++: array_push( $failarray, ['s_cw_2_leapyear', 86400 * 469, $s_cw_2_leapyear ]);
-( $m_cw_2_leapyear == 1400 * 469 )? $pass++: array_push( $failarray, ['m_cw_2_leapyear', 1400 * 52 * 1, $m_cw_2_leapyear ]);
-( $h_cw_2_leapyear ==  24 * 469 )? $pass++: array_push( $failarray, ['h_cw_2_leapyear', 24 * 469, $h_cw_2_leapyear ]);
+( $d_cw_2_leapyear == 469 )? $pass++: array_push( $failarray, ['d_cw_2_leapyear', 469, $d_cw_2_leapyear ]);
+( $s_cw_2_leapyear == 86400 * 469 * 7 )? $pass++: array_push( $failarray, ['s_cw_2_leapyear', 86400 * 469 * 7, $s_cw_2_leapyear ]);
+( $m_cw_2_leapyear == 1400 * 469 * 7 )? $pass++: array_push( $failarray, ['m_cw_2_leapyear', 1400 * 469 * 7, $m_cw_2_leapyear ]);
+( $h_cw_2_leapyear ==  24 * 469 * 7 )? $pass++: array_push( $failarray, ['h_cw_2_leapyear', 24 * 469 * 7, $h_cw_2_leapyear ]);
 ( $y_cw_2_leapyear == 8 )? $pass++: array_push( $failarray, ['y_cw_2_leapyear', 8, $y_cw_2_leapyear ]);
- */
+
 /////////////////////////////////////
 //              TZ TESTS           ///
 ///////////////////////////////////////
