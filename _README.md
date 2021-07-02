@@ -406,6 +406,26 @@ Updated ``` filename erro400.php->error400.php ```
 ### 3 Solution 
 #### we need to look at the DateTime class to understand what it does with year digits ```_getYear()```
 ?? unix timestamp not formatting properly or is it the dateTimeFormatter ??
+
+4. Total years incorrect for large dates
+01-01-01
+
+Start date : 0001-01-01T00:00:00+00:00
+Start Year : 0001
+
+End date : 1997-01-01T00:00:00+00:00
+End Year : 1997
+
+Is Start date in a Leap Year : False
+0001-01-01T00:00:00+00:00 is before 2006-03-01T00:00:00+00:00
+
+Is End date in a Leap Year : False
+1997-01-01T00:00:00+00:00 is after 1996-02-29T00:00:00+00:00
+
+Total Days Between Years: --> 1991 <--
+answer should be 1996
+Total Weekdays : 520731
+Complete Weeks: 104146
 ***
 ***
 

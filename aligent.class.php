@@ -243,7 +243,32 @@ Class Aligent extends DateTime
      * 
      */
     Public function _getYear( $date ){
-        return $date->format('Y');
+        if( $date instanceof DateTime ){
+            return $date->format('Y');
+        } else {
+            // pluck year from string
+            $thisDate = $date;
+            /* echo '<br>'; */
+            // lets get the first digits
+            /* echo '<br>Chunk : ' .  */$thisDay = strstr( $thisDate, '-', true );
+            /* echo '<br>Chunk : ' .  */$day = $this->_formDigits( $thisDay );
+
+            /* echo '<br>Chunk : ' .  */$chunk = strstr( $thisDate, '-', false );
+            /* echo '<br>Chunk : ' .  */$tempDate = substr( $chunk, 1 );
+
+            /* echo '<br>Chunk : ' .  */$thisMonth = strstr( $tempDate, '-', true );
+            /* echo '<br>Chunk : ' .  */$month = $this->_formDigits( $thisMonth );
+            /* echo '<br>Chunk : ' .  */$chunk = strstr( $tempDate, '-', false );
+            /* echo '<br>Chunk : ' .  */$tempDate = substr( $chunk, 1 );
+            if( strpos( $date, 'T') == true ){
+                /* echo '<br>Chunk : ' .  */$thisYear = strstr( $tempDate, 'T', true );
+            } else {
+                /* echo '<br>Chunk : ' .  */$thisYear = $tempDate;
+            }
+            /* echo '<br>Year : ' .  */$year = $this->_formDigits( $thisYear );
+        return $year;
+
+        }
     }
 
     /**
@@ -346,9 +371,9 @@ Class Aligent extends DateTime
         }
         /* echo '<br>Year : ' .  */$year = $this->_formDigits( $thisYear );
 
-        /* echo '<br>Year : ' .  */$date = $year .'-' . $month . '-' . $day;
+        /* echo '<br>Year : ' .  */$thisDate = $year .'-' . $month . '-' . $day;
 
-        return $date;
+        return $thisDate;
     }
     
     /**
@@ -481,11 +506,20 @@ Class Aligent extends DateTime
         }
 
         echo '<br>' . $thisDate;
-        $form_date = $this->_getdate( $thisDate );
+       /*  $form_date = $this->_getdate( $thisDate );
         $form_time = $this->_getTime( $thisDate );
         $form_zone = $this->_getZone( $thisDate );
 
-        return new DateTime( $form_date . 'T' . $form_time . '+' . $form_zone );
+        return new DateTime( $form_date . 'T' . $form_time . '+' . $form_zone ); */
+
+        //check if it is less than 2000 and subtract 2000 - (2000 - year ) = correct year
+        // year = 50 --> 2000 - ( 2000 - 50 ) = 50
+        // pass this as a modify( -'$year' year ) and check if we get the right year
+        /* echo '<br>' .  */$year = $this->_getYear( $thisDate );
+        $year_adjust = 2001 - $year;
+        $dateObject = new DateTime( $thisDate );
+        $dateObject->modify( '-' . $year_adjust . ' year');
+        return $dateObject;
     } 
 
     /**

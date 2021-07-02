@@ -22,7 +22,7 @@ $formedString_TZ_00 = date('1/1/2021T00:00:00+00:00'); // 2021-01-01T00:00:00+00
 $formedString_TZ_12 = date('1/1/2021T00:00:00+12:00'); // 2021-01-01T00:00:00+00:00
 
 // SET DATE HERE //
-$dateString = $short10;
+$dateString = $short01;
 
 // Time strings .. also check for things like AM/PM
 $hour12 = '00:00:00'; // Limit
@@ -47,11 +47,9 @@ $concantdate = $shortString . '' . $hour12;
 
 $date1 = $aligent->_dateConverter( $dateString );
 
-/////////////////////////////////////
-//              2 Leap Year        ///
-////////////////////////////////////////
-/* $date1 = new DateTime( "1988-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); */
-$date2 = new DateTime( "1997-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); 
+//$date1 = new DateTime( "1988-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date2 = new DateTime( "1988-01-03T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+$date3 = new DateTime( "1997-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); 
 
 
 /* $datetest1 = $date1;
@@ -104,7 +102,7 @@ echo ( $aligent->_isLeap( $date2 ))? 'True' : 'False';
 echo '<br>';
 $frog_end = $aligent->_setFeb29End( $date2 )->format('c');
 echo ( $date2 )->format('c');
-if( $date2 > $frog_end ){
+if( $date2 < $frog_end ){
     echo ' is ';
 } else {
     echo ' is not ';
