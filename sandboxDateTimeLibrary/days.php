@@ -7,4 +7,16 @@ foreach( $charArray as $char ){
     echo '<br>';
 }
 
+foreach( $charArray as $char ){
+    echo strtoupper( $char ) . ' = ' . date( '' . strtoupper( $char )  . '', $date);
+    echo '<br>';
+}
+
+foreach( $charArray as $x ){
+    foreach( $charArray as $y ){       
+        echo strtoupper( $x ) . $y . ' = ' . date( '' . strtoupper( $x ) . $y . '', $date);
+        echo '<br>';
+    }
+}
+
 ?>

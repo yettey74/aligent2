@@ -26,7 +26,7 @@ $formedString_TZ_12 = date('1/1/2021T00:00:00+12:00'); // 2021-01-01T00:00:00+00
 $dateString = $short_01_leap;
 
 // Time strings .. also check for things like AM/PM
-$hour12 = '00:00:00'; // Limit
+/* $hour12 = '00:00:00'; // Limit
 $hour12 = '00:00:01'; // Limit
 $hour12 = '1:01:01'; // in range
 $hour12 = '1:01:01 AM'; // in range
@@ -36,17 +36,32 @@ $hour24 = '25:00:00'; // OOB Return 00:00:00
 $hour24 = '-1:00:00'; // OOB Return 00:00:00
 $hour24 = 'a:00:00'; // OOB Return 00:00:00
 
-$concantDate = $shortString . '' . $hour12;
+$concantDate = $shortString . '' . $hour12; */
 
-// $date1 = $aligent->_dateConverter( $dateString );
+
+$date1 = 253402214400; // Tuesday 9999-12-31T00:00:00+00:00
+$date2 = new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday 
+
+////////////////////////
+// always scrub dates //
+////////////////////////
+$date1 = $aligent->_dateConverter( $date1 );
+$date2 = $aligent->_dateConverter( $date2 );
 
 // $date1 = new DateTime( "1989-01-13T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
 // $date2 = new DateTime( "1990-01-08T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Teusday
 // $date3 = new DateTime( "1997-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); 
- // $date1 = new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
- $date1 = new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
- $date2 = new DateTime( "2000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Tuesday
-echo '<br>';
+//$date1 = new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
+
+/* 
+$date1 = new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
+$date2 = new DateTime( "2000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Tuesday 
+*/
+
+//$date1 = new DateTime( "-6060-01-03T00:00:00+00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Tuesday
+// $date2 = new DateTime( "9999-12-31T00:00:00+00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Tuesday
+
+
 echo 'Date 1 starts on a ' . ( $date1 )->format( 'l' );
 echo '<br>';
 echo 'Date 2 ends on a ' . ( $date2 )->format( 'l' );
@@ -108,9 +123,9 @@ echo '<br>';
 $frog_end = $aligent->_setFeb29( $date2 )->format('c');
 echo ( $date2 )->format('c');
 if( $date2 < $frog_end ){
-    echo ' is ';
+    echo ' is not';
 } elseif( $date2 > $frog_end ) {
-    echo ' is not ';
+    echo ' is  ';
 } else {
     echo ' === ERROR === ';
 }

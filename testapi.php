@@ -678,6 +678,90 @@ $d_wd_521775_sat_sat = $aligent->getWeekDaysBetween( $date1, $date2 ); //
 ( $d_wd_521775_sat_sat == 521775 )? $pass++ : array_push( $failarray, ['d_wd_521775_sat_sat', 521775, $d_wd_521775_sat_sat ]);
 
 /////////////////////////////////////
+//          STRING TESTS           ///
+///////////////////////////////////////
+$date1 = '0001-1-1'; // Friday
+$date2 = '0001-1-8'; // Tuesday
+$stringTest1 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $stringTest1 == 6 )? $pass++ : array_push( $failarray, ['stringTest1', 6, $stringTest1 ]);
+
+$date1 = '0010-1-1'; // Friday
+$date2 = '0010-1-8'; // Tuesday
+$stringTest2 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $stringTest2 == 6 )? $pass++ : array_push( $failarray, ['stringTest2', 6, $stringTest2 ]);
+
+$date1 = '0010-1-1'; // Friday
+$date2 = '0010-1-8'; // Tuesday
+$stringTest3 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $stringTest3 == 6 )? $pass++ : array_push( $failarray, ['stringTest3', 6, $stringTest3 ]);
+
+/////////////////////////////////////
+//           INTEGER TESTS         ///
+///////////////////////////////////////
+
+$date1 = -62135596800; // Friday
+$date2 = -62135596800; // Tuesday
+$integerTest1 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $integerTest1 == 0 )? $pass++ : array_push( $failarray, ['integerTest1', 0, $integerTest1 ]);
+
+$date1 = -61851600000; // Friday 0010-01-01T00:00:00+00:00
+$date2 = -61850995200; // Friday 0010-01-08T00:00:00+00:00
+$integerTest2 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $integerTest2 == 6 )? $pass++ : array_push( $failarray, ['integerTest2', 6, $integerTest2 ]);
+
+$date1 = -61851600000; // Friday 0010-01-01T00:00:00+00:00
+$date2 = 253402214400; // Friday 9999-12-31T00:00:00+00:0
+$integerTest3 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $integerTest3 == 3648770 )? $pass++ : array_push( $failarray, ['integerTest3', 3648770, $integerTest3 ]);
+
+$date1 = -253402214400; // MIN Tuesday -6060-01-03T00:00:00+00:00 
+$date2 = 253402214400; // MAX Friday 9999-12-31T00:00:00+00:00
+$integerTest4 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $integerTest4 == 5865791 )? $pass++ : array_push( $failarray, ['integerTest4', 5865791, $integerTest4 ]);
+
+//////////////////////////////
+//    STRING && INT TESTS   ///
+////////////////////////////////
+$date1 = '0010-1-1'; // Friday 0010-01-01T00:00:00+00:00
+$date2 = 253402214400; // Friday 9999-12-31T00:00:00+00:00
+$string_int_test1 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $string_int_test1 == 3648770 )? $pass++ : array_push( $failarray, ['string_int_test1', 3648770, $string_int_test1 ]);
+
+$date1 = -62135596800; // 0001/01/01
+$date2 = '0001-1-8'; // Tuesday
+$string_int_test2 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $string_int_test2 == 6 )? $pass++ : array_push( $failarray, ['string_int_test2', 6, $string_int_test2 ]);
+
+//////////////////////////////
+//   STRING && OBJECT TESTS ///
+////////////////////////////////
+$date1 = '0010-1-1'; // Friday
+$date2 =  new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Saturday
+$string_obj_test1 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $string_obj_test1 == 3652 )? $pass++ : array_push( $failarray, ['string_obj_test1', 3652, $string_obj_test1 ]);
+
+$date1 =  new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
+$date2 = '0001-1-8'; // Tuesday
+$string_obj_test2 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $string_obj_test2 == 372 )? $pass++ : array_push( $failarray, ['string_obj_test2', 372, $string_obj_test2 ]);
+
+//////////////////////////////
+//    INT && OBJECT TESTS   ///
+////////////////////////////////
+$date1 = 253402214400; // Tuesday 9999-12-31T00:00:00+00:00
+$date2 = new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday 0000-01-01T00:00:00+00:00
+$int_obj_test1 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $int_obj_test1 == 3652423 )? $pass++ : array_push( $failarray, ['int_obj_test1', 63652423, $int_obj_test1 ]);
+
+
+$date1 = new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
+$date2 = 253402214400; // Saturday 9999-12-31T00:00:00+00:00
+$int_obj_test2 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $int_obj_test2 == 3652423 )? $pass++ : array_push( $failarray, ['int_obj_test2', 3652423, $int_obj_test2 ]);
+
+
+
+/////////////////////////////////////
 //              TZ TESTS           ///
 ///////////////////////////////////////
 /* $London = new DateTime( "2021-01-04T00:00:00Z", new DateTimeZone( "" ) ); // -12

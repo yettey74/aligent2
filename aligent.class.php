@@ -1,6 +1,15 @@
 <?php
 Class Aligent extends DateTime
-{   
+{       
+    const MAX_YEAR_STRING = '9999-31-12T23:59:59+00:00';
+    const MAX_YEAR_INT = '253402214400';
+    const MIN_YEAR_STRING = '-6060-01-03T00:00:00+00:00';
+    const MIN_YEAR_INT = '-253402214400';
+    const MAX_LEAP_STRING = '9996-02-29T23:59:59+00:00';
+    const MAX_LEAP_INT = '';
+    const MIN_LEAP_STRING = '-6060-02-29T00:00:00+00:00';
+    const MIN_LEAP_INT = '';
+
     /**
      *  Return difference between $date1 and $date2
      * 
@@ -30,13 +39,24 @@ Class Aligent extends DateTime
      * 
      */
     Public function getTotalDaysBetween( $date1, $date2, $flag = '' ){
+
         if( !( $date1 instanceof DateTime ) ){
-            $date1 = new DateTime( $date1 );
+            if( is_int( $date1 ) ){
+                $date1 = $this->_dateConverter( $date1 );
+            } else {
+                $date1 = new DateTime( $date1 );
+            }
         }
 
         if( !( $date2 instanceof DateTime ) ){
-            $date2 = new DateTime( $date2 );
-        }  
+            if( is_int( $date2 ) ){
+                $date2 = $this->_dateConverter( $date2 );
+            } else {
+                $date2 = new DateTime( $date2 );
+                ( $date2 )->format('c');
+            }
+        }
+    
         $leap = $this->frogger( $date1, $date2 );
         $splice = 1;
         $days = $this->getTotalDays( $date1, $date2 );
@@ -305,23 +325,6 @@ Class Aligent extends DateTime
     }
 
     /**
-     *  Return true if Friday is start
-     * 
-     * @param Datetime|String $date
-     * 
-     * @return Boolean
-     * 
-     */ 
-    Public function _isMonday( $date ){
-        $day = ( $date )->format( 'w' );
-        
-        if( $day == '1'){
-            return 1;
-        }
-        return 0;        
-    }
-
-    /**
      *  Return if year is a leap year 
      * 
      * @param Datetime|String $date
@@ -332,7 +335,7 @@ Class Aligent extends DateTime
     Public function _isLeap( $date ){
         $year = $date->format( 'Y' );
 
-        if( $year > 0 ){ // YEAR 0000 did not have a leap year
+        if( $year != 0 && $year > -6055 && $year < 9995 ){ // YEAR 0000 did not have a leap year
             $start = new DateTime("$year-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" )); // throws bad year if < 2000
             $end = new DateTime("$year-12-31T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));// throws bad year if < 2000
 
@@ -350,26 +353,28 @@ Class Aligent extends DateTime
      * @return Datetime
      * 
      */
-    Public function _setFeb29( $date ){  
-        $_isLeap = $this->_isLeap( $date );
-
-       /*  echo 'Year : ' .   */$year = $date->format( 'o' );      
-       /*  echo'<br>';  */
-
-        if( $_isLeap == true ) {
-            return $leapDay = new DateTime("$year-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
+    Public function _setFeb29( $date ){ 
+        //the first year cannot be counted due to 4 year = 1 leap day .. must start at 6056
+        // a new circular end = start reference point must exist to deal with this infinite time loop
+        $MinleapDay = new DateTime("-6056-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
+        $MaxleapDay = new DateTime("9996-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
+        
+        if( $date > $MaxleapDay ){
+            $leapDay = $MinleapDay;
+        } elseif( $date > $MinleapDay ){
+            $leapDay = $MinleapDay;
         } else {
-            //0000 (0004 = 0000 + 4 ) ... ( 0000 % 4 = 0 ) ... ( 0000 + 4 - 0  = 4) 
-            /* echo 'Year Remainder : ' .    */$year_remainder = ( $year % 4 ); 
-            /* echo'<br>';  */
-            /* echo 'Year to pass : ' .  */$nextLeap = $this->_formDigits( $year + 4 - $year_remainder );
-            /* echo'<br>';  */
-            $leapDay = new DateTime("$nextLeap-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
-            /* echo 'Year to return : ' .  */($leapDay)->format('c');
-            /* echo'<br>';  */
+            $year = $date->format( 'o' );
+            if( $this->_isLeap( $date) == true ){
+                return $leapDay = new DateTime("$year-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
+            } else {
+                $year_remainder = ( $year % 4 ); 
+                $nextLeap = $this->_formDigits( $year + 4 - $year_remainder );          
+                $leapDay = new DateTime("$nextLeap-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));         
+            }
             return $leapDay;
-        }
-        return false;
+        }        
+        return $MaxleapDay;
     } 
 
     /**
@@ -504,6 +509,25 @@ Class Aligent extends DateTime
     }
 
     /**
+     *  Checks the format of the time Integer being passed in
+     *  If it is not correct then we will dry to transform it
+     * 
+     * @param time|Integer $date
+     * 
+     * @return date|String
+     * 
+     */
+    Public function _timeToDate( $date ){
+        if( $date instanceof DateTime ){
+            return $date;
+        }
+        if( is_string ( $date ) ){
+            return new DateTime( $date );
+        }
+        return date( $date );
+    }
+
+    /**
      *  Checks the format of the string being passed in
      *  If it is not correct then we will dry to transform it
      * 
@@ -515,6 +539,14 @@ Class Aligent extends DateTime
     Public function _dateConverter( $date ){
         //we want to know what format the date is in
         $thisDate = $date;
+        if( $date instanceof DateTime ){ // it is treated like a strtotime output
+            return $date; // int to string we can handle
+        }
+        if( is_int( $date ) ){ // it is treated like a strtotime output
+            return new DateTime( date( 'Y-m-d H:i:s' , $date) ); // int to string we can handle
+        }
+        // else we have a string to deal with
+
         $hyphen = ( strpos( $date, '-' ) == true )? true : false;
         $slash = ( strpos( $date, '/' ) == true )? true : false;
         $colon = ( strpos( $date, ':' ) == true )? true : false;
@@ -542,21 +574,7 @@ Class Aligent extends DateTime
              $thisDate = str_replace( ' ', 'T', $thisDate );
         }
 
-        echo '<br>' . $thisDate;
-       /*  $form_date = $this->_getdate( $thisDate );
-        $form_time = $this->_getTime( $thisDate );
-        $form_zone = $this->_getZone( $thisDate );
-
-        return new DateTime( $form_date . 'T' . $form_time . '+' . $form_zone ); */
-
-        //check if it is less than 2000 and subtract 2000 - (2000 - year ) = correct year
-        // year = 50 --> 2000 - ( 2000 - 50 ) = 50
-        // pass this as a modify( -'$year' year ) and check if we get the right year
-        /* echo '<br>' .  */$year = $this->_getYear( $thisDate );
-        $year_adjust = 2001 - $year;
-        $dateObject = new DateTime( $thisDate );
-        $dateObject->modify( '-' . $year_adjust . ' year');
-        return $dateObject;
+        return  new DateTime( $thisDate );
     } 
 
     /**
@@ -597,7 +615,11 @@ Class Aligent extends DateTime
         $endDate = ( $date1 > $date2 )? $date1 : $date2;
 
         $leapDayStart = $this->_setFeb29( $startDate ); // if not in a leap year !Important return next leap year
-        $leapDayEnd = $this->_setFeb29( $endDate ); // if not in a leap year !Important return next leap year        
+        if( $endDate < new DateTime('9996-02-29T23:59:59+00:00' ) ){// make this a CONST MAXDATE
+            $leapDayEnd = $this->_setFeb29( $endDate ); // if not in a leap year !Important return next leap
+        } else {
+            $leapDayEnd = new DateTime('9996-02-29T23:59:59+00:00' ); // set to last leap day ever
+        }                 
         
         // we might have a leap year, so lets do the math 
         /* if( $totalYears > 0 ){      */ 

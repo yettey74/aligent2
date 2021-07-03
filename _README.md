@@ -406,12 +406,37 @@ Updated ``` filename erro400.php->error400.php ```
 ### Updated MarkDown File
 #### README.md
 ***
+## Version 0.6.6 -- 231 Bug Free Results
+#### aligent.class.php 
+* Added ``` CONST MAX_YEAR_STRING ```
+* Added ``` CONST MAX_YEAR_INT ```
+* Added ``` CONST MIN_YEAR_STRING ``` 
+* Added ``` CONST MIN_YEAR_INT ``` 
+* Added ``` CONST MAX_LEAP_STRING ```
+* Added ``` CONST MAX_LEAP_INT ``` 
+* Added ``` CONST MIN_LEAP_STRING ```
+* Added ``` CONST MIN_LEAP_INT ``` 
+* Added ``` _timeToDate() ``` <br> Converts integer time to string
+* Added ``` _getWeekdayInt() ``` <br> Returns day as int
+* Updated ``` getTotalDaysBetween() ``` <br> Return s object in all instances
+* Updated ``` _dateConverter() ``` <br> Return s object in all instances
+* Updated ``` _setFeb29() ``` <br> Returns object in all instances
+* Updated ``` _setFeb29() ``` <br> Fixed leapyear boundary issue
+* Updated ``` _isLeap() ``` <br> Fixed boundary issue
+* Removed ``` _isMonday() ``` <br> Handled by _getWeekdayInt()
+#### testapi.php
+* Added ``` Tests for string date ```
+* Added ``` Tests for int date ```
+* Added ``` Tests for mixed input date types of string / integer / object ```
+### Updated MarkDown File
+#### README.md
+***
 ***
 ## ERROR LOG
-1. Passing negative years for B.C. offset gregorian calander
-* need to write function when passing date as string to convert -1/-1/-1 to -0001/1/1
+1. Need to find more errors .. try for nasties like null, nan, blank, empty, array, ascii(char)
+2. we could try and check for strings that have RFC formatting diffferent to standard y-m-d h:i:s
+3. we could look at microseconds 'U' being a parameter anyway
 ***
-
 ## WishList
 ### Add tests for poorly formed date() and time() and TZ() strings
 * add ``` Unix  based timestamps converted by DateTime->setTimestamp() ```
@@ -421,5 +446,9 @@ Updated ``` filename erro400.php->error400.php ```
 * add ``` Abilty to Add amount with add() ```
 * add ``` Abilty to Modify amount with modify() ```
 * add ``` Abilty to Subtract amount with sub() ```
+* add ``` Circular infinite reference to leapyear ```<br> All Years have a leap year in time loop ??
 #### 03/07/2021
+#### Atttended
 * add ``` Abilty to Handle negative years ```
+* add ``` Abilty to deal with strtotime() ```
+* add ``` CONSTS ADDED ```
