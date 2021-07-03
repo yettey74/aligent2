@@ -286,10 +286,10 @@ $y_cw_7_day = $aligent->getcompleteWeeks( $date1, $date2, 4 ); //
 ( $m_td_7_day == 1400 * 6 )? $pass++: array_push( $failarray, ['m_td_7_day', 14000 * 6, $m_td_7_day ]);
 ( $h_td_7_day == 24 * 6 )? $pass++: array_push( $failarray, ['h_td_7_day', 24 * 6, $h_td_7_day ]);
 ( $y_td_7_day == 0 )? $pass++: array_push( $failarray, ['y_td_7_day', 0, $y_td_7_day ]);
-( $d_wd_7_day == 1 * 5 )? $pass++: array_push( $failarray, ['d_wd_7_day', 1 * 5, $d_wd_7_day ]);
-( $s_wd_7_day == 86400 * 5 )? $pass++: array_push( $failarray, ['s_wd_7_day', 86400 * 5, $s_wd_7_day ]);
-( $m_wd_7_day == 1400 * 5 )? $pass++: array_push( $failarray, ['m_wd_7_day', 1400 * 5, $m_wd_7_day ]);
-( $h_wd_7_day == 24 * 5 )? $pass++: array_push( $failarray, ['h_wd_7_day', 24 * 5, $h_wd_7_day ]);
+( $d_wd_7_day == 4 )? $pass++: array_push( $failarray, ['d_wd_7_day', 4, $d_wd_7_day ]);
+( $s_wd_7_day == 86400 * 4 )? $pass++: array_push( $failarray, ['s_wd_7_day', 86400 * 4, $s_wd_7_day ]);
+( $m_wd_7_day == 1400 * 4 )? $pass++: array_push( $failarray, ['m_wd_7_day', 1400 * 4, $m_wd_7_day ]);
+( $h_wd_7_day == 24 * 4 )? $pass++: array_push( $failarray, ['h_wd_7_day', 24 * 4, $h_wd_7_day ]);
 ( $y_wd_7_day == 0 )? $pass++: array_push( $failarray, ['y_wd_7_day', 0, $y_wd_7_day ]);
 ( $d_cw_7_day == 0 )? $pass++: array_push( $failarray, ['d_cw_7_day', 0, $d_cw_7_day ]);
 ( $s_cw_7_day == 0 )? $pass++: array_push( $failarray, ['s_cw_7_day', 0, $s_cw_7_day ]);
@@ -322,10 +322,10 @@ $y_cw_14_day = $aligent->getcompleteWeeks( $date1, $date2, 4 ); //
 ( $m_td_14_day == 1400 * 13 )? $pass++: array_push( $failarray, ['m_td_14_day', 14000 * 13, $m_td_14_day ]);
 ( $h_td_14_day == 24 * 13 )? $pass++: array_push( $failarray, ['h_td_14_day', 24 * 13, $h_td_14_day ]);
 ( $y_td_14_day == 0 )? $pass++: array_push( $failarray, ['y_td_14_day', 0, $y_td_14_day ]);
-( $d_wd_14_day == 1 * 10 )? $pass++: array_push( $failarray, ['d_wd_14_day', 1 * 10, $d_wd_14_day ]);
-( $s_wd_14_day == 86400 * 10 )? $pass++: array_push( $failarray, ['s_wd_14_day', 86400 * 10, $s_wd_14_day ]);
-( $m_wd_14_day == 1400 * 10 )? $pass++: array_push( $failarray, ['m_wd_14_day', 1400 * 10, $m_wd_14_day ]);
-( $h_wd_14_day == 24 * 10 )? $pass++: array_push( $failarray, ['h_wd_14_day', 24 * 10, $h_wd_14_day ]);
+( $d_wd_14_day == 1 * 9 )? $pass++: array_push( $failarray, ['d_wd_14_day', 1 * 9, $d_wd_14_day ]);
+( $s_wd_14_day == 86400 * 9 )? $pass++: array_push( $failarray, ['s_wd_14_day', 86400 * 9, $s_wd_14_day ]);
+( $m_wd_14_day == 1400 * 9 )? $pass++: array_push( $failarray, ['m_wd_14_day', 1400 * 9, $m_wd_14_day ]);
+( $h_wd_14_day == 24 * 9 )? $pass++: array_push( $failarray, ['h_wd_14_day', 24 * 9, $h_wd_14_day ]);
 ( $y_wd_14_day == 0 )? $pass++: array_push( $failarray, ['y_wd_14_day', 0, $y_wd_14_day ]);
 ( $d_cw_14_day == 1 )? $pass++: array_push( $failarray, ['d_cw_14_day', 1, $d_cw_14_day ]);
 ( $s_cw_14_day == 86400 * 7 * 1 )? $pass++: array_push( $failarray, ['s_cw_14_day', 86400 * 7 * 1, $s_cw_14_day ]);
@@ -601,7 +601,7 @@ $d_td_start_equal_end_true = $aligent->getTotalDaysBetween( $date1, $date2 ); //
 ( $d_td_start_equal_end_true == 1463 )? $pass++ : array_push( $failarray, ['d_td_start_equal_end_true', 1463, $d_td_start_equal_end_true ]);
 
 /////////////////////////////////////
-//     1 Leap Year  result = 1460  ///
+//     1 Leap Year  result = 1460 ////
 // days in leap year start  = true //// 
 // days in leap year end = true     //// 
 // Start < Feb 29                    //// 
@@ -611,6 +611,71 @@ $date1 = new DateTime( "1988-02-27T00:00:00Z", new DateTimeZone( "Australia/Adel
 $date2 = new DateTime( "1992-02-27T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
 $d_td_start_equal_end_true = $aligent->getTotalDaysBetween( $date1, $date2 ); //
 ( $d_td_start_equal_end_true == 1460 )? $pass++ : array_push( $failarray, ['d_td_start_equal_end_true', 1460, $d_td_start_equal_end_true ]);
+
+
+////////////////////////////
+//     WEEKDAY TESTING   ////
+//////////////////////////////
+$date1 = new DateTime( "1988-01-04T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Monday
+$date2 = new DateTime( "1988-01-04T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Wednesday
+$d_wd_2_mon_mon = $aligent->getWeekDaysBetween( $date1, $date2 ); //
+( $d_wd_2_mon_mon == 0 )? $pass++ : array_push( $failarray, ['d_wd_2_mon_mon', 0, $d_wd_2_mon_mon ]);
+
+$date1 = new DateTime( "1988-01-04T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Monday
+$date2 = new DateTime( "1988-01-05T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Tuesday
+$d_wd_2_mon_tue = $aligent->getWeekDaysBetween( $date1, $date2 ); //
+( $d_wd_2_mon_tue == 0 )? $pass++ : array_push( $failarray, ['d_wd_2_mon_tue', 0, $d_wd_2_mon_tue ]);
+
+$date1 = new DateTime( "1988-01-04T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Monday
+$date2 = new DateTime( "1988-01-06T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Wednesday
+$d_wd_2_mon_wed = $aligent->getWeekDaysBetween( $date1, $date2 ); //
+( $d_wd_2_mon_wed == 1 )? $pass++ : array_push( $failarray, ['d_wd_2_mon_wed', 1, $d_wd_2_mon_wed ]);
+
+$date1 = new DateTime( "1988-01-04T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Monday
+$date2 = new DateTime( "1988-01-07T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Thursday
+$d_wd_2_mon_thu = $aligent->getWeekDaysBetween( $date1, $date2 ); //
+( $d_wd_2_mon_thu == 2 )? $pass++ : array_push( $failarray, ['d_wd_2_mon_thu', 2, $d_wd_2_mon_thu ]);
+
+$date1 = new DateTime( "1988-01-04T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Monday
+$date2 = new DateTime( "1988-01-08T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
+$d_wd_2_mon_fri = $aligent->getWeekDaysBetween( $date1, $date2 ); //
+( $d_wd_2_mon_fri == 3 )? $pass++ : array_push( $failarray, ['d_wd_2_mon_fri', 3, $d_wd_2_mon_fri ]);
+
+$date1 = new DateTime( "1988-01-08T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
+$date2 = new DateTime( "1988-01-11T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Monday
+$d_wd_3_fri_mon = $aligent->getWeekDaysBetween( $date1, $date2 ); //
+( $d_wd_3_fri_mon == 0 )? $pass++ : array_push( $failarray, ['d_wd_3_fri_mon', 0, $d_wd_3_fri_mon ]);
+
+$date1 = new DateTime( "1988-01-08T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
+$date2 = new DateTime( "1988-01-12T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Tuesday
+$d_wd_4_fri_tue = $aligent->getWeekDaysBetween( $date1, $date2 ); //
+( $d_wd_4_fri_tue == 0 )? $pass++ : array_push( $failarray, ['d_wd_4_fri_tue', 0, $d_wd_4_fri_tue ]);
+
+$date1 = new DateTime( "1988-01-08T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
+$date2 = new DateTime( "1988-01-22T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Monday
+$d_wd_14_fri_mon = $aligent->getWeekDaysBetween( $date1, $date2 ); //
+( $d_wd_14_fri_mon == 9 )? $pass++ : array_push( $failarray, ['d_wd_14_fri_mon', 9, $d_wd_14_fri_mon ]);
+
+$date1 = new DateTime( "1988-01-08T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
+$date2 = new DateTime( "1988-01-23T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Tuesday
+$d_wd_15_fri_tue = $aligent->getWeekDaysBetween( $date1, $date2 ); //
+( $d_wd_15_fri_tue == 10 )? $pass++ : array_push( $failarray, ['d_wd_15_fri_tue', 10, $d_wd_15_fri_tue ]);
+
+$date1 = new DateTime( "1989-01-13T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); //
+$date2 = new DateTime( "1990-01-13T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); //
+$d_wd_1_year_fri_mon = $aligent->getWeekDaysBetween( $date1, $date2 ); //
+( $d_wd_1_year_fri_mon == 260 )? $pass++ : array_push( $failarray, ['d_wd_1_year_fri_mon', 260, $d_wd_1_year_fri_mon ]);
+
+$date1 = new DateTime( "1988-01-08T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
+$date2 = new DateTime( "1989-01-08T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Tuesday
+$d_wd_1_leap_fri_mon = $aligent->getWeekDaysBetween( $date1, $date2 ); //
+( $d_wd_1_leap_fri_mon == 261 )? $pass++ : array_push( $failarray, ['d_wd_1_leap_fri_mon', 261, $d_wd_1_leap_fri_mon ]);
+
+
+$date1 = new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
+$date2 = new DateTime( "2000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Tuesday
+$d_wd_521775_sat_sat = $aligent->getWeekDaysBetween( $date1, $date2 ); //
+( $d_wd_521775_sat_sat == 521775 )? $pass++ : array_push( $failarray, ['d_wd_521775_sat_sat', 521775, $d_wd_521775_sat_sat ]);
 
 /////////////////////////////////////
 //              TZ TESTS           ///

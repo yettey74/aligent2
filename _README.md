@@ -331,8 +331,9 @@ Updated ``` filename erro400.php->error400.php ```
 #### aligent.class.php 
 * Added ``` Doc stubs to each function ```
 * Added ``` _setFeb29End() ```
-* Updated ``` _setFeb29() --> _setFeb29Start() ```
+* Added ``` setFeb29Start() ```
 * Updated ``` frogger() ```
+* Removed ``` _setFeb29()  ```
 ### Increased amount of tests
 #### testapi.php 
 * Updated ``` Test if/then to ternary script  ```
@@ -380,9 +381,9 @@ Updated ``` filename erro400.php->error400.php ```
 ***
 ## Version 0.6.4 -- 206 Bug Free Results
 #### aligent.class.php 
-* Added ``` _formDigits() ```
-* Added ``` _getTime() ```
-* Added ``` _getZone() ```
+* Added ``` _formDigits() ``` // added padding for single year
+* Added ``` _getTime() ``` // add to handle alternative time string
+* Added ``` _getZone() ``` // add to handle alternative TZ strings
 * Updated ``` _isGoodDate() -> _dateConverter() ```
 * Updated ``` _getDate() ```
 #### testapi.php
@@ -390,46 +391,28 @@ Updated ``` filename erro400.php->error400.php ```
 ### Updated MarkDown File
 #### README.md
 ***
+## Version 0.6.5 -- 218 Bug Free Results
+#### aligent.class.php 
+* Added ``` _isWeekday() ``` <br> checks (int)day instead of string(day)
+* Updated ``` getweekdaysBetween() ```<br> Fixed bug where weekdays between included start + end when < 6 days
+* Updated ``` _setFeb29() ```<br> Handles next leap year to handle start and end date
+* Updated ``` _formDigits() ```<br> Fixed bug returning year > 2004 when year < 2000
+* Removed ``` _setFeb29Start() ``` <br> ``` _isWeekday() ``` now handles this call
+* Removed ``` _setFeb29End() ``` <br> ``` _isWeekday() ``` now handles this call
+#### testapi.php
+* Added ``` Tests for weekdaycount Start = true, end = true ```
+#### Added sandboxDateTimeLibrary/negYear.php
+* Added output script to test strange or negative date strings 
+### Updated MarkDown File
+#### README.md
+***
 ***
 ## ERROR LOG
-### errors noticed and need to be fixed
-1. Selects Leap year ahead + 1 instead of next leap year<br>
-``` Is Start date in a Leap Year : False ```
-``` 2021-01-01T00:00:00+00:00 is before 2026-03-01T00:00:00+00:00 ```
-### 1 Solution
-#### ??  ```_setLeapYear()```
-***
-2. Year = 01 passes as Year 2000
-#### Updated to check for 'T' in string ```_getDate()```
-***
-3.  Year = 50 passes as Year 2050
-### 3 Solution 
-#### we need to look at the DateTime class to understand what it does with year digits ```_getYear()```
-?? unix timestamp not formatting properly or is it the dateTimeFormatter ??
-
-4. Total years incorrect for large dates
-01-01-01
-
-Start date : 0001-01-01T00:00:00+00:00
-Start Year : 0001
-
-End date : 1997-01-01T00:00:00+00:00
-End Year : 1997
-
-Is Start date in a Leap Year : False
-0001-01-01T00:00:00+00:00 is before 2006-03-01T00:00:00+00:00
-
-Is End date in a Leap Year : False
-1997-01-01T00:00:00+00:00 is after 1996-02-29T00:00:00+00:00
-
-Total Days Between Years: --> 1991 <--
-answer should be 1996
-Total Weekdays : 520731
-Complete Weeks: 104146
-***
+1. Passing negative years for B.C. offset gregorian calander
+* need to write function when passing date as string to convert -1/-1/-1 to -0001/1/1
 ***
 
-# WishList
+## WishList
 ### Add tests for poorly formed date() and time() and TZ() strings
 * add ``` Unix  based timestamps converted by DateTime->setTimestamp() ```
 * add ``` Abilty to create a time string with setTime() ```
@@ -438,19 +421,5 @@ Complete Weeks: 104146
 * add ``` Abilty to Add amount with add() ```
 * add ``` Abilty to Modify amount with modify() ```
 * add ``` Abilty to Subtract amount with sub() ```
-* add ``` short date ``` 01-01-21
-* add ``` short date with no day ``` 01-21
-* add ``` Long date ``` 01-01-2021
-* add ``` Long date with no day ``` 01-2021
-* add ``` Short Date with time ``` 01-01-21 00:00:00
-* add ``` Short Date with time and no day ``` 01-21 00:00:00
-* add ``` Long date with time ``` 01-2021 00:00:00
-* add ``` Long date with time and no day ``` 01-2021 00:00:00
-* add ``` Short Date with time / TZ ``` 01-01-21 00:00:00+09:30
-* add ``` Short Date with time / TZ and no day ``` 21 00:00:00+09:30
-* add ``` Long Date with time / TZ ``` 01-01-2021 00:00:00+09:30
-* add ``` Long Date with time / TZ and no day ``` 01-2021 00:00:00+09:30
-* add ``` Short Date No Day with time / TZ ``` 01-21 00:00:00+09:30
-* add ``` Short Date No Day with time / TZ and no day ``` 21 00:00:00+09:30
-* add ``` Long Date No Day with time / TZ ``` 01-01-21 00:00:00+09:30
-* add ``` Long Date No Day with time / TZ and no day``` 01-21 00:00:00+09:30
+#### 03/07/2021
+* add ``` Abilty to Handle negative years ```

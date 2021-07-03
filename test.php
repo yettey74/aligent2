@@ -6,6 +6,7 @@ $singleyearhyphen = date('1-1-1'); //2001-01-01T00:00:00+00:00
 $shortString = '1-1-21'; // 2021-01-01T00:00:00+00:00
 $shortdate = date('1-1-21'); // 2021-01-01T00:00:00+00:00
 $short01 = date('01-01-01'); //2001-01-01T00:00:00+00:00
+$short_01_leap = date('01-01-04'); //2001-01-01T00:00:00+00:00
 $short10 = date('1-1-10'); // 2010-01-01T00:00:00+00:00
 $short11 = date('1-1-11'); // 2011-01-01T00:00:00+00:00
 $short50 = date('1-1-50'); // 2050-01-01T00:00:00+00:00
@@ -22,7 +23,7 @@ $formedString_TZ_00 = date('1/1/2021T00:00:00+00:00'); // 2021-01-01T00:00:00+00
 $formedString_TZ_12 = date('1/1/2021T00:00:00+12:00'); // 2021-01-01T00:00:00+00:00
 
 // SET DATE HERE //
-$dateString = $short01;
+$dateString = $short_01_leap;
 
 // Time strings .. also check for things like AM/PM
 $hour12 = '00:00:00'; // Limit
@@ -35,22 +36,24 @@ $hour24 = '25:00:00'; // OOB Return 00:00:00
 $hour24 = '-1:00:00'; // OOB Return 00:00:00
 $hour24 = 'a:00:00'; // OOB Return 00:00:00
 
-// we can check if T is already present
-// if not then append T to end of Date 
-// append time
-// if there is a TZ then we append a Z to the end of time
+$concantDate = $shortString . '' . $hour12;
 
-// TZ strings -- many so lets use UTC, adelaide
+// $date1 = $aligent->_dateConverter( $dateString );
 
-$concantdate = $shortString . '' . $hour12;
-
-
-$date1 = $aligent->_dateConverter( $dateString );
-
-//$date1 = new DateTime( "1988-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
-$date2 = new DateTime( "1988-01-03T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
-$date3 = new DateTime( "1997-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); 
-
+// $date1 = new DateTime( "1989-01-13T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
+// $date2 = new DateTime( "1990-01-08T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Teusday
+// $date3 = new DateTime( "1997-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); 
+ // $date1 = new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
+ $date1 = new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
+ $date2 = new DateTime( "2000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Tuesday
+echo '<br>';
+echo 'Date 1 starts on a ' . ( $date1 )->format( 'l' );
+echo '<br>';
+echo 'Date 2 ends on a ' . ( $date2 )->format( 'l' );
+echo '<br>';
+echo 'Date 1 = ' . $aligent->_getWeekdayInt( $date1 );
+echo '<br>';
+echo 'Date 2 = ' . $aligent->_getWeekdayInt( $date2 );
 
 /* $datetest1 = $date1;
 $datetest2 = $date2;
@@ -86,12 +89,14 @@ echo '<br>';
 echo 'Is Start date in a Leap Year : ';
 echo ( $aligent->_isLeap( $date1 ))? 'True' : 'False';
 echo '<br>';
-$frog_start = $aligent->_setFeb29Start( $date1 )->format('c');
+$frog_start = $aligent->_setFeb29( $date1 )->format('c');
 echo ( $date1 )->format('c');
 if( $date1 > $frog_start ){
     echo ' is ';
-} else {
+} elseif( $date1 < $frog_start ) {
     echo ' is not ';
+} else {
+    echo ' === ERROR === ';
 }
 echo 'before ' . $frog_start ;
 echo '<br>';
@@ -100,12 +105,14 @@ echo '<br>';
 echo 'Is End date in a Leap Year : ';
 echo ( $aligent->_isLeap( $date2 ))? 'True' : 'False';
 echo '<br>';
-$frog_end = $aligent->_setFeb29End( $date2 )->format('c');
+$frog_end = $aligent->_setFeb29( $date2 )->format('c');
 echo ( $date2 )->format('c');
 if( $date2 < $frog_end ){
     echo ' is ';
-} else {
+} elseif( $date2 > $frog_end ) {
     echo ' is not ';
+} else {
+    echo ' === ERROR === ';
 }
 echo 'after ' . $frog_end;
 echo '<br>';

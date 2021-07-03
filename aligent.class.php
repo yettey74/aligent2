@@ -37,15 +37,12 @@ Class Aligent extends DateTime
         if( !( $date2 instanceof DateTime ) ){
             $date2 = new DateTime( $date2 );
         }  
-
-        $frog = 365; // our frog has a set number of days to leap
-        $leap = $this->frogger( $date1, $date2 ); // sets the amount of leaps         
+        $leap = $this->frogger( $date1, $date2 );
         $splice = 1;
-
         $days = $this->getTotalDays( $date1, $date2 );
 
         if( $days > 0 ){
-            $days--;
+            $days--; // offset for last day included in count
         }  
 
         if( is_int( $flag ) ){
@@ -68,19 +65,17 @@ Class Aligent extends DateTime
             return $days * $splice;    
         }
         
-        if( $flag == 4 ){ // we want years 
-            if( $days > 365 ){
-                return floor( $days / ( $frog + 1 ) );
-            } else {
-                // we need to take leap year into account
-                if( floor( ( $days - 1 ) / $frog ) < 0 ){
-                    return floor( ( $days ) / $frog );
-                } else {
-                    return floor( ( $days - 1 ) / $frog ); // adjust as there is no leap year
+        if( $flag == 4 ){ // we want years
+            if( $days < 365 ){ // its less than 1 year
+                return floor( $days / 365 );
+            } elseif( $days > 365 ){ // its > 1 year
+                if( $leap == 0 ){ // there is no leap so we return result
+                    return floor( $days / 365 ); 
+                } else { // we adjust for the leap math
+                    return floor( $days / 365 ) - 1; 
                 }
             }
         }     
-        
         return 0;
     }
 
@@ -101,23 +96,38 @@ Class Aligent extends DateTime
         if( !( $date2 instanceof DateTime ) ){
             $date2 = new DateTime( $date2 );
         }  
-
-        $frog = 365; // our frog has a set number of days to leap
-        $leap = $this->frogger( $date1, $date2 ); // sets the amount of leaps         
+        
         $splice = 1;
-        $days = $this->getTotalDaysBetween( $date1, $date2 ); // account for inbetween
+        $days = $this->getTotalDays( $date1, $date2 );
 
-        $weeks_difference = floor( $days / 7 ); // how many int units
-        $days_remainder = floor( $days % 7 ); // how many units left over
+        $weekday_start = $this->_getWeekdayInt( $date1 );   
+        $weekday_end = $this->_getWeekdayInt( $date2 );
+ 
+        $weeks_difference = floor( $days / 7 ); // how many week units
+        $days_remainder = floor( $days % 7 ); // how many days left over
 
-        if( $days_remainder > 6 ){
+        if( $days_remainder > 7 ){
             $days_remainder--;
         }
-        if( $days_remainder > 5 ){
+        if( $days_remainder > 6 ){
             $days_remainder--;
         }
 
         $weekdays = ($weeks_difference * 5 ) + $days_remainder ;
+
+        if( $weekday_start == 5 && $weekday_end == 1 && $days < 4 ){ // specifically looking at Fri-Mon           
+            $weekdays = 0;
+        } 
+        
+        if( $weekday_start == 5 && $weekday_end == 2 && $days < 5 ){ // specifically looking at Fri-Mon           
+            $weekdays = 0;
+        } 
+
+        if(  0 < $weekday_start && $weekday_start < 6 ){ // if between day = 0 (sunday) and day = 6 (saturday)
+            if( $weekdays > 0 ){
+                $weekdays--;
+            }
+        }
 
         if( is_int( $flag ) ){
             $splice = $this->getSplice( $flag - 1 );
@@ -139,18 +149,13 @@ Class Aligent extends DateTime
             return $weekdays * $splice;    
         }
         
-        if( $flag == 4 ){ // we want years
-            if( $days > 365){
-                //copensate for floor off by 1 in result
-                return floor( ( $weekdays / 5 ) / 52 ) - 1 ; // acount for leap year in count
-            } else {
-                return floor( ( $weekdays / $frog ) );
+        if( $flag == 4 ){ // we want years      
+            if( $days < 365 ){ // wide net for leap year count over 2000 years
+                return floor( ( $days ) / 365 );
+            } else{
+                return floor( ( $days ) / 365 ) - 1; // adjust -1 for leap year offset
             }
-             
-        } else {                
-            // accounting for leap year when there is none and week being 7 days to make sure we throw a stable floor
-            return floor( $weekdays * $splice );
-        }            
+        }
     } 
     
     
@@ -178,7 +183,6 @@ Class Aligent extends DateTime
             $splice = 1;
         }
 
-        $frog = 365;
         $leap = $this->frogger( $date1, $date2 );
 
         $days = $this->getTotalDaysBetween( $date1, $date2 ); // account for inbetween
@@ -201,12 +205,12 @@ Class Aligent extends DateTime
                 return $weeks * $splice * 7;     
             }
             
-            if( $flag == 4 ){ // we want years 
-                if( $days > 365 ){                
-                    return floor( $weeks / 52 ) - 1; // take 1 away due to floor rounding up
+            if( $flag == 4 ){ // we want years
+                if( $leap > 0 ){
+                    return floor( $weeks / 52 ) - 1; // take 1 away due to floor rounding up     
                 } else {
-                    return floor( $weeks / ( $frog ) );
-                } 
+                    return floor( ( $weeks * 7 ) / 365 ); // take 1 away due to floor rounding up  
+                }                               
             }     
         } else {
             return 0;
@@ -272,6 +276,52 @@ Class Aligent extends DateTime
     }
 
     /**
+     *  Return true if Monday is start
+     * 
+     * @param Datetime|String $date
+     * 
+     * @return Boolean
+     * 
+     */ 
+    Public function _getWeekdayInt( $date ){
+        return ( $date )->format( 'w' );    
+    }
+
+    /**
+     *  Return true if Monday is start
+     * 
+     * @param Datetime|String $date
+     * 
+     * @return Boolean
+     * 
+     */ 
+    Public function _isWeekday( $date ){
+        $day = ( $date )->format( 'w' );
+        
+        if( $day > '0' && $day < '6'){
+            return 1;
+        }
+        return 0;    
+    }
+
+    /**
+     *  Return true if Friday is start
+     * 
+     * @param Datetime|String $date
+     * 
+     * @return Boolean
+     * 
+     */ 
+    Public function _isMonday( $date ){
+        $day = ( $date )->format( 'w' );
+        
+        if( $day == '1'){
+            return 1;
+        }
+        return 0;        
+    }
+
+    /**
      *  Return if year is a leap year 
      * 
      * @param Datetime|String $date
@@ -281,10 +331,15 @@ Class Aligent extends DateTime
      */ 
     Public function _isLeap( $date ){
         $year = $date->format( 'Y' );
-        $start = new DateTime("$year-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
-        $end = new DateTime("$year-12-31T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
+
+        if( $year > 0 ){ // YEAR 0000 did not have a leap year
+            $start = new DateTime("$year-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" )); // throws bad year if < 2000
+            $end = new DateTime("$year-12-31T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));// throws bad year if < 2000
+
+            return ( $this->getTotalDays( $start, $end )  > 364 )? true : false;
+        }
         
-        return ( $this->getTotalDays( $start, $end ) > 364 )? true : false;        
+        return false;
     }
 
     /**
@@ -295,50 +350,28 @@ Class Aligent extends DateTime
      * @return Datetime
      * 
      */
-    Public function _setFeb29Start( $date ){  
+    Public function _setFeb29( $date ){  
         $_isLeap = $this->_isLeap( $date );
-        $year = $date->format( 'Y' );
+
+       /*  echo 'Year : ' .   */$year = $date->format( 'o' );      
+       /*  echo'<br>';  */
 
         if( $_isLeap == true ) {
             return $leapDay = new DateTime("$year-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
         } else {
-            // we need to get modulus remainder to find out previous leap year.
-            // So we can return a date to count later. without it we dont have
-            // defensive coding to protect the api
-            
-            $year_remainder = ( $year % 4 );
-            $nextLeap = $year + $year_remainder + 4;
-            return $leapDay = new DateTime("$nextLeap-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
+            //0000 (0004 = 0000 + 4 ) ... ( 0000 % 4 = 0 ) ... ( 0000 + 4 - 0  = 4) 
+            /* echo 'Year Remainder : ' .    */$year_remainder = ( $year % 4 ); 
+            /* echo'<br>';  */
+            /* echo 'Year to pass : ' .  */$nextLeap = $this->_formDigits( $year + 4 - $year_remainder );
+            /* echo'<br>';  */
+            $leapDay = new DateTime("$nextLeap-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
+            /* echo 'Year to return : ' .  */($leapDay)->format('c');
+            /* echo'<br>';  */
+            return $leapDay;
         }
         return false;
     } 
 
-    /**
-     *  Return Previous Leap Year Date object set to YYYY-Feb 29
-     * 
-     * @param Datetime|String $date
-     * 
-     * @return Datetime
-     * 
-     */
-    Public function _setFeb29End( $date ){  
-        $_isLeap = $this->_isLeap( $date );
-        $year = $date->format( 'Y' );
-
-        if( $_isLeap == true ) {
-            return $leapDay = new DateTime("$year-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
-        } else {
-            // we need to get modulus remainder to find out previous leap year.
-            // So we can return a date to count later. without it we dont have
-            // defensive coding to protect the api
-            
-            $year_remainder = ( $year % 4 );
-            $nextLeap = $year - $year_remainder;
-            return $leapDay = new DateTime("$nextLeap-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
-        }
-        return false;
-    }
-    
     /**
      *  Strips date from string 
      * 
@@ -457,7 +490,11 @@ Class Aligent extends DateTime
      */
     Public function _formDigits( $digit ){ 
         $thisDigits = 0;   
-        if( $digit <= 9 && $digit >= 0 ){
+        if( $digit < 10 ){
+            $thisDigits = str_pad( $digit, 4, '0', STR_PAD_LEFT);
+        } elseif( $digit < 100 ){
+            $thisDigits = str_pad( $digit, 3, '0', STR_PAD_LEFT);
+        } elseif( $digit < 1000 ){
             $thisDigits = str_pad( $digit, 2, '0', STR_PAD_LEFT);
         } else {
             $thisDigits = $digit;
@@ -551,7 +588,7 @@ Class Aligent extends DateTime
         // but we want to know how many leaps exist between date1 && date 2
         // so we can find the floor of totalyears / 4 (4/4 = 1, 7/4 = 1.75)
         if( $leap > 0 ){
-            $leap = $leap + floor( $totalYears / 4 ) -1; // we adjust as we count the end twice
+            $leap = $leap + floor( $totalYears / 4 ) - 1; // we adjust as we count the end twice
         } else {
             $leap = $leap + floor( $totalYears / 4 ); // we adjust as we count the end twice
         }
@@ -559,8 +596,8 @@ Class Aligent extends DateTime
         $startDate = ( $date1 < $date2 )? $date1 : $date2;
         $endDate = ( $date1 > $date2 )? $date1 : $date2;
 
-        $leapDayStart = $this->_setFeb29Start( $startDate ); // if not in a leap year !Important return next leap year
-        $leapDayEnd = $this->_setFeb29End( $endDate ); // if not in a leap year !Important return next leap year        
+        $leapDayStart = $this->_setFeb29( $startDate ); // if not in a leap year !Important return next leap year
+        $leapDayEnd = $this->_setFeb29( $endDate ); // if not in a leap year !Important return next leap year        
         
         // we might have a leap year, so lets do the math 
         /* if( $totalYears > 0 ){      */ 
