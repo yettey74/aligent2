@@ -1374,9 +1374,9 @@ foreach(  $timezone as $zone ){
 
 $tzArray[] .= $bad;
 
-foreach( $tzArray as $tz ){
+/* foreach( $tzArray as $tz ){
     echo $tz. '<br>';
-}
+} */
 
 foreach( $tzArray as $tzl ){
     try{

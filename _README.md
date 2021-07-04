@@ -456,7 +456,7 @@ Updated ``` filename erro400.php->error400.php ```
 #### README.md
 ***
 ***
-## Version 0.8.0  -- 45610 Bug Free Results
+## Version 0.8.0  -- 46037 Bug Free Results
 ### Update code to handle any TZ instead of hardcoding AUS / ADL
 #### aligent.class.php 
 * Updated all references to set as ``` UTC ```
