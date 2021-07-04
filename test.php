@@ -39,8 +39,8 @@ $hour24 = 'a:00:00'; // OOB Return 00:00:00
 $concantDate = $shortString . '' . $hour12; */
 
 
-$date1 = 253402214400; // Tuesday 9999-12-31T00:00:00+00:00
-$date2 = new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday 
+$date1 = -61851600000; // Friday 0010-01-01T00:00:00+00:00
+$date2 = -61850995200; // Friday 0010-01-08T00:00:00+00:00
 
 ////////////////////////
 // always scrub dates //

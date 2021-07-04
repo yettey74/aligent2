@@ -1,5 +1,5 @@
 <?php
-Class Aligent extends DateTime
+Class Aligent extends DateTime 
 {       
     const MAX_YEAR_STRING = '9999-31-12T23:59:59+00:00';
     const MAX_YEAR_INT = '253402214400';
@@ -315,6 +315,77 @@ Class Aligent extends DateTime
      * @return Boolean
      * 
      */ 
+    Public function _strungOutDate( $date ){
+        $charArray = [];
+        $dateArray = token_get_all( $date );
+        $thisDate = $dateArray[0][1];
+        $length = strlen( $thisDate );
+
+        for( $i = 0; $i < $length; $i++ ){
+            $charArray[$i] = $thisDate[$i] . '<br>';
+        }
+
+        return $charArray;
+
+    }
+
+    /**
+     *  Return true if has Null 
+     * 
+     * @param Datetime|String $date
+     * 
+     * @return Boolean
+     * 
+     */ 
+    Public function _isDateBad( $date ){
+        $count = 0;
+        $_strungOutDate = $this->_strungOutDate( $date );
+        foreach( $_strungOutDate as $c){
+            //check if there is litterally a 'null'
+            if( $c == 'N' or $c == 'n' ){
+                if( $count == 0 ){
+                    $count++;
+                }
+                $count++;
+            }
+            if( $c == 'U' || $c = 'u' ){
+                if( $count == 1 ){
+                    $count++;
+                }
+            }
+            if( $c == 'L' || $c == 'l' ){
+                if( $count == 2 ){
+                    $count++;
+                }
+            }
+            if( $c == 'L' || $c == 'l' ){
+                if( $count == 3 ){
+                    $count++;
+                }
+            }
+            if ( $count == 3 ){
+                return true;
+            }
+
+        }
+        if( strpos( $date, 'null') == true ){
+            return true;
+        }
+        if( is_null( $date ) ){
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     *  Return true if Monday is start
+     * 
+     * @param Datetime|String $date
+     * 
+     * @return Boolean
+     * 
+     */ 
     Public function _isWeekday( $date ){
         $day = ( $date )->format( 'w' );
         
@@ -537,18 +608,31 @@ Class Aligent extends DateTime
      * 
      */
     Public function _dateConverter( $date ){
-        //we want to know what format the date is in
-        $thisDate = $date;
-        if( $date instanceof DateTime ){ // it is treated like a strtotime output
-            return $date; // int to string we can handle
+        // lets do a defensive play first
+        $thisDate = new DateTime();
+        $_isDateNull =  false;
+        $_isDateBad = false;
+        $_isDateBad = $this->_isDateBad( $date );
+
+        if( $_isDateBad == true ){  // its just naughty
+            return new DateTime( "0000-00-00T00:00:00+00:00Z", new DateTimeZone( "Australia/Adelaide" ));
+        } 
+
+        if( $date instanceof DateTime && $_isDateBad == true){ // Bad date object
+            return new DateTime( "0000-00-00T00:00:00+00:00Z", new DateTimeZone( "Australia/Adelaide" ));
         }
-        if( is_int( $date ) ){ // it is treated like a strtotime output
-            return new DateTime( date( 'Y-m-d H:i:s' , $date) ); // int to string we can handle
+
+        if( is_int( $date && $_isDateBad == true) ){ // Bad date int
+            return new DateTime( "0000-00-00T00:00:00+00:00Z", new DateTimeZone( "Australia/Adelaide" ));
         }
-        // else we have a string to deal with
+
+        if ( is_int( $date ) ){ // dealing with good date int
+            return new DateTime( date( 'Y-m-d H:i:s' , $date) );
+        }
 
         $hyphen = ( strpos( $date, '-' ) == true )? true : false;
-        $slash = ( strpos( $date, '/' ) == true )? true : false;
+        $forwardslash = ( strpos( $date, '/' ) == true )? true : false;
+        $backslash = ( strpos( $date, '\\' ) == true )? true : false;
         $colon = ( strpos( $date, ':' ) == true )? true : false;
         $char_T = ( strpos( $date, 'T' ) == true )? true : false;
         $char_z = ( strpos( $date, 'Z' ) == true )? true : false;
@@ -557,9 +641,14 @@ Class Aligent extends DateTime
         $utc = ( strpos( $date, 'UTC' ) == true )? true : false;
 
         // lets start checking the date part first
-        if( $slash == true ){
+        if( $forwardslash == true ){
             // lets change them to hyphens to be consistent
             $thisDate = str_replace( '/', '-', $thisDate );
+        }
+
+        if( $backslash == true ){
+            // lets change them to hyphens to be consistent
+            $thisDate = str_replace( '\\', '-', $thisDate );
         }
 
         // lets start checking the date part first
@@ -615,6 +704,7 @@ Class Aligent extends DateTime
         $endDate = ( $date1 > $date2 )? $date1 : $date2;
 
         $leapDayStart = $this->_setFeb29( $startDate ); // if not in a leap year !Important return next leap year
+        
         if( $endDate < new DateTime('9996-02-29T23:59:59+00:00' ) ){// make this a CONST MAXDATE
             $leapDayEnd = $this->_setFeb29( $endDate ); // if not in a leap year !Important return next leap
         } else {

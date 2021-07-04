@@ -727,7 +727,7 @@ $date2 = 253402214400; // Friday 9999-12-31T00:00:00+00:00
 $string_int_test1 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
 ( $string_int_test1 == 3648770 )? $pass++ : array_push( $failarray, ['string_int_test1', 3648770, $string_int_test1 ]);
 
-$date1 = -62135596800; // 0001/01/01
+$date1 = -62135596800; // 0001-01-01
 $date2 = '0001-1-8'; // Tuesday
 $string_int_test2 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
 ( $string_int_test2 == 6 )? $pass++ : array_push( $failarray, ['string_int_test2', 6, $string_int_test2 ]);
@@ -759,7 +759,263 @@ $date2 = 253402214400; // Saturday 9999-12-31T00:00:00+00:00
 $int_obj_test2 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
 ( $int_obj_test2 == 3652423 )? $pass++ : array_push( $failarray, ['int_obj_test2', 3652423, $int_obj_test2 ]);
 
+//////////////////////////////
+//    NULL TESTS 1          ///
+////////////////////////////////
+$date1 = '';
+$date2 = '';
+try {       
+    if( $date1 = null === true ){
+        throw new Exception();
+    } 
+}
+catch (Exception $e ) { 
+    echo $e;   
+    //echo 'Exception';
+}
+finally
+{  
+    // Zero date return
+    $date1 =  new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+}
 
+try {       
+    if( $thisDate = new DateTime( NULL, new DateTimeZone( "Australia/Adelaide" ) ) === false ){
+        throw new Exception();
+    } 
+}
+catch (Exception $e ) { 
+    echo $e;   
+   // echo 'Exception';
+}
+finally
+{  
+    // Zero date return
+    $date2 =  new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+}
+
+$null_test1 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $null_test1 == 0 )? $pass++ : array_push( $failarray, ['null_test1', 0, $null_test1 ]);
+
+//////////////////////////////
+//    NULL TESTS 2          ///
+////////////////////////////////
+$date1 = '';
+$date2 = '';
+try {       
+    if( $date1 = null === true ){
+        throw new Exception();
+    } 
+}
+catch (Exception $e ) { 
+    echo $e;   
+    //echo 'Exception';
+}
+finally
+{  
+    // Zero date return
+    $date1 =  new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+}
+
+try {       
+    if( $thisDate = new DateTime( NULL, NULL ) === false ){
+        throw new Exception();
+    } 
+}
+catch (Exception $e ) { 
+    echo $e;   
+   // echo 'Exception';
+}
+finally
+{  
+    // Zero date return
+    $date2 =  new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+}
+
+$null_test2 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $null_test2 == 0 )? $pass++ : array_push( $failarray, ['null_test2', 0, $null_test2 ]);
+
+//////////////////////////////
+//    NULL TESTS 3          ///
+////////////////////////////////
+$date1 = '';
+$date2 = '';
+try {       
+    if( $date1 = null === true ){
+        throw new Exception();
+    } 
+}
+catch (Exception $e ) { 
+    echo $e;   
+    //echo 'Exception';
+}
+finally
+{  
+    // Zero date return
+    $date1 =  new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+}
+
+try {       
+    if( $thisDate = new DateTime( "0000-01-01T00:00:00Z", NULL ) === false ){
+        throw new Exception();
+    } 
+}
+catch (Exception $e ) { 
+    echo $e;   
+   // echo 'Exception';
+}
+finally
+{  
+    // Zero date return
+    $date2 =  new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+}
+
+$null_test3 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $null_test3 == 0 )? $pass++ : array_push( $failarray, ['null_test3', 0, $null_test3 ]);
+
+//////////////////////////////
+//    /0 TESTS 1            ///
+////////////////////////////////
+$date1 = '';
+$date2 = '';
+try {       
+    if( $date1 = 1/0 === false ){
+        throw new Exception( "error" );
+    } 
+}
+catch (Throwable $e ) { 
+    //echo $e;   
+    //echo 'RuntimeException';
+    //echo print_r( var_export( $e ) );
+}
+catch (RuntimeException $e ) { 
+    echo $e;   
+    echo 'RuntimeException';
+}
+catch (Exception $e ) { 
+    echo $e;   
+    echo 'Exception';
+}
+catch (DivisionByZeroError $e ) { 
+    echo $e;   
+    echo 'DivisionByZero';
+}
+finally
+{  
+    // Zero date return
+    $date1 =  new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+    //echo '<br>';
+    //echo ( $date1 )->format('c');
+    //echo '<br>Finally';
+}
+
+try {       
+    if( $date2 = new DateTime( 1/0, new DateTimeZone( "Australia/Adelaide" ) ) === false ){
+        throw new Exception( "error" );
+    } 
+}
+catch (Throwable $e ) { 
+    //echo $e;   
+    //echo 'RuntimeException';
+    //echo print_r( var_export( $e ) );
+}
+catch (RuntimeException $e ) { 
+    echo $e;   
+    echo 'RuntimeException';
+}
+catch (Exception $e ) { 
+    echo $e;   
+    echo 'Exception';
+}
+catch (DivisionByZeroError $e ) { 
+    echo $e;   
+    echo '<br>';
+    echo 'DivisionByZero';
+    echo '<br>';
+}
+finally
+{  
+    // Zero date return
+    $date2 =  new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+    //echo '<br>';
+    //echo ( $date2 )->format('c');
+    //echo '<br>Finally';
+}
+
+$zeroDiv_test1 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $zeroDiv_test1 == 0 )? $pass++ : array_push( $failarray, ['zeroDiv_test1', 0, $zeroDiv_test1 ]);
+
+//////////////////////////////
+//    /0 TESTS 2            ///
+////////////////////////////////
+$date1 = '';
+$date2 = '';
+try {       
+    if( $date1 = 1/0 === false ){
+        throw new Exception( "error" );
+    } 
+}
+catch (Throwable $e ) { 
+    //echo $e;   
+    //echo 'RuntimeException';
+    //echo print_r( var_export( $e ) );
+}
+catch (RuntimeException $e ) { 
+    echo $e;   
+    echo 'RuntimeException';
+}
+catch (Exception $e ) { 
+    echo $e;   
+    echo 'Exception';
+}
+catch (DivisionByZeroError $e ) { 
+    echo $e;   
+    echo 'DivisionByZero';
+}
+finally
+{  
+    // Zero date return
+    $date1 =  new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+    //echo '<br>';
+    //echo ( $date1 )->format('c');
+    //echo '<br>Finally';
+}
+
+try {       
+    if( $date2 = new DateTime( 1/0 , 1/0 ) === false ){
+        throw new Exception( "error" );
+    } 
+}
+catch (Throwable $e ) { 
+    //echo $e;   
+    //echo 'RuntimeException';
+    //echo print_r( var_export( $e ) );
+}
+catch (RuntimeException $e ) { 
+    echo $e;   
+    echo 'RuntimeException';
+}
+catch (Exception $e ) { 
+    echo $e;   
+    echo 'Exception';
+}
+catch (DivisionByZeroError $e ) { 
+    echo $e;   
+    echo '<br>';
+    echo 'DivisionByZero';
+    echo '<br>';
+}
+finally
+{  
+    // Zero date return
+    $date2 =  new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+    //echo '<br>';
+    //echo ( $date2 )->format('c');
+    //echo '<br>Finally';
+}
+
+$zeroDiv_test2 = $aligent->getTotalDaysBetween( $date1, $date2 ); //
+( $zeroDiv_test2 == 0 )? $pass++ : array_push( $failarray, ['zeroDiv_test2', 0, $zeroDiv_test2 ]);
 
 /////////////////////////////////////
 //              TZ TESTS           ///
