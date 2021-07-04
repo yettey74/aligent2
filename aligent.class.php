@@ -15,7 +15,7 @@ Class Aligent extends DateTime
      * 
      * @param Datetime|String $date2
      * 
-     * @return DateInterval // remove 1 day if 1 < $days > 0
+     * @return DateInterval 
      * 
      */
     Public function getTotalDays( $date1, $date2 ){
@@ -275,13 +275,13 @@ Class Aligent extends DateTime
             /* echo '<br>'; */
             // lets get the first digits
             /* echo '<br>Chunk : ' .  */$thisDay = strstr( $thisDate, '-', true );
-            /* echo '<br>Chunk : ' .  */$day = $this->_formDigits( $thisDay );
+            /* echo '<br>Chunk : ' .  */$day = $this->_formTwoDigits( $thisDay );
 
             /* echo '<br>Chunk : ' .  */$chunk = strstr( $thisDate, '-', false );
             /* echo '<br>Chunk : ' .  */$tempDate = substr( $chunk, 1 );
 
             /* echo '<br>Chunk : ' .  */$thisMonth = strstr( $tempDate, '-', true );
-            /* echo '<br>Chunk : ' .  */$month = $this->_formDigits( $thisMonth );
+            /* echo '<br>Chunk : ' .  */$month = $this->_formTwoDigits( $thisMonth );
             /* echo '<br>Chunk : ' .  */$chunk = strstr( $tempDate, '-', false );
             /* echo '<br>Chunk : ' .  */$tempDate = substr( $chunk, 1 );
             if( strpos( $date, 'T') == true ){
@@ -289,7 +289,7 @@ Class Aligent extends DateTime
             } else {
                 /* echo '<br>Chunk : ' .  */$thisYear = $tempDate;
             }
-            /* echo '<br>Year : ' .  */$year = $this->_formDigits( $thisYear );
+            /* echo '<br>Year : ' .  */$year = $this->_formYearDigits( $thisYear );
         return $year;
 
         }
@@ -337,37 +337,8 @@ Class Aligent extends DateTime
      * @return Boolean
      * 
      */ 
-    Public function _isDateBad( $date ){
-        $count = 0;
-        $_strungOutDate = $this->_strungOutDate( $date );
-        foreach( $_strungOutDate as $c){
-            //check if there is litterally a 'null'
-            if( $c == 'N' or $c == 'n' ){
-                if( $count == 0 ){
-                    $count++;
-                }
-                $count++;
-            }
-            if( $c == 'U' || $c = 'u' ){
-                if( $count == 1 ){
-                    $count++;
-                }
-            }
-            if( $c == 'L' || $c == 'l' ){
-                if( $count == 2 ){
-                    $count++;
-                }
-            }
-            if( $c == 'L' || $c == 'l' ){
-                if( $count == 3 ){
-                    $count++;
-                }
-            }
-            if ( $count == 3 ){
-                return true;
-            }
-
-        }
+    Public function _isDateNull( $date ){
+        
         if( strpos( $date, 'null') == true ){
             return true;
         }
@@ -440,7 +411,7 @@ Class Aligent extends DateTime
                 return $leapDay = new DateTime("$year-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
             } else {
                 $year_remainder = ( $year % 4 ); 
-                $nextLeap = $this->_formDigits( $year + 4 - $year_remainder );          
+                $nextLeap = $this->_formYearDigits( $year + 4 - $year_remainder );          
                 $leapDay = new DateTime("$nextLeap-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));         
             }
             return $leapDay;
@@ -449,7 +420,7 @@ Class Aligent extends DateTime
     } 
 
     /**
-     *  Strips date from string 
+     *  Strips date from string and formats it to play nice with datetime
      * 
      * @param Datetime|String $date
      * 
@@ -460,27 +431,22 @@ Class Aligent extends DateTime
         if( $date instanceof DateTime ){
             return $date;
         }
-        /* echo '<br>' .  */$thisDate = $date;
-        /* echo '<br>'; */
-        // lets get the first digits
-        /* echo '<br>Chunk : ' .  */$thisDay = strstr( $thisDate, '-', true );
-        /* echo '<br>Chunk : ' .  */$day = $this->_formDigits( $thisDay );
 
-        /* echo '<br>Chunk : ' .  */$chunk = strstr( $thisDate, '-', false );
-        /* echo '<br>Chunk : ' .  */$tempDate = substr( $chunk, 1 );
-
-        /* echo '<br>Chunk : ' .  */$thisMonth = strstr( $tempDate, '-', true );
-        /* echo '<br>Chunk : ' .  */$month = $this->_formDigits( $thisMonth );
-        /* echo '<br>Chunk : ' .  */$chunk = strstr( $tempDate, '-', false );
-        /* echo '<br>Chunk : ' .  */$tempDate = substr( $chunk, 1 );
+        $thisDate = $date;
+        $day = strstr( $thisDate, '-', true );
+        $chunk = strstr( $thisDate, '-', false );
+        $tempDate = substr( $chunk, 1 );
+        $month = strstr( $tempDate, '-', true );
+        $chunk = strstr( $tempDate, '-', false );
+        $tempDate = substr( $chunk, 1 );
         if( strpos( $date, 'T') == true ){
-            /* echo '<br>Chunk : ' .  */$thisYear = strstr( $tempDate, 'T', true );
+            $thisYear = strstr( $tempDate, 'T', true );
         } else {
-            /* echo '<br>Chunk : ' .  */$thisYear = $tempDate;
+            $thisYear = $tempDate;
         }
-        /* echo '<br>Year : ' .  */$year = $this->_formDigits( $thisYear );
+        $year = $this->_formYearDigits( $thisYear );
 
-        /* echo '<br>Year : ' .  */$thisDate = $year .'-' . $month . '-' . $day;
+        $thisDate = $year .'-' . $month . '-' . $day;
 
         return $thisDate;
     }
@@ -507,17 +473,17 @@ Class Aligent extends DateTime
             //get all after the T
             /* echo '<br>Year : ' .  */$tempTime = strstr( $date, 'T', false );
             /* echo '<br>Year : ' .  */$tempTime = substr( $tempTime, 1 ); // strip the T
-            /* echo '<br>Year : ' .  */$hour = $this->_formDigits( strstr( $tempTime, ':', true ) );
+            /* echo '<br>Year : ' .  */$hour = $this->_formTimeDigits( strstr( $tempTime, ':', true ) );
             //echo '<br>';
-            /* echo '<br>Year : ' .  */$tempTime = $this->_formDigits( strstr( $tempTime, ':', false ) );
+            /* echo '<br>Year : ' .  */$tempTime = $this->_formTimeDigits( strstr( $tempTime, ':', false ) );
             /* echo '<br>Year : ' .  */$tempTime = substr( $tempTime, 1 );
             //echo $tempDate;
-            /* echo '<br>Year : ' .  */$min = $this->_formDigits( strstr( $tempTime, ':', true ) );
+            /* echo '<br>Year : ' .  */$min = $this->_formTimeDigits( strstr( $tempTime, ':', true ) );
             //echo '<br>';
-            /* echo '<br>Year : ' .  */$tempTime = $this->_formDigits( strstr( $tempTime, ':', false ) );
+            /* echo '<br>Year : ' .  */$tempTime = $this->_formTimeDigits( strstr( $tempTime, ':', false ) );
             /* echo '<br>Year : ' .  */$tempTime = substr( $tempTime, 1 );
             //echo $tempDate;
-            /* echo '<br>Year : ' .  */$sec = $this->_formDigits( strstr( $tempTime, 'T', true ) );
+            /* echo '<br>Year : ' .  */$sec = $this->_formTimeDigits( strstr( $tempTime, 'T', true ) );
             //echo '<br>';
             /* echo '<br>Time post : ' .   */$thisTime = $hour .':' . $min . ':' . $sec;
         }
@@ -544,9 +510,9 @@ Class Aligent extends DateTime
         if( strpos( $date, '+') == true ){
             /* echo '<br>' .  */$tzString = strstr( $thisZone, '+', false ); // get all after +
 
-            /* echo '<br> Hours' .  */$tzHours = $this->_formDigits( strstr( $tzString, ':', true ) );
+            /* echo '<br> Hours' .  */$tzHours = $this->_formTimeDigits( strstr( $tzString, ':', true ) );
             /* echo '<br> Hours' .  */$tzHours = substr( $tzHours, 1 );
-            /* echo '<br>' .  */$tzMinutes = $this->_formDigits( strstr( $tzString, ':', false ) ); 
+            /* echo '<br>' .  */$tzMinutes = $this->_formTimeDigits( strstr( $tzString, ':', false ) ); 
             /* echo '<br> Minutes' .  */$tzMinutes = substr( $tzMinutes, 1 );   
             /* echo '<br>' .  */$thisZone = $tzHours .':' . $tzMinutes;
         } else {
@@ -554,6 +520,25 @@ Class Aligent extends DateTime
         }  
 
         return $thisZone;
+    }    
+
+    /**
+     *  Strips date from string 
+     * 
+     * @param Datetime|String $date
+     * 
+     * @return date|String
+     * 
+     */
+    Public function _formTwoDigits( $digit ){ 
+        $thisDigits = 0;
+        // strip leading '0' if any
+           
+        if( $digit < 10 ){
+            $thisDigits = str_pad( $digit, 1, '0', STR_PAD_LEFT);
+        } 
+       
+        return $thisDigits;
     }
 
     /**
@@ -564,7 +549,7 @@ Class Aligent extends DateTime
      * @return date|String
      * 
      */
-    Public function _formDigits( $digit ){ 
+    Public function _formYearDigits( $digit ){ 
         $thisDigits = 0;   
         if( $digit < 10 ){
             $thisDigits = str_pad( $digit, 4, '0', STR_PAD_LEFT);
@@ -599,8 +584,9 @@ Class Aligent extends DateTime
     }
 
     /**
-     *  Checks the format of the string being passed in
+     *  Checks the format of the string or object being passed in
      *  If it is not correct then we will dry to transform it
+     *  If not then we can throw an exception and deal with that instead
      * 
      * @param Datetime|String $date
      * 
@@ -608,62 +594,82 @@ Class Aligent extends DateTime
      * 
      */
     Public function _dateConverter( $date ){
-        // lets do a defensive play first
-        $thisDate = new DateTime();
-        $_isDateNull =  false;
-        $_isDateBad = false;
-        $_isDateBad = $this->_isDateBad( $date );
+        if( is_object( $date )){
+            try{    
+                if( $date === false ){
+                    throw new Exception();
+                }
+            } catch( Throwable $e ) {
 
-        if( $_isDateBad == true ){  // its just naughty
-            return new DateTime( "0000-00-00T00:00:00+00:00Z", new DateTimeZone( "Australia/Adelaide" ));
-        } 
-
-        if( $date instanceof DateTime && $_isDateBad == true){ // Bad date object
-            return new DateTime( "0000-00-00T00:00:00+00:00Z", new DateTimeZone( "Australia/Adelaide" ));
+            } finally {
+                //echo '<br>Is Object Date<br>';
+                return $date;
+            }
         }
+        // check if int and try
+        if( is_int( $date )){
+            try{    
+                if( new DateTime( date( 'Y-m-d', $date ), new DateTimeZone( "Australia/Adelaide" ) ) === false ){
+                    throw new Exception();
+                }
+            } catch( Throwable $e ) {
 
-        if( is_int( $date && $_isDateBad == true) ){ // Bad date int
-            return new DateTime( "0000-00-00T00:00:00+00:00Z", new DateTimeZone( "Australia/Adelaide" ));
+            } finally {
+                //echo '<br>Is Integer Date<br>';
+                return new DateTime( date( 'Y-m-d', $date  ), new DateTimeZone( "Australia/Adelaide" ) );
+            }
+        }      
+
+        if( is_string( $date )){
+            
+            $_isDateNull = ( $this->_isDateNull( $date ) )? true : false;
+            $date = $this->_getDate( $date );
+            if( $_isDateNull == true ){  // its just empty
+                return new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+            } 
+
+            if( $date instanceof DateTime && $_isDateNull == true){ // Bad date object
+                return new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+            }        
+
+            $hyphen = ( strpos( $date, '-' ) == true )? true : false;
+            $forwardslash = ( strpos( $date, '/' ) == true )? true : false;
+            $backslash = ( strpos( $date, '\\' ) == true )? true : false;
+            $colon = ( strpos( $date, ':' ) == true )? true : false;
+            $char_T = ( strpos( $date, 'T' ) == true )? true : false;
+            $char_z = ( strpos( $date, 'Z' ) == true )? true : false;
+            $plus = ( strpos( $date, '+' ) == true )? true : false;
+            $blank = ( strpos( $date, ' ' ) == true )? true : false;
+            $utc = ( strpos( $date, 'UTC' ) == true )? true : false;
+
+            // lets start checking the date part first
+            if( $forwardslash == true ){
+                // lets change them to hyphens to be consistent
+                $thisDate = str_replace( '/', '-', $thisDate );
+            }
+
+            if( $backslash == true ){
+                // lets change them to hyphens to be consistent
+                $thisDate = str_replace( '\\', '-', $thisDate );
+            }
+
+            // lets start checking the date part first
+            if( $utc == true ){
+                // lets change them to hyphens to be consistent
+                $thisDate = str_replace( 'UTC', 'T', $thisDate );
+            }
+
+            // lets start checking the date part first
+            if( $blank == true ){
+                // lets change them to hyphens to be consistent
+                $thisDate = str_replace( ' ', 'T', $thisDate );
+            }
+            //echo '<br>Is String Date<br>';
+            $stringDate = new DateTime( $date );
+           // echo ( $stringDate )->format('c');
+            return $stringDate;
         }
-
-        if ( is_int( $date ) ){ // dealing with good date int
-            return new DateTime( date( 'Y-m-d H:i:s' , $date) );
-        }
-
-        $hyphen = ( strpos( $date, '-' ) == true )? true : false;
-        $forwardslash = ( strpos( $date, '/' ) == true )? true : false;
-        $backslash = ( strpos( $date, '\\' ) == true )? true : false;
-        $colon = ( strpos( $date, ':' ) == true )? true : false;
-        $char_T = ( strpos( $date, 'T' ) == true )? true : false;
-        $char_z = ( strpos( $date, 'Z' ) == true )? true : false;
-        $plus = ( strpos( $date, '+' ) == true )? true : false;
-        $blank = ( strpos( $date, ' ' ) == true )? true : false;
-        $utc = ( strpos( $date, 'UTC' ) == true )? true : false;
-
-        // lets start checking the date part first
-        if( $forwardslash == true ){
-            // lets change them to hyphens to be consistent
-            $thisDate = str_replace( '/', '-', $thisDate );
-        }
-
-        if( $backslash == true ){
-            // lets change them to hyphens to be consistent
-            $thisDate = str_replace( '\\', '-', $thisDate );
-        }
-
-        // lets start checking the date part first
-        if( $utc == true ){
-            // lets change them to hyphens to be consistent
-            $thisDate = str_replace( 'UTC', 'T', $thisDate );
-        }
-
-        // lets start checking the date part first
-        if( $blank == true ){
-            // lets change them to hyphens to be consistent
-             $thisDate = str_replace( ' ', 'T', $thisDate );
-        }
-
-        return  new DateTime( $thisDate );
+        // return new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
     } 
 
     /**

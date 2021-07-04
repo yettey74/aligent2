@@ -23,7 +23,7 @@ $formedString_TZ_00 = date('1/1/2021T00:00:00+00:00'); // 2021-01-01T00:00:00+00
 $formedString_TZ_12 = date('1/1/2021T00:00:00+12:00'); // 2021-01-01T00:00:00+00:00
 
 // SET DATE HERE //
-$dateString = $short_01_leap;
+//$date1 = $short_01_leap;
 
 // Time strings .. also check for things like AM/PM
 /* $hour12 = '00:00:00'; // Limit
@@ -40,8 +40,9 @@ $concantDate = $shortString . '' . $hour12; */
 
 
 $date1 = -61851600000; // Friday 0010-01-01T00:00:00+00:00
-$date2 = -61850995200; // Friday 0010-01-08T00:00:00+00:00
+$date2 = 253402214400; // Friday 9999-12-31T00:00:00+00:0
 
+// $date1 = new DateTime( "1989-01-13T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
 ////////////////////////
 // always scrub dates //
 ////////////////////////

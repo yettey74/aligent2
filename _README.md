@@ -432,10 +432,10 @@ Updated ``` filename erro400.php->error400.php ```
 #### README.md
 ***
 ***
-## Version 0.7.0 
+## Version 0.7.0 ~ 0.7.1
 ### Implements Throwable 
 #### aligent.class.php 
-* Added ``` _isDateBad() ``` <br> Checks if there is illegals in the string or object passed
+* Added ``` _isDateNull() ``` <br> Checks if there is illegals in the string
 * Added ``` _strungOutDate() ``` <br> returns an array of chars from a string input.  Internal Private function to support _isBadDate()
 * Added ``` Exception Handling ``` <br> Return a new DateTimeObject 0001-01-01 00:00:00+00:00 if throwable() in test harness only
 #### testapi.php
@@ -445,12 +445,29 @@ Updated ``` filename erro400.php->error400.php ```
 #### README.md
 ***
 ***
+## Version 0.7.1
+### Implements Throwable 
+#### aligent.class.php 
+* Added ``` _formTwoDigits() ``` <br> returns a formatted number with leading 0 when < 10
+* Updated ``` _formYearDigits() ``` <br> returns a formatted number with leading 0 when < 999
+* Updated ``` _dateConverter() ``` <br> now handles Throwable Excelptions
+* Removed ``` _formDigits() ``` <br> Now handled seprately by _formTwoDigits() && _formYearDigits()
+### Updated MarkDown File
+#### README.md
+
 ## ERROR LOG
 1. Need to find more errors .. try for nasties like null, nan, blank, empty, array, ascii(char), "0a" == true, invere("0a") == false, 1/"0a" return string to int = 0 then performs calc
 2. we could try and check for strings that have RFC formatting diffferent to standard y-m-d h:i:s
-3. we could look at microseconds 'U' being a parameter anyway
+3. we could look at microseconds 'U' being a parameter anyway y-m-d h:i:s.U
 4. datetime = 0000-00-00 00:00:00+00:00 throws -001-11-30T00:00:00+00:00
 
+## UNCALLED FUNCTIONS
+* ``` _getTime() ```
+* ``` _getZone() ```
+* ``` _timeToDate() ```
+* ``` _isWeekday() ```
+* ``` _isWeekday() ```
+* ``` _strungOutDate() ```
 ***
 ## WishList
 ### Add tests for poorly formed date() and time() and TZ() strings
@@ -462,11 +479,13 @@ Updated ``` filename erro400.php->error400.php ```
 * add ``` Abilty to Modify amount with modify() ```
 * add ``` Abilty to Subtract amount with sub() ```
 * add ``` Circular infinite reference to leapyear ```<br> All Years have a leap year in time loop ??
+* add ``` Priavte function() where appropriate to increase security ```
+### Atttended
 #### 03/07/2021
-#### Atttended
 * ``` Abilty to Handle negative years ```
 * ``` Abilty to deal with strtotime() ```
 * ``` CONSTS ADDED ```
+#### 04/07/2021
 * Implement throwable for all tests in the API call so they are dealt with on the fly
 * Implement throwable for strings to remove ``` _isDateBade() && _strungOutDate()```
 * Implement throwable for integer
