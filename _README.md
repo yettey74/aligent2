@@ -467,15 +467,30 @@ Updated ``` filename erro400.php->error400.php ```
 ### Updated MarkDown File
 #### README.md
 ***
+## Version 0.8.1
+### Update to 
+#### aligent.class.php 
+
+#### testapi.php
+
+### Updated MarkDown File
+#### README.md
+***
 ***
 ## ERROR LOG
-1. Need to find more errors .. try for nasties like null, nan, blank, empty, array, ascii(char), "0a" == true, invere("0a") == false, 1/"0a" return string to int = 0 then performs calc
+<i><u>ToDo List</u></i>
+
 2. we could try and check for strings that have RFC formatting diffferent to standard y-m-d h:i:s
 3. we could look at microseconds 'U' being a parameter anyway y-m-d h:i:s.U
 4. datetime = 0000-00-00 00:00:00+00:00 throws -001-11-30T00:00:00+00:00
-5. need to catch Timezone errors "Australia/Rome" // throwable catch
-6. Leapyear not setting correctly again .. ? math problem
+6. Leapyear not setting correctly again .. ? math problem ? reverse date issue ( should just return next forward leap only )
 7. What if there is no DateTime class on the php server .. we need to deal with it by a custom written class
+
+<i><u>ATTENDED</u></i>
+
+<i>1. Need to find more errors .. try for nasties like null, nan, blank, empty, array, ascii(char), "0a" == true, invere("0a") == false, 1/"0a" return string to int = 0 then performs calc </i>
+
+<i>5. Need to catch Timezone errors "Australia/Rome" // throwable catch </i>
 
 ## UNCALLED FUNCTIONS
 * ``` _getTime() ```
