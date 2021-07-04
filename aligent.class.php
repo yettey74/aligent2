@@ -378,8 +378,8 @@ Class Aligent extends DateTime
         $year = $date->format( 'Y' );
 
         if( $year != 0 && $year > -6055 && $year < 9995 ){ // YEAR 0000 did not have a leap year
-            $start = new DateTime("$year-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" )); // throws bad year if < 2000
-            $end = new DateTime("$year-12-31T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));// throws bad year if < 2000
+            $start = new DateTime("$year-01-01T00:00:00Z", new DateTimeZone( "UTC" )); // throws bad year if < 2000
+            $end = new DateTime("$year-12-31T00:00:00Z", new DateTimeZone( "UTC" ));// throws bad year if < 2000
 
             return ( $this->getTotalDays( $start, $end )  > 364 )? true : false;
         }
@@ -398,8 +398,8 @@ Class Aligent extends DateTime
     Public function _setFeb29( $date ){ 
         //the first year cannot be counted due to 4 year = 1 leap day .. must start at 6056
         // a new circular end = start reference point must exist to deal with this infinite time loop
-        $MinleapDay = new DateTime("-6056-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
-        $MaxleapDay = new DateTime("9996-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
+        $MinleapDay = new DateTime("-6056-02-29T00:00:00Z", new DateTimeZone( "UTC" ));
+        $MaxleapDay = new DateTime("9996-02-29T00:00:00Z", new DateTimeZone( "UTC" ));
         
         if( $date > $MaxleapDay ){
             $leapDay = $MinleapDay;
@@ -408,11 +408,11 @@ Class Aligent extends DateTime
         } else {
             $year = $date->format( 'o' );
             if( $this->_isLeap( $date) == true ){
-                return $leapDay = new DateTime("$year-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));
+                return $leapDay = new DateTime("$year-02-29T00:00:00Z", new DateTimeZone( "UTC" ));
             } else {
                 $year_remainder = ( $year % 4 ); 
                 $nextLeap = $this->_formYearDigits( $year + 4 - $year_remainder );          
-                $leapDay = new DateTime("$nextLeap-02-29T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ));         
+                $leapDay = new DateTime("$nextLeap-02-29T00:00:00Z", new DateTimeZone( "UTC" ));         
             }
             return $leapDay;
         }        
@@ -594,29 +594,41 @@ Class Aligent extends DateTime
      * 
      */
     Public function _dateConverter( $date ){
+        $thisDate = new DateTime();
+
         if( is_object( $date )){
-            try{    
+            try{
                 if( $date === false ){
                     throw new Exception();
                 }
             } catch( Throwable $e ) {
 
             } finally {
-                //echo '<br>Is Object Date<br>';
-                return $date;
+                $thisDate =  $date;
             }
+            //get TZ info
+            try{
+                if( $thisDate->getTimezone() === false ) {
+                    throw new Exception();
+                } 
+            } catch ( Throwable $e ){
+                echo print_r( var_export( $e ) );
+            } finally {
+                $thisDate = $thisDate->setTimezone(new DateTimeZone( "Europe/Paris" ));  
+            }
+            return $thisDate;
         }
+
         // check if int and try
         if( is_int( $date )){
             try{    
-                if( new DateTime( date( 'Y-m-d', $date ), new DateTimeZone( "Australia/Adelaide" ) ) === false ){
+                if( new DateTime( date( 'Y-m-d', $date ), new DateTimeZone( "UTC" ) ) === false ){
                     throw new Exception();
                 }
             } catch( Throwable $e ) {
 
             } finally {
-                //echo '<br>Is Integer Date<br>';
-                return new DateTime( date( 'Y-m-d', $date  ), new DateTimeZone( "Australia/Adelaide" ) );
+                return new DateTime( date( 'Y-m-d', $date  ), new DateTimeZone( "UTC" ) );
             }
         }      
 
@@ -625,11 +637,11 @@ Class Aligent extends DateTime
             $_isDateNull = ( $this->_isDateNull( $date ) )? true : false;
             $date = $this->_getDate( $date );
             if( $_isDateNull == true ){  // its just empty
-                return new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+                return new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "UTC" ) );
             } 
 
             if( $date instanceof DateTime && $_isDateNull == true){ // Bad date object
-                return new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+                return new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "UTC" ) );
             }        
 
             $hyphen = ( strpos( $date, '-' ) == true )? true : false;
@@ -664,12 +676,10 @@ Class Aligent extends DateTime
                 // lets change them to hyphens to be consistent
                 $thisDate = str_replace( ' ', 'T', $thisDate );
             }
-            //echo '<br>Is String Date<br>';
             $stringDate = new DateTime( $date );
-           // echo ( $stringDate )->format('c');
             return $stringDate;
         }
-        // return new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) );
+        return new DateTime( "0000-01-01T00:00:00Z", new DateTimeZone( "UTC" ) );
     } 
 
     /**

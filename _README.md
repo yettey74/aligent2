@@ -432,7 +432,7 @@ Updated ``` filename erro400.php->error400.php ```
 #### README.md
 ***
 ***
-## Version 0.7.0 ~ 0.7.1
+## Version 0.7.0
 ### Implements Throwable 
 #### aligent.class.php 
 * Added ``` _isDateNull() ``` <br> Checks if there is illegals in the string
@@ -454,12 +454,28 @@ Updated ``` filename erro400.php->error400.php ```
 * Removed ``` _formDigits() ``` <br> Now handled seprately by _formTwoDigits() && _formYearDigits()
 ### Updated MarkDown File
 #### README.md
-
+***
+***
+## Version 0.8.0  -- 45610 Bug Free Results
+### Update code to handle any TZ instead of hardcoding AUS / ADL
+#### aligent.class.php 
+* Updated all references to set as ``` UTC ```
+* Updated ``` _dateConverter() ``` <br> returns value at end instead of if test true
+#### testapi.php
+* Added ``` TZ loop tests ``` <br> Using %2 array set to half the TZ list
+* Updated ``` Throwable ``` <br> Returns on Catch instead of finally
+### Updated MarkDown File
+#### README.md
+***
+***
 ## ERROR LOG
 1. Need to find more errors .. try for nasties like null, nan, blank, empty, array, ascii(char), "0a" == true, invere("0a") == false, 1/"0a" return string to int = 0 then performs calc
 2. we could try and check for strings that have RFC formatting diffferent to standard y-m-d h:i:s
 3. we could look at microseconds 'U' being a parameter anyway y-m-d h:i:s.U
 4. datetime = 0000-00-00 00:00:00+00:00 throws -001-11-30T00:00:00+00:00
+5. need to catch Timezone errors "Australia/Rome" // throwable catch
+6. Leapyear not setting correctly again .. ? math problem
+7. What if there is no DateTime class on the php server .. we need to deal with it by a custom written class
 
 ## UNCALLED FUNCTIONS
 * ``` _getTime() ```
@@ -489,3 +505,8 @@ Updated ``` filename erro400.php->error400.php ```
 * Implement throwable for all tests in the API call so they are dealt with on the fly
 * Implement throwable for strings to remove ``` _isDateBade() && _strungOutDate()```
 * Implement throwable for integer
+* Handling throwable for DateTime() where object != instanceof DateTime;
+* Catch bad TZ throwable for DateTime()->setTimezone();
+* Handles all timezones if not properly formatted
+1. Need to find more errors .. try for nasties like null, nan, blank, empty, array, ascii(char), "0a" == true, invere("0a") == false, 1/"0a" return string to int = 0 then performs calc
+5. need to catch Timezone errors "Australia/Rome" // throwable catch
