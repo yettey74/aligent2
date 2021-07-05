@@ -468,7 +468,7 @@ Updated ``` filename erro400.php->error400.php ```
 #### README.md
 ***
 ## Version 0.8.1
-### Update to 
+###  Fixed datetime = 0000-00-00 00:00:00+00:00 throws -001-11-30T00:00:00+00:00
 #### aligent.class.php 
 
 #### testapi.php
