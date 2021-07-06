@@ -23,8 +23,8 @@ $formedString_TZ_00 = date('1/1/2021T00:00:00+00:00'); // 2021-01-01T00:00:00+00
 $formedString_TZ_12 = date('1/1/2021T00:00:00+12:00'); // 2021-01-01T00:00:00+00:00
 
 // SET DATE HERE //
-$date1 = $short_01_leap;
-$date2 = new DateTime( "2021-01-04T00:00:00Z" ); // +10
+//$date1 = $short_01_leap;
+//$date2 = new DateTime( "2021-01-04T00:00:00Z" ); // +10
 
 // Time strings .. also check for things like AM/PM
 /* $hour12 = '00:00:00'; // Limit
@@ -39,10 +39,15 @@ $hour24 = 'a:00:00'; // OOB Return 00:00:00
 
 $concantDate = $shortString . '' . $hour12; */
 
-/* 
-$date1 = -61851600000; // Friday 0010-01-01T00:00:00+00:00
-$date2 = 253402214400; // Friday 9999-12-31T00:00:00+00:00
- */
+
+/* $date1 = -61851600000; // Friday 0010-01-01T00:00:00+00:00
+$date2 = 253402214400; // Friday 9999-12-31T00:00:00+00:00 */
+
+/* $date1 = 599616000; // Friday 0010-01-01T00:00:00+00:00
+$date2 = 599788800; // Friday 9999-12-31T00:00:00+00:00 */
+
+$date1 = date('1989-01-01T00:00:00+00:00'); //
+$date2 = date('1989-01-04T00:00:00+00:00'); //
 /* $london = new DateTimeZone( "Europe/London" );
 $adelaide = new DateTimeZone( "Australia/Adelaide" );
 
@@ -54,6 +59,11 @@ $date2 = new DateTime( "2021-01-04T00:00:00Z" ); // +10
 
 // $date1 = new DateTime( "1989-01-13T00:00:00Z", new DateTimeZone( "Australia/Adelaide" ) ); // Friday
 
+/* $date1 = new DateTime( "-6060-03-01T00:00:00Z" ); // +10
+$date2 = new DateTime( "9999-12-31T00:00:00Z" ); // +10 */
+
+/* $date1 = new DateTime( "0001-01-01T00:00:00Z", new DateTimeZone( "UTC" ) ); // Thursday
+$date2 = new DateTime( "0101-01-01T00:00:00Z", new DateTimeZone( "UTC" ) ); // Friday */
             ////////////////////////
             // always scrub dates //
             ////////////////////////
